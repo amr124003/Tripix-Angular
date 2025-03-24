@@ -1,0 +1,21 @@
+<div class="upload-container">
+    <div class="drop-zone" 
+         [class.dragging]="isDragging"
+         (dragover)="onDragOver($event)" 
+         (dragleave)="onDragLeave()" 
+         (drop)="onFileDropped($event)">
+      <p *ngIf="!previewUrl">اسحب الصورة هنا أو اضغط لاختيار ملف</p>
+      <img *ngIf="previewUrl" [src]="previewUrl" alt="Preview" class="preview-image" />
+    </div>
+    <input type="file" (change)="onFileSelected($event)" hidden #fileInput>
+    <button (click)="fileInput.click()" class="upload-btn">اختر ملف</button>
+  </div>
+
+  <div class="ocr-container">
+    <div *ngIf="isProcessing" class="loading">جارٍ معالجة الصورة...</div>
+    
+    <div *ngIf="extractedData" class="result-box">
+      <h3>البيانات المستخرجة:</h3> 
+      <pre>{{ extractedData }}</pre>
+    </div>
+  </div>

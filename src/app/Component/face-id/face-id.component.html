@@ -1,0 +1,32 @@
+<div class="face-id-container" >
+  <div class="face-id-header">
+    <h2>Face ID Verification</h2>
+  </div>
+  
+  <ul class="instructions" >
+    <li><span class="checkmark">✔</span> Look straight at the camera</li>
+    <li><span class="checkmark">✔</span> Turn your head to the right</li>
+    <li><span class="checkmark">✔</span> Turn your head to the left</li>
+    <li><span class="checkmark">✔</span> Look up</li>
+    <li><span class="checkmark">✔</span> Look down</li>
+  </ul>
+  
+  <div class="video-container" #faceContainer>
+    <video #video autoplay playsinline muted></video>
+    <div class="checkmark-container" #checkMark>
+      <svg class="checkmark" viewBox="0 0 52 52">
+        <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+        <path class="checkmark-check" fill="none" d="M14 26l8 8 16-16"/>
+      </svg>
+    </div>
+    
+    <canvas #canvas hidden></canvas>
+    <div class="video-overlay"></div>
+  </div>
+  
+  <p class="instruction-text" id="instructionText" #instructionsText>{{ instructions }}</p>
+  
+  <div class="button-container" *ngIf="confirmButtonVisible">
+    <button class="save-button" (click)="confirm()">Save</button>
+  </div>
+</div>

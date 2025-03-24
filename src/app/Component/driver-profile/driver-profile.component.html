@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="container">
+
+        <nav class="nav-mobile">
+            <div class="navbar-brand">
+                <img src="https://i.postimg.cc/nrn1rVW3/logo.jpg" alt="logo" class="brand-img">
+                <h1 class="brand-name">John Doe</h1>
+            </div>
+
+            <ion-icon name="menu-outline" class="menu-toggler" #menuToggler></ion-icon>
+        </nav>
+
+        <div class="side-bar" #sideBar>
+            <img src="../../../assets/images/Avatar.jpg" alt="logo" class="brand-img">
+            <h1 class="brand-name">John <br> Doe</h1>
+
+            <nav #sideBar>
+                <ul #navLinks class="nav">
+                    <li><a href="#" class="active">About</a></li>
+                    <li><a href="#">Statistics</a></li>
+                    <li><a href="#">Your Car</a></li>
+                    <li><a href="#">Your Rating</a></li>
+                    <li><a href="#">Contact Info</a></li>
+                </ul>
+            </nav>
+
+            <div class="social-btn-groups">
+                <a href="#" class="btn"><ion-icon name="logo-twitter"></ion-icon></a>
+                <a href="#" class="btn"><ion-icon name="logo-linkedin"></ion-icon></a>
+                <a href="#" class="btn"><ion-icon name="logo-facebook"></ion-icon></a>
+            </div>
+
+            <div class="side-bar-footer">
+                <p class="copyright">&copy; 2024 All rights <br>reserved</p>
+            </div>
+        </div>
+
+        <div #pages>
+
+            <section class="about page active">
+                <div class="hero">
+                    <div class="hero-img-box">
+                        <img src="../../../assets/images/Avatar.jpg" alt="hero img">
+                    </div>
+
+                    <div class="hero-content">
+                        <div class="hero-content-wrapper">
+                            <p class="title">Position</p>
+                            <h1 class="name">Amr Soliman</h1>
+                            <div class="description">
+                                <p>How to describe yourself? </p>
+                                <p>1 - </p>
+                                <p>Remember, your portfolio is a reflection of both your work and your personality. Be
+                                    authentic, approachable, and confident.</p>
+                            </div>
+
+                            <a routerLink="/EditData" class="btn-primary">Edit Your Account</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-inner">
+                    <div class="service">
+                        <h2>What I do</h2>
+
+                        <div class="grid-item">
+                            <div class="item">
+                                <div class="item-icon">
+                                    <img src="../../../assets/images/ata.png" style="width:130px">
+                                </div>
+
+                                <div class="item-wrapper">
+                                    <!-- Examples -->
+                                    <h3 class="sheader">City Rides</h3>
+                                    <p>I am available for transfers within the same area and my car is equipped with the
+                                        best methods that make the trip smooth and clean and a unique experience</p>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <div class="item-icon">
+                                    <img src="../../../assets/images/ctc.png" style="width:160px">
+                                </div>
+
+                                <div class="item-wrapper">
+                                    <!-- Examples -->
+                                    <h3 class="sheader">City To City</h3>
+                                    <p>I am available for long trips from one city to another and the car is equipped
+                                        with comfortable methods and wide spaces for luggage and transported goods.</p>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <div class="item-icon">
+                                    <img src="../../../assets/images/cd.png" style="width:160px">
+                                </div>
+
+                                <div class="item-wrapper">
+                                    <!-- Examples -->
+                                    <h3 class="sheader">Courier Delivery</h3>
+                                    <p>I am available to transport and deliver goods and luggage to any place. The
+                                        transported items are taken care of as much as possible, even obligating the
+                                        driver to pay any damage to them.</p>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <div class="item-icon">
+                                    <img src="../../../assets/images/cp.png" style="width:150px">
+                                </div>
+
+                                <div class="item-wrapper">
+                                    <!-- Examples -->
+                                    <h3 class="sheader">Credit Payment</h3>
+                                    <p>Payment is available upon requesting the trip or during the trip, and this
+                                        provides discounts that are valid for electronic payment.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonials">
+                        <h2>Passenger opinion</h2>
+
+                        <div class="testimonials-row">
+                            <div class="testimonials-content">
+                                <div class="testimonials-text">
+                                    <blockquote><i class="opinion">John built a project website for our fundraising
+                                            campaign. It's modern, clean and a beatiful design that got a lot of praises
+                                            from colleagues and visitors.</i></blockquote>
+                                </div>
+                                <div class="testimonials-author">
+                                    <img src="https://i.postimg.cc/W4jxRZmy/testimonial-1.jpg" alt="author"
+                                        class="author-img">
+                                    <div class="author-info">
+                                        <h4 class="author-name">Herbert DeVilla</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="testimonials-content">
+                                <div class="testimonials-text">
+                                    <blockquote><i class="opinion">Working with John has been an absolute pleasure. I
+                                            was impressed with his attention to detail, his communication skills and his
+                                            professional approach to our timelines and processes.</i></blockquote>
+                                </div>
+                                <div class="testimonials-author">
+                                    <img src="https://i.postimg.cc/MpJFRBLG/testimonial-2.jpg" alt="author"
+                                        class="author-img">
+                                    <div class="author-info">
+                                        <h4 class="author-name">Oliver Benjamin</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>
+
+            <section class="resume page">
+                <h1 class="section-heading">Statistics</h1>
+                <h4 class="section-sub-heading">5 Years of Experience</h4>
+
+                <div class="resume-row">
+                    <div class="wrapper">
+                        <div class="education">
+                            <h2 class="sname">City Rides</h2>
+                            <div class="grid-item">
+                                <h4 class="year">Driver</h4>
+                                <h4 class="education-name">{{year - 2}}</h4>
+                                <p class="company"></p>
+                                <p class="education-description">The service has been available since I started working
+                                    on the platform, where I was receiving requests for trips around the city itself.
+                                </p>
+
+                                <div class="divider"></div>
+                            </div>
+
+                            <div class="grid-item">
+                                <h4 class="year">Delivery Courier</h4>
+                                <h4 class="education-name">2025</h4>
+                                <p class="company"></p>
+                                <p class="education-description"> The service was available in parallel with my work as
+                                    a driver and the service was to deliver orders or goods from one place to another
+                                    throughout the city.</p>
+
+                                <div class="divider"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="experience">
+                            <h2 class="sname">City To City</h2>
+                            <div class="grid-item">
+                                <h4 class="year">Driver</h4>
+                                <h4 class="experience-name">{{year + 2}}</h4>
+                                <p class="company"></p>
+                                <p class="experience-description"> The service was after my work for about a year so
+                                    that the platform could verify the quality of my work and the statistics of my work
+                                    in previous services.</p>
+
+                                <div class="divider"></div>
+                            </div>
+
+                            <div class="grid-item">
+                                <h4 class="year">Delivery Courier</h4>
+                                <h4 class="experience-name">{{year + 2}}</h4>
+                                <p class="company"></p>
+                                <p class="experience-description"> I started this service later in the same year, where
+                                    I was delivering orders all over the country, as this service only employs
+                                    experienced drivers.</p>
+
+                                <div class="divider"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wrapper">
+                        <div class="design-skill">
+                            <h2>Your Statistics</h2>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Trips</div>
+                                <div class="progress-percent">{{Trips}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{Trips}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Courier Service</div>
+                                <div class="progress-percent">{{CS}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{CS}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Revenue</div>
+                                <div class="progress-percent">{{RV}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{RV}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Cancellation Rate</div>
+                                <div class="progress-percent">{{CR}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{CR}}%;"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="coding-skill">
+                            <h2>Personal Statistics</h2>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Flight acceptance rate (FAR)</div>
+                                <div class="progress-percent">{{FAR}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{FAR}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Customer waiting time (CWT)</div>
+                                <div class="progress-percent">{{CWT}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{CWT}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Traffic Violation Rate (TVR)</div>
+                                <div class="progress-percent">{{TVR}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{TVR}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Accident Rate (ACR)</div>
+                                <div class="progress-percent">{{ACR}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{ACR}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Fuel economy ratio (FER)</div>
+                                <div class="progress-percent">{{FER}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{FER}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Complaint Rate (COR)</div>
+                                <div class="progress-percent">{{COR}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{COR}}%;"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="portfolio page ">
+                <h1 class="section-heading">Your Car</h1>
+
+                <div class="portfolio-items-group">
+                    <div class="portfolio-item active">
+                        <img src="https://i.postimg.cc/N0mGDRsP/1.jpg" alt="image" class="item-img">
+                        <h4 class="item-name">SoundCloud Audio</h4>
+                        <div class="item-icon">
+                            <ion-icon name="volume-high"></ion-icon>
+                        </div>
+                        <div class="item-category">SoundCloud</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="resume page">
+                <h1 class="section-heading">Rating</h1>
+
+                <div class="resume-row">
+                    <div class="wrapper">
+                        <div class="design-skill">
+                            <h2>Personal Rating</h2>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Respect</div>
+                                <div class="progress-percent">{{Trips}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{Trips}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Trust</div>
+                                <div class="progress-percent">{{CS}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{CS}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Safety</div>
+                                <div class="progress-percent">{{RV}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{RV}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Ethics</div>
+                                <div class="progress-percent">{{CR}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{CR}}%;"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="coding-skill">
+                            <h2>Driver Rating</h2>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Punctuality</div>
+                                <div class="progress-percent">{{FAR}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{FAR}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Know the ways</div>
+                                <div class="progress-percent">{{CWT}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{CWT}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Professionalism</div>
+                                <div class="progress-percent">{{TVR}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{TVR}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Provide comfort</div>
+                                <div class="progress-percent">{{ACR}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{ACR}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Respect privacy</div>
+                                <div class="progress-percent">{{FER}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{FER}}%;"></div>
+                            </div>
+
+                            <div class="progress-detail">
+                                <div class="progress-name">Attention to periodic maintenance (APM)</div>
+                                <div class="progress-percent">{{COR}}%</div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: {{COR}}%;"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="contact page">
+                <h1 class="section-heading">Contact</h1>
+                <h4 class="section-sub-heading">Get in Touch</h4>
+
+                <div class="contact-info">
+                    <div class="info-box">
+                        <ion-icon name="call-outline"></ion-icon>
+                        <p>{{Phone}}</p>
+                    </div>
+
+                    <div class="info-box">
+                        <ion-icon name="location-outline"></ion-icon>
+                        <p>{{city}}</p>
+                    </div>
+
+                    <div class="info-box">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <p>{{Email}}</p>
+                    </div>
+
+                    <div class="info-box">
+                        @if(AvilableNow == true)
+                        {
+                        <ion-icon name="checkmark-outline" style="color: greenyellow;"></ion-icon>
+                        <p>Availble</p>
+                        }
+                        @else
+                        {
+                            <ion-icon name="close-outline" style="color: red;"></ion-icon>
+                            <p>Not Availble</p>
+                        }
+                    </div>
+
+                    <div class="info-box">
+                        <ion-icon name="logo-facebook"></ion-icon>
+                        <p>{{Facebook_Account}}</p>
+                    </div>
+
+                    <div class="info-box">
+                        <ion-icon name="logo-instagram"></ion-icon>
+                        <p>{{instgram_Account}}</p>
+                    </div>
+
+                    <div class="info-box">
+                        <ion-icon name="logo-tiktok"></ion-icon>
+                        <p>{{Tiktok_Account}}</p>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>

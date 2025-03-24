@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Landing Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/magnific-popup.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+</head>
+
+<body>
+    <nav class="navbar1">
+        <img class="logo" src="../../../assets/images/ripix.png">
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <header class="fake-shader">
+        <h1>ABOUT TRIPIX</h1>
+        <br>
+        <br>
+        <p>LEARN MORE ABOUT TRIPIX AND WHY IT WILL BE YOUR NEXT CHOICE.</p>
+    </header>
+    <section class="about-area section-padding" id="about" data-scroll-index="1"
+        style="border-bottom: 1px solid rosybrown;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 ">
+                    <div class="section-title">
+
+                        <h2>ًWHO <span> ARE WE ?</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="about-content" style="width: 1000px;">
+                        <h5 class="about-title">This <span> Detials</span> by Hr Office In Tripix</h5>
+                        <p class="details">Our site is specialized in the field of transportation in particular and the
+                            field of buying and selling cars and providing car services such as car repair, car rental,
+                            car winch and car washing so that all your services are in one place in addition to
+                            developing more than one method of assistance such as the automatic assistant so that the
+                            experience is smoother and faster and data providers for the map so that the project data is
+                            <span style="color: blueviolet;"> UP TO DATE </span>
+                        </p>
+                        <ul>
+
+                            <li>
+                                <div class="single-info d-flex align-items-center">
+                                    <div class="info-icon text-center">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </div>
+                                    <div class="info-text">
+                                        <a href="">
+                                            <p><span>Email:</span> tripix2512025&#64;gmail.com</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="single-info d-flex align-items-center">
+                                    <div class="info-icon text-center">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </div>
+                                    <div class="info-text">
+                                        <p><span>Phone:</span> +20 155 737 720</p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="single-info d-flex align-items-center">
+                                    <div class="info-icon text-center">
+                                        <i class="fa-solid fa-map-marker"></i>
+                                    </div>
+                                    <div class="info-text">
+                                        <a style="cursor: pointer;" (click)="showModal()">
+                                            <p><span>Our Branches:</span> Egypt , Saudi Arabia</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="single-info d-flex align-items-center">
+                                    <div class="info-icon text-center">
+                                        <i class="fa-solid fa-clock"></i>
+                                    </div>
+                                    <div class="info-text">
+                                        <p><span>Available Time:</span> 10:00 Am - 11:00 Pm</p>
+                                    </div>
+                                </div>
+                            </li>
+
+
+
+                            <li>
+                                <div class="single-info d-flex align-items-center">
+                                    <div class="info-icon text-center">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                    <div class="info-text">
+                                        <a href="">
+                                            <p><span>Website:</span>www.Tripix.com</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="single-info d-flex align-items-center">
+                                    <div class="info-icon text-center">
+                                        <i class="fa-solid fa-shop"></i>
+                                    </div>
+                                    <div class="info-text">
+                                        <p><span style="color: yellowgreen">Open Now</span></p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <a href="#" class="hire-me">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Button to open the modal -->
+    <div class="overlay" *ngIf="ismodalVisible" (click)="closeModal()"></div>
+
+    <!-- Form Container with animation -->
+    <div class="form-container" *ngIf="ismodalVisible">
+
+        <div class="modal-content">
+            <div *ngFor="let item of menu">
+                <h3>{{ item.title }}</h3>
+                <ul>
+                    <li *ngFor="let subItem of item.subItems">{{ subItem }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button (click)="closeModal()" class="close-modal-btn">Close</button>
+        </div>
+
+    </div>
+
+
+    <section class="services section-padding" id="services" data-scroll-index="2"
+        style="background-color: black; border-bottom: 1px solid rosybrown;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="section-title">
+                        <h4>Services</h4>
+                        <h2>Services <span>tripix can provide for you</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-item">
+                        <div class="icon">
+                            <i class="fa-solid fa-car"></i>
+                        </div>
+                        <h3>Car Rental</h3>
+                        <p>It is a service provided by Tripix to give the user the ability to rent cars for a specific period of time, with a maximum of 3 days and a minimum of 3 hours.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-item">
+                        <div class="icon">
+                            <i class="fa-solid fa-car-on"></i>
+                        </div>
+                        <h3>Car Washing</h3>
+                        <p>A service provided by tripix. Car wash service is provided at different prices and additional features are added with each increase in the level of service.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-item">
+                        <div class="icon">
+                            <i class="fa-solid fa-truck-front"></i>
+                        </div>
+                        <h3>Helpoo</h3>
+                        <p>A service provided by tripix. The service of transporting broken down or new cars is provided by communicating via telephones or through the website.</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="service-item">
+                        <div class="icon">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                        </div>
+                        <h3>Car Repair</h3>
+                        <p>A service provided by tripix that provides car repair services and is available with every maintenance location, fuel provider and rest </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="call-to-action section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-9">
+                    <div class="call-action-content text-center">
+                        <h2 class="action-title">OUR STORE AND LOCATION</h2>
+                        <p>We are trying to make our store available in all parts of the republic, in addition to the
+                            available services, and also the services added to the basic services are the best
+                            experience.</p>
+                        <ul>
+                            <li><a class="btn btn-1" (click)="showForm()">Show Our Main Location</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="overlay" *ngIf="isFormVisible" (click)="closeForm()"></div>
+
+    <!-- Form Container with animation -->
+    <div class="form-container" *ngIf="isFormVisible">
+        <div class="form-content" *ngIf="!isSubmitted">
+            <h2 style="margin-left: 180px;">Book Your Car</h2>
+            <form (ngSubmit)="submitForm()">
+                <div class="input-container" *ngFor="let field of fields; let i = index">
+                    <label [for]="field.id">{{ field.label }}</label>
+                    <input [id]="field.id" [type]="field.type" [placeholder]="field.placeholder"
+                        [style.animationDelay]="(i * 0.2) + 's'">
+                </div>
+                <label>Car Type</label>
+                <select>
+                    <option>Electric Car</option>
+                    <option>fuel Powered Car</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <!-- Success Message with Animation -->
+        <div *ngIf="isSubmitted" class="success-message">
+            <ion-icon name="checkmark-circle"></ion-icon> Car Is Booked!
+        </div>
+
+    </div>
+
+    <h2 class="team-title1">TRIPIX TEAM</h2>
+    <h2 class="team-title2">Our team is divided into 3 teams: <span>Back-end</span> development team,<br> <span>Front-end</span> development team, and <span>Mobile Application</span> development team.</h2>
+     
+    <section class="profiles">
+        
+        <div class="avatar" style="--bg-img:url(https://picsum.photos/id/112/300/200)">
+            <div class="avatar-img">
+                <img
+                    src="https://raw.githubusercontent.com/cbolson/icodethis-challenges/main/assets/images/profile-1-trans.png">
+            </div>
+            <br>
+            <br>
+            <p>Sandra <span>frontend developer</span></p>
+            
+        </div>
+
+        <div class="avatar" style="--bg-img:url(https://picsum.photos/id/112/300/200)">
+            <div class="avatar-img">
+                <img
+                    src="https://raw.githubusercontent.com/cbolson/icodethis-challenges/main/assets/images/profile-1-trans.png">
+            </div>
+            <br>
+            <br>
+            <p>Sandra <span>frontend developer</span></p>
+            
+        </div>
+
+        <div class="avatar" style="--bg-img:url(https://picsum.photos/id/112/300/200)">
+            <div class="avatar-img">
+                <img
+                    src="https://raw.githubusercontent.com/cbolson/icodethis-challenges/main/assets/images/profile-1-trans.png">
+            </div>
+            <br>
+            <br>
+            <p>Sandra <span>frontend developer</span></p>
+            
+        </div>
+
+        <div class="avatar" style="--bg-img:url(https://picsum.photos/id/112/300/200)">
+            <div class="avatar-img">
+                <img
+                    src="https://raw.githubusercontent.com/cbolson/icodethis-challenges/main/assets/images/profile-1-trans.png">
+            </div>
+            <br>
+            <br>
+            <p>Sandra <span>frontend developer</span></p>
+            
+        </div>
+
+
+        <div class="avatar" style="--bg-img:url(https://picsum.photos/id/54/300/200)">
+            <div class="avatar-img">
+                <img
+                    src="https://raw.githubusercontent.com/cbolson/icodethis-challenges/main/assets/images/profile-8-trans.png">
+            </div>
+            <p>David V.</p>
+        </div>
+
+
+        <div class="avatar" style="--bg-img:url(https://picsum.photos/id/48/300/200)">
+            <div class="avatar-img">
+                <img
+                    src="https://raw.githubusercontent.com/cbolson/icodethis-challenges/main/assets/images/profile-3-trans.png">
+            </div>
+            <p>Ronald</p>
+        </div>
+
+        <div class="avatar" style="--bg-img:url(https://picsum.photos/id/210/300/200)">
+            <div class="avatar-img">
+                <img
+                    src="https://raw.githubusercontent.com/cbolson/icodethis-challenges/main/assets/images/profile-5-trans.png">
+            </div>
+            <p>Elizabeth</p>
+        </div>
+    </section>
+
+    <section class="contact section-padding" id="contact" data-scroll-index="6">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="section-title">
+                        <h4>CONTACT US</h4>
+                        <h2>SEND <span>in touch</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-5">
+                    <div class="contact-info">
+                        <h3>For any Queries and Support</h3>
+                        <div class="contact-info-item">
+                            <i class="fa-solid fa-location-arrow"></i>
+                            <h4>Company Location</h4>
+                            <p>199 xyz Clermont, Florida</p>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <h4>Write to us at</h4>
+                            <p>Parker&#64;gmail.com</p>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <i class="fa-solid fa-location-arrow"></i>
+                            <h4>Call us on</h4>
+                            <p>+1 678 7890</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-md-7">
+                    <div class="contact-form">
+                        <form action="">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Your Name" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input type="email" placeholder="Your Email" class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Your Phone" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="date" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <select style="width: 730px;">
+                                            <option>Electric Car</option>
+                                            <option>Fuel Powered Car</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12" style="text-align: center;">
+                                    <button class="btn-2">Book Now</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <p class="copyright-text">&copy; Tripix and its staff wish you a pleasant experience.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/jquery.magnific-popup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

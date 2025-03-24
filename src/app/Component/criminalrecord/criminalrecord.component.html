@@ -1,0 +1,41 @@
+<div class="main-container">
+    <div class="header-section">
+        <h1 class="gradient-text">Add Your Criminal Record</h1>
+        <div class="instructions-box">
+            <ul class="instructions">
+                <li>Ensure that your license is <b>valid</b> and the image is clear.</li>
+                <li>The text should be <b>readable</b> without blurriness or glare.</li>
+                <li>Only upload images in <b>JPG, PNG, or PDF</b> format.</li>
+                <li>Avoid cropped or partially visible documents.</li>
+            </ul>
+        </div>
+    </div>
+
+    
+
+    <div class="container">
+        <div class="upload-section">
+            <div class="upload-container">
+                <div class="drop-zone" [class.dragging]="isDragging" 
+                    (dragover)="onDragOver($event)" 
+                    (dragleave)="onDragLeave()" 
+                    (drop)="onFileDropped($event)">
+                    <p *ngIf="!previewUrl">Drag the image here or click to select a file</p>
+                    <img *ngIf="previewUrl" [src]="previewUrl" alt="Preview">
+                </div>
+                <input type="file" (change)="onFileSelected($event)" hidden #fileInput1>
+                <button (click)="fileInput1.click()" class="upload-btn">Choose File</button>
+                <div class="ocr-container">
+                    <div *ngIf="isProcessing" class="loading"></div>
+                    <div *ngIf="extractedData" class="result-box">
+                        <h3>Extracted Data:</h3>
+                        <pre>{{ extractedData }}</pre>
+                        <div class="btn_container">
+                            <button (click)="confirm()" class="upload-btn1" >Save</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

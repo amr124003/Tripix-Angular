@@ -1,0 +1,26 @@
+<div class="container">
+    <label for="passengerType">الرحلة لـ:</label>
+    <select id="passengerType" [(ngModel)]="passengerType" (change)="onPassengerTypeChange()">
+      <option value="me">لي</option>
+      <option value="someoneElse">لشخص آخر</option>
+    </select>
+  
+    <!-- الحقول الإضافية تظهر مع الأنيميشن -->
+    <div class="extra-fields" *ngIf="isForSomeoneElse">
+      <div class="input-group">
+        <label for="firstName">الاسم الأول:</label>
+        <input id="firstName" type="text" [(ngModel)]="firstName" placeholder="ادخل الاسم الأول">
+      </div>
+  
+      <div class="input-group">
+        <label for="lastName">الاسم الثاني:</label>
+        <input id="lastName" type="text" [(ngModel)]="lastName" placeholder="ادخل الاسم الثاني">
+      </div>
+  
+      <div class="input-group">
+        <label for="phone">رقم الهاتف:</label>
+        <input id="phone" type="tel" [(ngModel)]="phone" placeholder="ادخل رقم الهاتف">
+      </div>
+    </div>
+  </div>
+  

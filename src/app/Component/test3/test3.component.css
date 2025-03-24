@@ -1,0 +1,46 @@
+.container {
+    text-align: center;
+    margin-top: 50px;
+  }
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  select, input {
+    width: 250px;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  /* تأثير Fade-in للحقل الإضافي */
+  .extra-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  /* تحديد المسافات بين الحقول */
+  .input-group {
+    width: 250px;
+    text-align: left;
+  }
+  
+  /* أنيميشن Fade-in */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

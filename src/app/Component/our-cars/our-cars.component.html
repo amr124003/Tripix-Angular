@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern ECommerce Webpage</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="shortcut icon" href="https://i.postimg.cc/R07Wy2gJ/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- <div class="overlay " data-overlay></div>
+
+    <div class="modal" data-modal>
+        <div class="modal-close-overlay" data-modal-overlay></div>
+
+        <div class="modal-content">
+            <button class="modal-close-btn" data-modal-close>
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+
+            <div class="newsletter-img">
+                <img src="../../../assets/images/Picsart_25-01-29_01-51-17-273.jpg" alt="image" width="400" height="400">
+            </div>
+
+            <div class="newsletter">
+                <form action="#">
+                    <div class="newsletter-header">
+                        <h3 class="newsletter-title"><span style="color:brown">Tripix</span> Car Event</h3>
+
+                        <p class="newsletter-desc">Subscribe Now To The <b>Tripix</b> To Get Your Ticket And Discount Updates</p>
+                    </div>
+
+                    <input type="email" name="email" class="email-field" placeholder="Email Address" required>
+
+                    <button type="submit" class="btn-newsletter">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </div>   -->
+
+    <div class="notification-toast" data-toast>
+        <button class="toast-close-btn" data-toast-close>
+            <ion-icon name="close-outline"></ion-icon>
+        </button>
+
+        <div class="toast-banner">
+            <img src="https://i.postimg.cc/6qd3mpCv/jewellery-1.jpg" alt="Ocean Golden Tear Earrings" width="80"
+                height="70">
+        </div>
+
+        <div class="toast-detail">
+            <p class="toast-message">Someone just bought this item</p>
+            <p class="toast-title">Ocean Golden Drop Earrings</p>
+            <p class="toast-meta">
+                <time datetime="PT2M">2 Minutes</time> ago
+            </p>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-top">
+            <div class="container">
+                <ul class="header-social-container">
+                    <li><a href="#" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-tiktok"></ion-icon></a></li>
+                </ul>
+
+                <div class="header-alert-news">
+                    <p><b style="font-size: 19px;">Hi Amr , </b><span class="Gradiant">We Are Happy To Have You
+                            Here</span></p>
+                </div>
+
+                <div class="header-top-actions">
+                    <select name="currency">
+                        <option value="usd" style="color:rosybrown;">USD &dollar;</option>
+                        <option value="eur">Egp </option>
+                    </select>
+
+                    <select name="language">
+                        <option value="en-US">English</option>
+                        <option value="es-ES">Arabic</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-main">
+            <div class="container">
+                <a href="#" class="header-logo">
+                    <h1 class="wave-text">Tripix</h1>
+                </a>
+
+                <div class="header-search-container">
+                    <input type="search" name="search" class="search-field" placeholder="Enter Model , Car Name">
+
+                    <button class="search-btn"><ion-icon name="search-outline"></ion-icon></button>
+                </div>
+
+                <div class="header-user-actions">
+                    <button class="action-btn"><ion-icon name="person-outline"></ion-icon></button>
+
+                    <button class="action-btn">
+                        <ion-icon name="heart-outline"></ion-icon>
+                        <span class="count">0</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <nav class="desktop-navigation-menu">
+            <div class="container" style="padding-bottom: 7px; padding-top: 5px;">
+                <ul class="desktop-menu-category-list">
+                    <li class="menu-category">
+                        <a href="#" class="menu-title">Home</a>
+                    </li>
+
+                    <li class="menu-category">
+                        <a href="#" class="menu-title">Categories</a>
+
+                        <div class="dropdown-panel">
+                            <ul class="dropdown-panel-list">
+                                <li class="menu-title"><a href="#">Cars</a></li>
+                                <li class="panel-list-item"><a href="#">SEDAN</a></li>
+                                <li class="panel-list-item"><a href="#">COUPE</a></li>
+                                <li class="panel-list-item"><a href="#">HATCHBACK</a></li>
+                                <li class="panel-list-item"><a href="#">SPORT-UTILITY VEHICLE (SUV)
+                                    </a></li>
+                                <li class="panel-list-item">
+                                    <img src="https://i.postimg.cc/MT2mT9ty/electronics-banner-1.jpg" alt="image"
+                                        width="250" height="119">
+                                </li>
+                            </ul>
+
+                            <ul class="dropdown-panel-list">
+                                <li class="menu-title"><a href="#">Motorcycles</a></li>
+                                <li class="panel-list-item"><a href="#">Standard</a></li>
+                                <li class="panel-list-item"><a href="#">Cruiser</a></li>
+                                <li class="panel-list-item"><a href="#">Sport</a></li>
+                                <li class="panel-list-item"><a href="#">Off-road</a></li>
+                                <li class="panel-list-item">
+                                    <img src="https://i.postimg.cc/nVs954kx/mens-banner.jpg" alt="image" width="250"
+                                        height="119">
+                                </li>
+                            </ul>
+
+                            <ul class="dropdown-panel-list">
+                                <li class="menu-title"><a href="#">Trucks</a></li>
+                                <li class="panel-list-item"><a href="#">Small trucks</a></li>
+                                <li class="panel-list-item"><a href="#">Light trucks</a></li>
+                                <li class="panel-list-item" style="padding-bottom: 29px;"><a href="#">Heavy trucks</a>
+                                </li>
+                                <li class="panel-list-item">
+                                    <img src="https://i.postimg.cc/vT9Bmvq6/womens-banner.jpg" alt="image" width="250"
+                                        height="119">
+                                </li>
+                            </ul>
+
+                            <ul class="dropdown-panel-list">
+                                <li class="menu-title"><a href="#">Electric Cars</a></li>
+                                <li class="panel-list-item"><a href="#">BEVs</a></li>
+                                <li class="panel-list-item"><a href="#">PHEVs</a></li>
+                                <li class="panel-list-item"><a href="#" style="padding-bottom: 33px;">HEVs</a></li>
+                                <li class="panel-list-item">
+                                    <img src="https://i.postimg.cc/htMGhvrM/electronics-banner-2.jpg" alt="image"
+                                        width="250" height="119">
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="menu-category">
+                        <a href="#" class="menu-title">Services</a>
+
+                        <ul class="dropdown-list">
+                            <li class="dropdown-item"><a href="#">Car Washing</a></li>
+                            <li class="dropdown-item"><a href="#">Maintenance</a></li>
+                            <li class="dropdown-item"><a href="#">Car rental</a></li>
+                            <li class="dropdown-item"><a href="#">Helpoo</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-category">
+                        <a href="#" class="menu-title">Tips</a>
+
+                        <ul class="dropdown-list">
+                            <li class="dropdown-item"><a href="#">Cars</a></li>
+                            <li class="dropdown-item"><a href="#">Motorbikes</a></li>
+                            <li class="dropdown-item"><a href="#">Trucks</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-category">
+                        <a href="#" class="menu-title">Spare Parts</a>
+
+                        <ul class="dropdown-list">
+                            <li class="dropdown-item"><a href="#">Cars</a></li>
+                            <li class="dropdown-item"><a href="#">Trucks</a></li>
+                            <li class="dropdown-item"><a href="#">Motorbikes</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-category">
+                        <a href="#" class="menu-title">Events</a>
+                    </li>
+
+                    <li class="menu-category">
+                        <a href="#" class="menu-title">About</a>
+                    </li>
+
+                    <li class="menu-category">
+                        <a href="#" class="menu-title">Blogs</a>
+                    </li>
+
+                    <li class="menu-category">
+                        <a href="#" class="menu-title">Hot Offers</a>
+                    </li>
+
+                    <li class="menu-category">
+                        <button class="gradient-button">Sell My Car</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="mobile-bottom-navigation">
+            <button class="action-btn" data-mobile-menu-open-btn>
+                <ion-icon name="menu-outline"></ion-icon>
+            </button>
+
+            <button class="action-btn">
+                <ion-icon name="home-outline"></ion-icon>
+            </button>
+
+            <button class="action-btn">
+                <ion-icon name="heart-outline"></ion-icon>
+                <span class="count">0</span>
+            </button>
+
+            <button class="action-btn" data-mobile-menu-open-btn>
+                <ion-icon name="grid-outline"></ion-icon>
+            </button>
+        </div>
+
+        <nav class="mobile-navigation-menu has-scrollbar " data-mobile-menu>
+            <div class="menu-top">
+                <h2 class="menu-title">Menu</h2>
+
+                <button class="menu-close-btn" data-mobile-menu-close-btn>
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+
+            <ul class="mobile-menu-category-list">
+                <li class="menu-category"><a href="#" class="menu-title">Home</a></li>
+
+                <li class="menu-category">
+                    <button class="accordion-menu" data-accordion-btn>
+                        <p class="menu-title">Categories</p>
+
+                        <div>
+                            <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                            <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+                        </div>
+                    </button>
+
+                    <ul class="submenu-category-list " data-accordion>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Cars</a></li>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Motorbikes</a></li>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Trucks</a></li>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Electric Cars</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-category">
+                    <button class="accordion-menu" data-accordion-btn>
+                        <p class="menu-title">Services</p>
+
+                        <div>
+                            <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                            <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+                        </div>
+                    </button>
+
+                    <ul class="submenu-category-list" data-accordion>
+                        <li class="submenu-category"><a href="#" class="submenu-title">car Washing</a></li>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Maintenance</a></li>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Car Decoration</a></li>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Car Rental</a></li>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Helpoo</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-category">
+                    <button class="accordion-menu" data-accordion-btn>
+                        <p class="menu-title">Gallery</p>
+
+                        <div>
+                            <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                            <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+                        </div>
+                    </button>
+
+                    <ul class="submenu-category-list" data-accordion>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Cars</a></li>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Motorbikes</a></li>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Trucks</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-category">
+                    <button class="accordion-menu" data-accordion-btn>
+                        <p class="menu-title">Car Evaluation</p>
+
+                        <div>
+                            <ion-icon name="add-outline" class="add-icon"></ion-icon>
+                            <ion-icon name="remove-outline" class="remove-icon"></ion-icon>
+                        </div>
+                    </button>
+
+                    <ul class="submenu-category-list" data-accordion>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Cars</a></li>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Motorbikes</a></li>
+                        <li class="submenu-category"><a href="#" class="submenu-title">Trucks</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-category"><a href="#" class="menu-title">Blog</a></li>
+
+                <li class="menu-category"><a href="#" class="menu-title">About</a></li>
+                <li class="menu-category"><a href="#" class="menu-title">Hot Offers</a></li>
+            </ul>
+
+            <div class="menu-bottom">
+                <ul class="menu-category-list">
+                    <li class="menu-category">
+                        <button class="accordion-menu " data-accordion-btn>
+                            <p class="menu-title">Language</p>
+                            <ion-icon name="caret-back-outline" class="caret-back"></ion-icon>
+                        </button>
+
+                        <ul class="submenu-category-list " data-accordion>
+                            <li class="submenu-category"><a href="#" class="submenu-title">English</a></li>
+                            <li class="submenu-category"><a href="#" class="submenu-title">Arabic</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-category">
+                        <button class="accordion-menu" data-accordion-btn>
+                            <p class="menu-title">Currency</p>
+                            <ion-icon name="caret-back-outline" class="caret-back"></ion-icon>
+                        </button>
+
+                        <ul class="submenu-category-list" data-accordion>
+                            <li class="submenu-category"><a href="#" class="submenu-title">USD &dollar;</a></li>
+                            <li class="submenu-category"><a href="#" class="submenu-title">Egp</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="menu-social-container">
+                    <li><a href="#" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-tiktok"></ion-icon></a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <div class="category">
+            <div class="container">
+                <div class="category-item-container has-scrollbar" #categoryContainer>
+                    <div class="category-item">
+                        <div class="category-img-box">
+                            <img src="../../../assets/images/avinz5yjj.png" alt="dress & frock" width="30">
+                        </div>
+
+                        <div class="category-content-box">
+                            <div class="category-content-flex">
+                                <h3 class="category-item-title">Sedan</h3>
+                                <p class="category-item-amount">(53)</p>
+                            </div>
+                            <a href="#" class="category-btn">Show All</a>
+                        </div>
+                    </div>
+
+                    <div class="category-item">
+                        <div class="category-img-box">
+                            <img src="../../../assets/images/download.png" alt="winter wear" width="30">
+                        </div>
+
+                        <div class="category-content-box">
+                            <div class="category-content-flex">
+                                <h3 class="category-item-title">Hatchback</h3>
+                                <p class="category-item-amount">(58)</p>
+                            </div>
+                            <a href="#" class="category-btn">Show All</a>
+                        </div>
+                    </div>
+
+                    <div class="category-item">
+                        <div class="category-img-box">
+                            <img src="../../../assets/images/images.png" alt="glasses & lens" width="30">
+                        </div>
+
+                        <div class="category-content-box">
+                            <div class="category-content-flex">
+                                <h3 class="category-item-title">Motorbikes</h3>
+                                <p class="category-item-amount">(68)</p>
+                            </div>
+                            <a href="#" class="category-btn">Show All</a>
+                        </div>
+                    </div>
+
+                    <div class="category-item">
+                        <div class="category-img-box">
+                            <img src="../../../assets/images/truck.jpeg" alt="shorts & jeans" width="30">
+                        </div>
+
+                        <div class="category-content-box">
+                            <div class="category-content-flex">
+                                <h3 class="category-item-title">Trucks</h3>
+                                <p class="category-item-amount">(84)</p>
+                            </div>
+                            <a href="#" class="category-btn">Show All</a>
+                        </div>
+                    </div>
+
+                    <div class="category-item">
+                        <div class="category-img-box">
+                            <img src="../../../assets/images/The-Electric-Vehicles-in-Australia.png" alt="jacket"
+                                width="30">
+                        </div>
+
+                        <div class="category-content-box">
+                            <div class="category-content-flex">
+                                <h3 class="category-item-title">Electric Cars</h3>
+                                <p class="category-item-amount">(16)</p>
+                            </div>
+                            <a href="#" class="category-btn">Show All</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-container">
+            <div class="container">
+                <div class="sidebar has-scrollbar " data-mobile-menu>
+                    <!-- sidebar.component.html -->
+                        <div class="filter-section">
+
+                            <input type="radio" name="filter" value="all" id="all" [(ngModel)]="filterType">
+                            <label for="all">All</label>
+
+                            <input type="radio" name="filter" value="new" id="new" [(ngModel)]="filterType">
+                            <label for="new">New</label>
+
+                            <input type="radio" name="filter" value="used" id="used" [(ngModel)]="filterType">
+                            <label for="used">Used</label>
+                        </div>
+
+                        <div class="price-range">
+                            <label>Price</label>
+                            <div class="slider-container2">
+                                <input type="range" class="slider2" min="50000" max="10000000" step="1000"
+                                    [(ngModel)]="minPrice" (input)="updateTrack()">
+                                <input type="range" class="slider2" min="50000" max="10000000" step="1000"
+                                    [(ngModel)]="maxPrice" (input)="updateTrack()">
+                                <div class="slider-track"></div>
+                            </div>
+                            <div class="price-values">
+                                <div class="price-container">
+                                    <span class="price min-price" [class.animate]="priceChanging">{{ animatedMinPrice | number }}</span>
+                                    <div class="buttons">
+                                        <button class="increase" (click)="increasePrice('min')">↑</button>
+                                        <button class="decrease" (click)="decreasePrice('min')">↓</button>
+                                    </div>
+                                </div>
+                            
+                                <span class="separator">-</span>
+                            
+                                <div class="price-container">
+                                    <span class="price max-price" [class.animate]="priceChanging">{{ animatedMaxPrice | number }}</span>
+                                    <div class="buttons">
+                                        <button class="increase" (click)="increasePrice('max')">↑</button>
+                                        <button class="decrease" (click)="decreasePrice('max')">↓</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <input type="text" class="search-box" [(ngModel)]="searchQuery" (input)="filterBrands()"
+                            placeholder="Search For Car Name">
+
+                        <div class="brands-list">
+                            <label>Brand</label>
+                            <div *ngFor="let brand of filteredBrands">
+                                <div class="brand-item" [class]="brand.animationClass"
+                                    (click)="toggleBrandOptions(brand)">
+                                    <img [src]="brand.logo" alt="{{brand.name}}"> {{ brand.name }}
+                                    <span *ngIf="brand.options.length" class="arrow"
+                                        [class.rotated]="brand.expanded">></span>
+                                </div>
+                                <div [class.active]="brand.expanded" class="brand-options">
+                                    <label *ngFor="let option of brand.options">
+                                        <input type="checkbox"> {{ option }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="results-btn">عرض النتائج</button>
+                    
+
+                    <div class="product-showcase" style="backdrop-filter: blur(10px); padding: 20px;">
+                        <h3 class="showcase-heading">Best Sellers</h3>
+
+                        <div class="showcase-wrapper">
+                            <div class="showcase-container">
+                                <div class="showcase">
+                                    <a href="#" class="showcase-img-box">
+                                        <img src="https://i.postimg.cc/kGZn4GL2/1.jpg" alt="baby fabric shoes"
+                                            class="showcase-img" width="75" height="75">
+                                    </a>
+
+                                    <div class="showcase-content">
+                                        <a href="#">
+                                            <h4 class="showcase-title">Baby fabric shoes</h4>
+                                        </a>
+
+                                        <div class="showcase-rating">
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                            <ion-icon name="star"></ion-icon>
+                                        </div>
+
+                                        <div class="price-box">
+                                            <del>$5.00</del>
+                                            <p class="price">$4.00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-box">
+                    <div class="product-minimal">
+                        <div class="product-showcase">
+                            <h2 class="title">New Arrivals</h2>
+
+                            <div class="showcase-wrapper has-scrollbar">
+                                <div class="showcase-container">
+                                    <div class="showcase">
+                                        <a href="#" class="showcase-img-box">
+                                            <img src="https://i.postimg.cc/fyLNm09z/clothes-1.jpg"
+                                                alt="relaxed short full sleeve t-shirt" class="showcase-img" width="70">
+                                        </a>
+
+                                        <div class="showcase-content">
+                                            <a href="#">
+                                                <h4 class="showcase-title">Relaxed Short full sleeve t-shirt</h4>
+                                            </a>
+                                            <a href="#" class="showcase-category">Clothes</a>
+
+                                            <div class="price-box">
+                                                <p class="price">$45.00</p>
+                                                <del>$12.00</del>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="showcase-container">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-showcase">
+                            <h2 class="title">Trending</h2>
+
+                            <div class="showcase-wrapper has-scrollbar">
+                                <div class="showcase-container">
+                                    <div class="showcase">
+                                        <a href="#" class="showcase-img-box">
+                                            <img src="https://i.postimg.cc/pLWhzrLm/sports-1.jpg"
+                                                alt="running & trekking shoes - white" class="showcase-img" width="70">
+                                        </a>
+
+                                        <div class="showcase-content">
+                                            <a href="#">
+                                                <h4 class="showcase-title">Running & Trekking Shoes - White</h4>
+                                            </a>
+                                            <a href="#" class="showcase-category">Sports</a>
+
+                                            <div class="price-box">
+                                                <p class="price">$49.00</p>
+                                                <del>$15.00</del>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="showcase-container">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-showcase">
+                            <h2 class="title">Top Rated</h2>
+
+                            <div class="showcase-wrapper has-scrollbar">
+                                <div class="showcase-container">
+                                    <div class="showcase">
+                                        <a href="#" class="showcase-img-box">
+                                            <img src="https://i.postimg.cc/jq84QT45/watch-3.jpg"
+                                                alt="pocket watch leather pouch" class="showcase-img" width="70">
+                                        </a>
+
+                                        <div class="showcase-content">
+                                            <a href="#">
+                                                <h4 class="showcase-title">Pocket Watch Leather Pouch</h4>
+                                            </a>
+                                            <a href="#" class="showcase-category">Watches</a>
+
+                                            <div class="price-box">
+                                                <p class="price">$50.00</p>
+                                                <del>$34.00</del>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="showcase-container">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-main">
+                        <h2 class="title">Our Cars</h2>
+
+                        <div class="product-grid">
+                            <div class="showcase">
+                                <div class="showcase-banner">
+                                    <img src="https://i.postimg.cc/jdybNKWJ/jacket-3.jpg"
+                                        alt="Mens Winter Leathers Jackets" class="product-img default" width="300">
+                                    <img src="https://i.postimg.cc/pr9cj4HT/jacket-4.jpg"
+                                        alt="Mens Winter Leathers Jackets" class="product-img hover" width="300">
+
+                                    <p class="showcase-badge">15%</p>
+
+                                    <div class="showcase-actions">
+                                        <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
+                                        <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
+                                        <button class="btn-action"><ion-icon name="repeat-outline"></ion-icon></button>
+                                        <button class="btn-action"><ion-icon name="bag-add-outline"></ion-icon></button>
+                                    </div>
+                                </div>
+
+                                <div class="showcase-content">
+                                    <a href="#" class="showcase-category">Jacket</a>
+                                    <a href="#">
+                                        <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
+                                    </a>
+
+                                    <div class="showcase-rating">
+                                        <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star"></ion-icon>
+                                        <ion-icon name="star-outline"></ion-icon>
+                                        <ion-icon name="star-outline"></ion-icon>
+                                    </div>
+
+                                    <div class="price-box">
+                                        <p class="price">48.00</p>
+                                        <del>$75.00</del>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="container">
+                <div class="testimonials-box">
+
+                    <div class="cta-container">
+                        <img src="../../../assets/images/Tripix Store.webp" alt="summer collection"
+                            style="filter: blur(1.5px); height: 600px; border-radius: 20px;">
+
+                        <a href="#" class="cta-content">
+                            <p class="discount">25% Discount</p>
+                            <h2 class="cta-title">Come To Our Branch</h2>
+                            <p class="cta-text">Starting 1000 Egp</p>
+
+                            <button class="cta-btn">Shop Now</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-category">
+            <div class="container">
+                <h2 class="footer-category-title">Spare Parts Sections</h2>
+
+                <div class="footer-category-box">
+                    <h3 class="category-box-title">Cars :</h3>
+
+                    <a href="#" class="footer-category-link">Automobile Accessories</a>
+                    <a href="#" class="footer-category-link">Automobile Parts</a>
+                    <a href="#" class="footer-category-link">Towing and Transporting</a>
+                </div>
+
+                <div class="footer-category-box">
+                    <h3 class="category-box-title">Motorbikes :</h3>
+
+                    <a href="#" class="footer-category-link">Automobile Accessories</a>
+                    <a href="#" class="footer-category-link">Automobile Parts</a>
+                    <a href="#" class="footer-category-link">Towing and Transporting</a>
+                </div>
+
+                <div class="footer-category-box">
+                    <h3 class="category-box-title">Trucks :</h3>
+
+                    <a href="#" class="footer-category-link">Automobile Accessories</a>
+                    <a href="#" class="footer-category-link">Automobile Parts</a>
+                    <a href="#" class="footer-category-link">Towing and Transporting</a>
+                </div>
+
+                <div class="footer-category-box">
+                    <h3 class="category-box-title">Electric Cars :</h3>
+
+                    <a href="#" class="footer-category-link">Automobile Accessories</a>
+                    <a href="#" class="footer-category-link">Automobile Parts</a>
+                    <a href="#" class="footer-category-link">Towing and Transporting</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-nav">
+            <div class="container">
+                <ul class="footer-nav-list">
+                    <li class="footer-nav-item">
+                        <h2 class="nav-title">Popular Categories</h2>
+                    </li>
+
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Cars</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Trucks</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Motorbikes</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">electric Cars</a></li>
+                </ul>
+
+                <ul class="footer-nav-list">
+                    <li class="footer-nav-item">
+                        <h2 class="nav-title">Cars</h2>
+                    </li>
+
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Sedan</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Coupe</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">SUV</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Hatchback</a></li>
+                </ul>
+
+                <ul class="footer-nav-list">
+                    <li class="footer-nav-item">
+                        <h2 class="nav-title">Our Company</h2>
+                    </li>
+
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Delivery</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Legal Notice</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Terms and Conditions</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">About us</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Secure Payment</a></li>
+                </ul>
+
+                <ul class="footer-nav-list">
+                    <li class="footer-nav-item">
+                        <h2 class="nav-title">Services</h2>
+                    </li>
+
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Car Washing</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Car Decoration</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Helpoo</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Maintenance</a></li>
+                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Car Rental</a></li>
+                </ul>
+
+                <ul class="footer-nav-list">
+                    <li class="footer-nav-item">
+                        <h2 class="nav-title">Contact</h2>
+                    </li>
+
+                    <li class="footer-nav-item flex">
+                        <div class="icon-box">
+                            <ion-icon name="location-outline"></ion-icon>
+                        </div>
+
+                        <address class="content">
+                            44 Zamalek Club Wall
+                            Mohandsen , Giza
+                            Near To Costa Coffee
+                        </address>
+                    </li>
+
+                    <li class="footer-nav-item flex">
+                        <div class="icon-box">
+                            <ion-icon name="call-outline"></ion-icon>
+                        </div>
+
+                        <a href="tel:+607936-8058" class="footer-nav-link">(20) 127-0074-186</a>
+                    </li>
+
+                    <li class="footer-nav-item flex">
+                        <div class="icon-box">
+                            <ion-icon name="mail-outline"></ion-icon>
+                        </div>
+
+                        <a href="mailto:example@gmail.com" class="footer-nav-link">tripix2512003&#64;gmail.com.com</a>
+                    </li>
+                </ul>
+
+                <ul class="footer-nav-list">
+                    <li class="footer-nav-item">
+                        <h2 class="nav-title">Follow Us</h2>
+                    </li>
+
+                    <li>
+                        <ul class="social-link">
+                            <li class="footer-nav-item">
+                                <a href="#" class="footer-nav-link"><ion-icon name="logo-facebook"></ion-icon></a>
+                            </li>
+
+                            <li class="footer-nav-item">
+                                <a href="#" class="footer-nav-link"><ion-icon name="logo-twitter"></ion-icon></a>
+                            </li>
+
+                            <li class="footer-nav-item">
+                                <a href="#" class="footer-nav-link"><ion-icon name="logo-linkedin"></ion-icon></a>
+                            </li>
+
+                            <li class="footer-nav-item">
+                                <a href="#" class="footer-nav-link"><ion-icon name="logo-instagram"></ion-icon></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <img src="https://i.postimg.cc/43GKnVFF/payment.png" alt="payment method" class="payment-img">
+                <p class="copyright">Copyright &copy; <a href="#">Tripix</a> all rights reserved</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<div class="card-container">
+  <!-- البطاقة -->
+  <div class="card" [class.flipped]="isCardFlipped" [style.transform]="focusElementStyle">
+    <!-- واجهة البطاقة -->
+    <div class="card-front">
+      <div class="card-chip"></div>
+     <div>
+      <img  [src]="cardTypeLogo"  class="card-logo1" [ngClass]="{ 'animate-number': isAnimating }">
+     </div>
+      <div class="card-number" [ngClass]="{ 'animate-number': isAnimating }"
+        [class.highlight]="focusedInput === 'cardNumber'">
+        <span *ngFor="let num of formattedCardNumber.split('')"
+          [ngStyle]="{ '--delay': (formattedCardNumber.indexOf(num) * 0.1) + 's' }">
+          {{ num }}
+        </span>
+      </div>
+
+      <div class="card-name" [class.highlight]="focusedInput === 'cardName'" >
+        {{ cardName || 'FULL NAME' }}
+      </div>
+      <div class="card-expiry" [class.highlight]="focusedInput === 'cardMonth' || focusedInput === 'cardYear'">
+        {{ cardMonth || 'MM' }}/{{ cardYear || 'YY' }}
+      </div>
+    </div>
+
+    <!-- خلفية البطاقة -->
+    <div class="card-back">
+      <div class="card-stripe"></div>
+      <div class="card-cvv highlight" *ngIf="focusedInput === 'cardCvv'">CVV: {{ cardCvv || '***' }}</div>
+    </div>
+  </div>
+
+  <!-- نموذج إدخال البيانات -->
+  <form class="form-container" [formGroup]="cardForm" (ngSubmit)="submitCard()" novalidate>
+    <!-- Card Number -->
+    <div class="input-group">
+      <label for="cardNumber">Card Number</label>
+      <div class="input-wrapper">
+        <input id="cardNumber" type="tel" formControlName="cardNumber" placeholder="#### #### #### ####"  name="cardNumber" 
+        [(ngModel)]="cardNumber"
+          (input)="onCardNumberChange()" (focus)="setFocus('cardNumber')" 
+          (blur)="clearFocus()" maxlength="19" placeholder="#### #### #### ####">
+        <img  [src]="cardTypeLogo" class="card-logo" alt="Card Type">
+      </div>
+      <div *ngIf="cardForm.get('cardNumber')?.invalid && cardForm.get('cardNumber')?.touched" class="error">
+        <span *ngIf="cardForm.get('cardNumber')?.errors?.['required']">Card number is required.</span>
+        <span *ngIf="cardForm.get('cardNumber')?.errors?.['invalidCardNumber']">Invalid card number.</span>
+      </div>
+    </div>
+  
+    <!-- Cardholder Name -->
+    <div class="input-group">
+      <label for="cardName">Cardholder Name</label>
+      <input id="cardName" type="text" [(ngModel)]="cardName" name="cardName" 
+      formControlName="cardName" 
+        (focus)="setFocus('cardName')" (blur)="clearFocus()" placeholder="FULL NAME">
+      <div *ngIf="cardForm.get('cardName')?.invalid && cardForm.get('cardName')?.touched" class="error">
+        <span *ngIf="cardForm.get('cardName')?.errors?.['required']">Name is required.</span>
+        <span *ngIf="cardForm.get('cardName')?.errors?.['invalidCardName']">Only letters and spaces allowed.</span>
+      </div>
+    </div>
+  
+    <!-- Expiration Date -->
+    <div class="input-group">
+      <label for="cardMonth">Expiration Date</label>
+      <div class="expiry-container">
+        <input id="cardMonth" type="text" [(ngModel)]="cardMonth" name="cardMonth" 
+        formControlName="cardMonth"
+          (focus)="setFocus('cardMonth')" (blur)="clearFocus()" placeholder="MM" maxlength="2">
+        <input id="cardYear" type="text" [(ngModel)]="cardYear" name="cardYear" 
+        formControlName="cardYear"
+          (focus)="setFocus('cardYear')" (blur)="clearFocus()" placeholder="YY" maxlength="2">
+      </div>
+      <div class="error" *ngIf="cardForm.get('cardMonth')?.invalid && cardForm.get('cardMonth')?.touched || cardForm.get('cardYear')?.invalid && cardForm.get('cardYear')?.touched">
+        <span *ngIf="cardForm.get('cardMonth')?.errors?.['pattern']">Invalid month.</span>
+        <span *ngIf="cardForm.get('cardMonth')?.errors?.['required']">Month Is required</span>
+        <span *ngIf="cardForm.get('cardYear')?.errors?.['pattern']">Invalid year.</span>
+        <span *ngIf="cardForm.get('cardYear')?.errors?.['required']">Year Is required</span>
+      </div>
+    </div>
+  
+    <!-- CVV -->
+    <div class="input-group">
+      <label for="cardCvv">CVV</label>
+      <input id="cardCvv" type="text" [(ngModel)]="cardCvv" name="cardCvv" 
+      formControlName="cardCvv"
+        (focus)="flipCard(true); setFocus('cardCvv')" (blur)="flipCard(false); clearFocus()" placeholder="***">
+      <div *ngIf="cardForm.get('cardCvv')?.invalid && cardForm.get('cardCvv')?.touched" class="error">
+        <span *ngIf="cardForm.get('cardCvv')?.errors?.['required']">CVV is required.</span>
+        <span *ngIf="cardForm.get('cardCvv')?.errors?.['invalidCvv']">Invalid CVV.</span>
+      </div>
+    </div>
+  
+    <!-- Submit Button -->
+    <div class="button-container">
+      <button type="submit" [disabled]="cardForm.invalid">Submit</button>
+    </div>
+  </form>
+  
+</div>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+    <header [class.active]="isHeaderSticky" data-header>
+        <div class="overlay " data-overlay [class.active]="isOverlayActive"></div>
+
+        <div class="container">
+            <a href="#" class="logo" ><img src="../../../assets/images/Black White Yellow Simple Initial Name Logo.png" width="120px" height="55px" alt="SCEO Logo" ></a>
+
+            <button class="nav-open-btn" data-nav-open-btn><ion-icon name="menu-outline"></ion-icon></button>
+
+            <nav class="navbar" data-navbar>
+                <button class="nav-close-btn" data-nav-close-btn><ion-icon name="close-outline"></ion-icon></button>
+
+                <ul class="navbar-list">
+                    <li class="navbar-item"><a href="#home" class="navbar-link">Home</a></li>
+                    <li class="navbar-item"><a href="#service" class="navbar-link">Service</a></li>
+                    <li class="navbar-item"><a href="#about" class="navbar-link">About</a></li>
+                    <li class="navbar-item"><a href="#pricing" class="navbar-link">Pricing</a></li>
+                    <li class="navbar-item"><a href="#faq" class="navbar-link">FAQ's</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <section class="hero" id="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="h1 hero-title">Enroll Now In Our Event by Your Name And Your Email <span style="color: blue; margin-top: 10px;">See you there!</span></h1>
+                         
+
+                        <form action="" class="hero-form">
+                            <input type="text" name="name" placeholder="Enter your name" required class="input-field">
+                            <input type="email" name="email" placeholder="Enter your email" required class="input-field">
+
+                            <button type="submit" class="btn btn-primary">Get Your Ticket Now</button>
+                        </form>
+
+                        <p class="hero-text">
+                            <span>Don’t miss it!</span>
+                            <span>Timeless beauty</span>
+                            <span>Speed thrills!</span>
+                        </p>
+                    </div>
+
+                    
+                        <img src="../../../assets/images/mate-vanyek-BfnQ-Wba7Vo-unsplash.jpg" alt="SEO Illustration" class="hero-banner">
+                    
+                </div>
+            </section>
+
+
+            <section class="service" id="service">
+                <div class="container">
+                    <h2 class="h2 section-title">Why Tripix ?</h2>
+
+                    <p class="section-text">We are interested in some details that interest you as a user of our platform and we try to care about your opinion of us and our service.</p>
+
+                    <ul class="service-list">
+                        <li>
+                            <div class="service-card">
+                                <div class="card-icon"><ion-icon name="location-outline"></ion-icon></div>
+
+                                
+                                <h3 class="h4 card-title">Best Place</h3>
+                                <p class="card-text">We always choose a place that is suitable for everyone and is lively.</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="service-card">
+                                <div class="card-icon"><ion-icon name="alarm-outline"></ion-icon></div>
+
+                                <h3 class="h4 card-title">Best Time</h3>
+
+                                <p class="card-text">We always choose a time that is suitable for everyone and is special through Vote on our accounts.</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="service-card">
+                                <div class="card-icon"><ion-icon name="cafe-outline"></ion-icon></div>
+
+                                <h3 class="h4 card-title">Service Available</h3>
+
+                                <p class="card-text">We always provide you with a service, whether for your car or for you.</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="service-card">
+                                <div class="card-icon"><ion-icon name="finger-print-outline"></ion-icon></div>
+
+                                <h3 class="h4 card-title">Your data is safe</h3>
+
+                                <p class="card-text">Once you register your data with us, it will be encrypted and saved.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="pricing" id="pricing">
+                <div class="container">
+                    <div class="pricing-content">
+                        <p class="section-subtitle">Nearby Hotels</p>
+
+                        <h2 class="h3 section-title">Hotel Name</h2>
+                        
+                        <div class="stars-container">
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                            <ion-icon name="star" class="star"></ion-icon>
+                          </div>
+
+                        <p class="section-text">We understand each client's unique needs, challenges, and aspirations by crafting a strategy that sparks innovation and delivers exceptional results</p>
+
+                        <button class="btn btn-primary">Pricing & Packages</button>
+                    </div>
+
+                    <figure class="pricing-banner">
+                        <img src="../../../assets/images/Pala Band breaks ground on $170 million expansion and renovation project at casino.jpg" alt="Pricing Illustration">
+                    </figure>
+                </div>
+            </section>
+
+            <section class="faq" id="faq">
+                <div class="container">
+                    <p class="section-subtitle">Frequently Asked Questions</p>
+
+                    <h2 class="h3 section-title">Everything you need to know before getting started</h2>
+
+                    <div class="grid-wrapper">
+                        <ul class="faq-list">
+                            <li>
+                                <h3 class="h4 card-title">Can I see SCEO in action before purchasing?</h3>
+
+                                <p class="section-text">Yes, we provide for you a free trial version, for around 7-15 days, of our functionalities and features firsthand. This will allow you to interact with the inteface and see the first results in real-time</p>
+                            </li>
+
+                            <li>
+                                <h3 class="h4 card-title">What are the requirements for using SCEO?</h3>
+
+                                <p class="section-text">SCEO require few demands to work in your company. This includes a desktop or mobile device linked to a stable internet, a user account to access our features and keep your device updated to ensure security and compatibility with the latest SCEO features</p>
+                            </li>
+
+                            <li>
+                                <h3 class="h4 card-title">Can I use SCEO on different devices?</h3>
+
+                                <ul class="faq-item-list">
+                                    <li>
+                                        <p class="section-text">Yes, SCEO is designed to work seamlessly on both desktop and mobile devices</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="section-text">We just emphasize that the SCEO mobile version has fewer features if compared with desktop version. Also SCEO mobile version focus in practicity, with simpler layouts, but more effective infos displayed. While desktop version is more robust giving depth-info of your website and more features dedicated to analysis and creation sceneries</p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <ul class="faq-list">
+                            <li>
+                                <h3 class="h4 card-title">Do you have a free trial?</h3>
+
+                                <p class="section-text">Yes, we provide for you a free trial version, for around 7-15 days</p>
+                            </li>
+
+                            <li>
+                                <h3 class="h4 card-title">How does SCEO handle my privacy?</h3>
+
+                                <p class="section-text">SCEO takes your personal information seriously and implements several measures to ensure your data is protected</p>
+
+                                <p class="section-text">This include strict use of third-party serives, user management of data preferences, transparency and regular information about how your data is collected and used and compliance with relevant data protection regulations</p>
+                            </li>
+
+                            <li>
+                                <h3 class="h4 card-title">I have an issue with my account</h3>
+
+                                <ul class="faq-item-list">
+                                    <li>
+                                        <p class="section-text">When experiencing an issue, you can use our SCEO IA help right below your login screen for fast support. Most of problems (like login problems, account verification, billing issues, access issues, technical glitches) are solved using it.</p>
+                                    </li>
+
+                                    <li>
+                                        <p class="section-text">If the above solution don't resolve your issue, our SCEO IA rapidly contacts SCEO's customer support with prepared staff to solve more complex issues. Also you can access our customer support by phone or email</p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p class="faq-bottom-link">
+                        Have any more questions?
+                        <a href="#">Ask your question here</a>
+                    </p>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo"><img src="../../../assets/images/Black White Yellow Simple Initial Name Logo.png" alt="SCEO Logo" width="150px"></a>
+
+                    <p class="section-text">known for providing innovative solutions to enhance online visibility and improve search engine rankings for businesses</p>
+                </div>
+
+                <div class="footer-link-box">
+                    <ul class="footer-list">
+                        <li><p class="h4">Company</p></li>
+
+                        <li><a href="#" class="footer-link">About us</a></li>
+                        <li><a href="#" class="footer-link">Careers</a></li>
+                        <li><a href="#" class="footer-link">Press & Media</a></li>
+                        <li><a href="#" class="footer-link">Contact us</a></li>
+                    </ul>
+
+                    <ul class="footer-list">
+                        <li><p class="h4">Discover</p></li>
+
+                        <li><a href="#" class="footer-link">Our blog</a></li>
+                        <li><a href="#" class="footer-link">Advertising</a></li>
+                        <li><a href="#" class="footer-link">Plans & Pricing</a></li>
+                        <li><a href="#" class="footer-link">Testimonials</a></li>
+                    </ul>
+
+                    <ul class="footer-list">
+                        <li><p class="h4">Legal</p></li>
+
+                        <li><a href="#" class="footer-link">Terms of use</a></li>
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">Cookie Policy</a></li>
+                        <li><a href="#" class="footer-link">Site map</a></li>
+                    </ul>
+
+                    <ul class="footer-list">
+                        <li><p class="h4">Support</p></li>
+
+                        <li><a href="#" class="footer-link">FAQs</a></li>
+                        <li><a href="#" class="footer-link">Editor Help</a></li>
+                        <li><a href="#" class="footer-link">Community</a></li>
+                        <li><a href="#" class="footer-link">Live Chatting</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="copyright">&copy; 2024 <a href="#">ULTRA CODE</a>. All rights reserved</p>
+
+                <ul class="social-list">
+                    <li><a href="#" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-tiktok"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#top" class="go-top-btn active" data-go-top><ion-icon name="arrow-up-outline"></ion-icon></a>
+
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

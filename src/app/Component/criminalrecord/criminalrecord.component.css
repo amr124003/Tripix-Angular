@@ -1,0 +1,315 @@
+/* خلفية الصفحة مع تأثير Blur وانيميشن دخول */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url(../../../assets/images/v1016-b-09.jpg);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.main-container {
+  background: url('../../../assets/images/v1016-b-09.jpg') no-repeat center center/cover;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* تأثير Overlay داكن ليحسن وضوح النصوص */
+.main-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: 0;
+}
+
+.main-container>* {
+  position: relative;
+  z-index: 1;
+}
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* تنسيق الحاوية الرئيسية */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: nowrap;
+}
+
+/* تأثير الـ Upload Container مع انيميشن */
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 350px;
+  background: rgba(30, 30, 30, 0.9);
+  border: 2px dashed #00d4ff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+  animation: fadeInUp 1s ease-in-out;
+  margin-bottom: 10px;
+}
+
+.upload-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* تأثير السحب */
+.drop-zone {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.drop-zone img {
+  max-width: 100%;  /* لا تتجاوز حجم الحاوية */
+  height: auto;  /* الحفاظ على تناسب الأبعاد */
+  display: block;  /* تجنب وجود هوامش زائدة */
+  margin: 0 auto;  /* توسيط الصورة */
+  border-radius: 10px;  /* جعل الحواف ناعمة */
+}
+
+.drop-zone.dragging {
+  transform: scale(1.1);
+  border-color: #ff9800;
+  background: rgba(255, 152, 0, 0.2);
+}
+
+/* تأثير الصور */
+.preview-image {
+  width: auto;
+  /* السماح بعرض الصورة الأصلي */
+  max-width: 100%;
+  /* التأكد من أنها لا تتجاوز حجم الكونتينر */
+  height: auto;
+  max-height: 100%;
+  /* الحفاظ على أبعاد الصورة الأصلية */
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.preview-image.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* زر الرفع */
+.upload-btn {
+  background: #00d4ff;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out, transform 0.2s;
+  margin-top: 10px;
+}
+
+.upload-btn:hover {
+  background: #00aaff;
+  transform: scale(1.05);
+}
+
+/* تأثير الـ Loading الجديد - شرائط دائرية */
+.loading {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.loading::before,
+.loading::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 6px solid transparent;
+  animation: spin 1s linear infinite;
+}
+
+.loading::before {
+  border-top-color: #00d4ff;
+}
+
+.loading::after {
+  border-bottom-color: #ff9800;
+  animation-delay: 0.5s;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* صندوق عرض النتائج مع انيميشن */
+.result-box {
+  width: 90%;
+  max-width: 500px;
+  min-height: 100px;
+  padding: 15px;
+  background: #1b1b1b;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid #00d4ff;
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: auto;
+  margin-top: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease-in-out forwards 0.5s;
+}
+
+.result-box pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 16px;
+  color: #dbdada;
+  line-height: 1.6;
+  direction: ltr;
+}
+
+/* جعل العنوان بـ Gradient */
+.gradient-text {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  background: linear-gradient(45deg, #ff8c00, #ff0080);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* صندوق التعليمات مع تأثير Blur */
+.instructions-box {
+  background: rgba(225, 225, 225, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 15px;
+  border-radius: 12px;
+  width: fit-content;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+}
+
+/* تنسيق قائمة التعليمات */
+.instructions {
+  font-size: 18px;
+  color: #fff;
+  list-style: none;
+  padding: 0;
+}
+
+.instructions li {
+  padding: 8px 0;
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* إضافة أيقونة نقطة للقائمة */
+.instructions li::before {
+  content: "✔";
+  color: #ff8c00;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.upload-btn1 {
+  background: #4fd615;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out, transform 0.2s;
+  margin-top: 10px;
+}
+.btn_container
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 310px;
+  border-radius: 12px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+  animation: fadeInUp 1s ease-in-out;
+  margin-bottom: 10px;
+}

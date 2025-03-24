@@ -1,0 +1,257 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to right, #000000, #161717);
+  margin:-10px;
+}
+
+.card-container {
+  width: 400px;
+  position: relative;
+}
+
+.card {
+  width: 100%;
+  margin-top: 30px;
+  height: 220px;
+  border-radius: 15px;
+  background: url('../../../assets/images/—Pngtree—elegant\ white\ background\ with\ shiny_1173829.png') no-repeat center/cover;
+  color: white;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s ease-in-out, box-shadow 0.3s;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+  transition: 1.5s;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 15px;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  transition: 1.5s;
+}
+
+.card-number,
+.card-name,
+.card-expiry {
+  transition: all 0.3s ease;
+}
+
+.card-number {
+  font-size: 22px;
+  letter-spacing: 2px;
+  margin-top: 80px;
+  background: rgba(18, 18, 18, 0.2);
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  transform: translateY(20px); /* تحريك الرقم من الأسفل */
+  filter: blur(4px); /* تأثير blur عند البداية */
+  transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease; /* تأثيرات الأنيميشن */
+}
+
+.card-number.animate-number {
+  opacity: 1; /* جعل الرقم مرئيًا */
+  transform: translateY(0); /* تحريك الرقم للأعلى */
+  filter: blur(0); /* إزالة blur */
+}
+
+.card-number span {
+  display: inline-block;
+  opacity: 0; /* البداية تكون مخفية */
+  transform: translateY(10px); /* نبدأ من الأسفل */
+  animation: slideUp 0.5s ease forwards; /* تأثير الانزلاق */
+  animation-delay: var(--delay); /* تأخير لكل رقم */
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1; /* يظهر الرقم */
+    transform: translateY(0); /* يتحرك للأعلى */
+  }
+}
+
+@keyframes blink-caret {
+  50% {
+    border-color: transparent; /* الاختفاء */
+  }
+}
+
+.card-name {
+  font-size: 18px;
+  position: absolute;
+  max-width: 200px;
+  color: #000000;
+  font-family: cursive;
+  text-transform: capitalize;
+  bottom: 15px;
+  left: 20px; /* الاسم على اليمين */
+}
+
+.card-expiry {
+  font-size: 18px;
+  position: absolute;
+  bottom: 15px;
+  color: #000000;
+  font-family: cursive;
+  right: 20px; /* التاريخ على الشمال */
+}
+
+.card-cvv {
+  font-size: 18px;
+  text-align: right;
+  margin-top: 80px;
+  color: #000000;
+  font-family: cursive;
+}
+
+/* تأثير الـ Highlight */
+.highlight {
+  box-shadow: 0 0 10px rgba(32, 32, 32, 0.8);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.input-group {
+  margin-top: 40px;
+  position: relative;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.4s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #667eea;
+  outline: none;
+  box-shadow: 0 0 12px rgba(102, 126, 234, 0.7);
+  transform: scale(1.02);
+}
+
+.form-container {
+  margin-top: -70px; /* يمكنك تعديل المسافة العلوية هنا */
+  background: white;
+  padding: 50px; /* زيادة المسافة داخل الـ form */
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(243, 243, 51, 0.15);
+  width: 600px; /* زيادة العرض */
+  justify-self: center;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 200px;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background: #764ba2;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(118, 75, 162, 0.5);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding-right: 40px; /* مساحة للأيقونة */
+}
+
+.card-logo {
+  position: absolute;
+  right: 10px;
+  width: 30px;
+  height: auto;
+}
+
+.card-logo1 {
+  position: absolute;
+  width: 50px;
+  height: auto;
+}
+
+.error {
+  color: #ff4d4d; /* لون أحمر جذاب */
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif; /* خط عصري */
+  margin-top: 5px;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.error span {
+  display: inline-block;
+  background: rgba(255, 77, 77, 0.1); /* خلفية خفيفة */
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(255, 77, 77, 0.2);
+  animation: shake 0.3s ease-in-out;
+}
+
+/* ظهور الخطأ بسلاسة */
+.ng-invalid.ng-touched + .error,
+.ng-invalid.ng-dirty + .error,
+.error.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* أنيميشن اهتزاز خفيفة */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-3px); }
+}
+
+
+
+

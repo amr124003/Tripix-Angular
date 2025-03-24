@@ -1,0 +1,111 @@
+<div class="payment-page">
+    <!-- بطاقات الرصيد -->
+    <div class="balance-section">
+        <div class="glass-card">
+            <h3>Balance</h3>
+            <p>EGP 0.00</p>
+            <button class="custom-btn" (click)="openBankAccountDialog()">+ Add Bank Account</button>
+        </div>
+        <div class="glass-card">
+            <h3>Tripix Cach</h3>
+            <p>EGP 0.00</p>
+            <button class="custom-btn" (click)="openTripixCardDialog()">+ Add Your Card</button>
+        </div>
+    </div>
+
+    <!-- Bank Account Modal -->
+    <div class="modal-overlay" *ngIf="showBankAccountModal" (click)="closeBankAccountDialog()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <h2>Add Bank Account</h2>
+            <form class="form">
+
+                <input type="text" [(ngModel)]="bankName" placeholder="Enter your bank name" class="input-field">
+                <small class="input-hint">Please enter the beneficiary name on the bank account. If the account is
+                    registered to a business, please put the business name on the account.</small>
+
+
+                <input type="text" [(ngModel)]="accountNumber" placeholder="Enter your account number"
+                    class="input-field">
+
+
+                <input type="text" [(ngModel)]="iban" placeholder="Enter your IBAN" class="input-field">
+
+                <div class="actions">
+                    <button (click)="closeBankAccountDialog()" class="btn cancel">Cancel</button>
+                    <button (click)="saveBankAccount()" class="btn submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Trabbix Card Modal -->
+    <div class="modal-overlay" *ngIf="showTripixCardModal" (click)="closeTripixCardDialog()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <h2>Add Your Gift Code</h2>
+            <form class="form">
+                <input type="text" [(ngModel)]="giftCode" placeholder="Enter gift code" class="input-field">
+                <div class="actions">
+                    <button (click)="closeTripixCardDialog()" class="btn cancel">Cancel</button>
+                    <button (click)="submitGiftCode()" class="btn submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- إضافة طريقة الدفع -->
+    <div class="payment-method-section">
+        <h4 *ngIf="paymentMethods.length === 0">Payment Method</h4>
+        <h4 *ngIf="paymentMethods.length > 0">Payment Methods</h4>
+
+        <div class="payment-cards">
+            <div *ngFor="let method of paymentMethods" class="payment-card animate-card">
+                <!-- لوجو البنك المصدر أعلى اليسار -->
+                <div class="bank-logo">
+                    <img class="logo" [src]="getBankLogo(method.bankName)" alt="Bank Logo">
+                </div>
+
+                <!-- نوع البطاقة أعلى اليمين -->
+                <div class="card-type">{{ method.type }}</div>
+
+                <div class="card-content">
+                    <div class="card-icon">
+
+                    </div>
+                    <div class="card-details">
+                        <p class="card-number">{{ getFormattedCardNumber(method.cardNumber) }}</p>
+                    </div>
+                </div>
+
+                <!-- لوجو الشبكة (Visa, MasterCard, etc.) أسفل اليمين -->
+                <div class="schema-logo">
+                    <img class="logo" [src]="getSchemaLogo(method.schema)" alt="Card Scheme">
+                </div>
+            </div>
+        </div>
+
+        <div class="add-payment" (click)="togglePaymentModal()">
+            <span class="plus-icon">+</span>
+            <p>Add Payment Method</p>
+        </div>
+        <div class="line-effect"></div>
+
+        <!-- كارد طريقة الدفع -->
+
+    </div>
+
+
+
+    <!-- نافذة اختيار طريقة الدفع -->
+    <div class="payment-modal" *ngIf="showPaymentModal">
+        <div class="modal-content">
+            <h3>Select Payment Method</h3>
+            <ul>
+                <li (click)="selectPayment('paymob')">💳 المحافظ الإلكترونية</li>
+                <li (click)="selectPayment('stripe')">💳 Credit / Debit Card / Apple Pay / Google Pay</li>
+                <li (click)="selectPayment('paypal')">💲 PayPal</li>
+                <li (click)="addPaymentMethod()">💲 Cash</li>
+            </ul>
+            <button class="close-btn" (click)="togglePaymentModal()">Close</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,226 @@
+.intro {
+    position: relative;
+    height: 90vh;
+    background-color: #000;
+    color: #fff;
+    
+    .visual {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.5));
+      }
+    }
+    
+    .bg-img {
+      will-change: transform filter;
+      filter: brightness(10%);
+      filter: blur(5px);
+    }
+  }
+  
+  .title {
+    position: relative;
+    font-size: 50px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 1); /* نص غامق مناسب لصورة فاتحة */
+    letter-spacing: 1px;
+    font-family: cursive;
+  }
+  
+  @keyframes pulse-glow {
+    0% {
+      text-shadow: 
+        0 0 5px rgba(255, 160, 0, 0.5),
+        0 0 15px rgba(255, 170, 0, 0.6),
+        0 0 30px rgba(255, 190, 0, 0.7);
+    }
+    100% {
+      text-shadow: 
+        0 0 10px rgba(255, 140, 0, 0.4),
+        0 0 20px rgba(255, 180, 0, 0.6),
+        0 0 40px rgba(255, 200, 0, 0.9);
+    }
+  }
+
+  .container {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin-top: 80px;
+  }
+  
+  .chevron {
+    position: absolute;
+    width: 28px;
+    height: 8px;
+    opacity: 0;
+    transform: scale3d(0.5, 0.5, 0.5);
+    animation: move 3s ease-out infinite;
+  }
+  
+  .chevron:first-child {
+    animation: move 3s ease-out 1s infinite;
+  }
+  
+  .chevron:nth-child(2) {
+    animation: move 3s ease-out 2s infinite;
+  }
+  
+  .chevron:before,
+  .chevron:after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 51%;
+    background: #000000;
+  }
+  
+  .chevron:before {
+    left: 0;
+    transform: skew(0deg, 30deg);
+  }
+  
+  .chevron:after {
+    right: 0;
+    width: 50%;
+    transform: skew(0deg, -30deg);
+  }
+  
+  @keyframes move {
+    25% {
+      opacity: 1;
+  
+    }
+    33% {
+      opacity: 1;
+      transform: translateY(30px);
+    }
+    67% {
+      opacity: 1;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(55px) scale3d(0.5, 0.5, 0.5);
+    }
+  }
+  
+  .text {
+    display: block;
+    margin-top: 75px;
+    margin-left: -80px;
+    font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+    font-size: 12px;
+    color: #070101;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: .25;
+    animation: pulse 2s linear alternate infinite;
+    font-size: 25px;
+    font-weight: 600;
+  }
+  
+  @keyframes pulse {
+    to {
+      opacity: 1;
+    }
+  }
+  
+  
+  .bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  footer {
+    height: 50vh;
+    background-color: darken(#4ea59f, 30%);
+    color: #fff;
+  }
+  
+  .slide-container {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .intro, .slide, footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    color: #fff;
+    will-change: transform;
+    
+    &.slide-odd {
+        background-color: hotpink;
+      }
+    
+      &.slide-even {
+        background-color: #4ea59f;
+      }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25));
+    }
+    
+    .bg-img {
+      width: 120%;
+      height: 120%;
+      left: -10%;
+      filter: blur(8px);
+    }
+  }
+  
+  .slide-title {
+    position: relative;
+    color: black;
+    font-family: cursive;
+    font-size: 70px;
+  }
+  
+  .slide-progress {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+  
+  .progress-thumb {
+    display: block;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: scaleX(0);
+    transform-origin: left;
+  }

@@ -1,0 +1,155 @@
+.container {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-image: url(../../../assets/images/Background\ .jpg);
+  background-size: cover;
+  background-position: center;
+  height: 702px;
+  margin-left: -4px;
+  margin-top: -40px;
+  animation: fadeIn 1.5s ease-in-out;
+  backdrop-filter: blur(10px);
+}
+
+/* أنيميشن لظهور الصفحة */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🔹 شريط التقدم (Progress Bar) */
+.progress-bar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px auto;
+  width: 80%;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.1); /* لون شبه شفاف يتناسب مع الخلفية */
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* الجزء المتحرك داخل الشريط */
+.progress-bar div {
+  height: 100%;
+  width: 0; /* يبدأ من الصفر */
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.4); /* لون شبه شفاف يتناسب مع الخلفية */
+  animation: progressAnimation 2s ease-in-out forwards;
+}
+
+.progress-bar .completed {
+  background: green;
+}
+
+/* أنيميشن تعبئة شريط التقدم */
+@keyframes progressAnimation {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* نبض خفيف للشريط */
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* 🔹 قائمة الخطوات */
+.steps-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.steps-list li {
+  cursor: pointer;
+  width: 77%;
+  font-size: 40px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #ffffff;
+  padding: 10px;
+  text-align: left;
+  position: relative;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  animation: fadeInLi 1s ease-in-out forwards;
+}
+
+/* أنيميشن ظهور القائمة */
+@keyframes fadeInLi {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 🔹 سهم التحريك */
+.steps-list li::after {
+  content: '\003E';
+  position: absolute;
+  right: 5px;
+  font-size: 24px;
+  color: #ffcc00;
+  animation: arrowBounce 1s infinite alternate ease-in-out;
+}
+
+/* أنيميشن تحريك السهم */
+@keyframes arrowBounce {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(5px);
+  }
+}
+
+/* 🔹 الخط التدريجي تحت كل عنصر */
+.steps-list li::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 0;
+  height: 4px;
+  background: linear-gradient(to right, transparent, #0b51f5, #bd9e22, transparent);
+  animation: lineExpand 0.8s ease-in-out forwards, pulse 1.5s infinite ease-in-out;
+}
+
+/* أنيميشن ظهور الخط */
+@keyframes lineExpand {
+  from {
+    width: 0;
+    left: 50%;
+  }
+  to {
+    width: 100%;
+    left: 0;
+  }
+}

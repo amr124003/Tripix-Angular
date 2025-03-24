@@ -1,0 +1,554 @@
+.payment-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #000;
+    background-image: url(../../../assets/images/v1016-b-09.jpg);
+    color: white;
+    min-height: 655px;
+    padding-top: 50px;
+    margin: -10px -7px;
+
+}
+
+/* البطاقات مع تأثير شعاع */
+.glass-card {
+    width: 400px;
+    height: 220px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-radius: 25px;
+    /* جعل الحواف ناعمة أكثر */
+    text-align: left;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+    /* ظل Rose */
+}
+
+.glass-card1 {
+    width: 400px;
+    height: 220px;
+    min-width: 400px;
+    background: rgba(17, 188, 46, 0.08);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-radius: 25px;
+    /* جعل الحواف ناعمة أكثر */
+    text-align: left;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+    /* ظل Rose */
+    margin: 20px;
+}
+
+.glass-card1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 10%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.25) 80%);
+    pointer-events: none;
+}
+
+/* Hover: تكبير البطاقة مع ظل ناعم */
+.glass-card1:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.glass-card1 h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+/* تنسيق الرقم */
+.glass-card1 p {
+    font-size: 34px;
+    font-weight: bold;
+}
+
+/* إضافة تأثير لمعان زجاجي */
+.glass-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 10%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.25) 80%);
+    pointer-events: none;
+}
+
+/* Hover: تكبير البطاقة مع ظل ناعم */
+.glass-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.glass-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+/* تنسيق الرقم */
+.glass-card p {
+    font-size: 34px;
+    font-weight: bold;
+}
+
+
+.balance-section {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-family: cursive;
+}
+
+
+@keyframes shine {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Hover: تأثير التكبير مع لمعة إضافية */
+.glass-card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+/* زر عصري */
+.custom-btn {
+    background: black;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.custom-btn:hover {
+    background: white;
+    color: black;
+    transform: scale(1.1);
+}
+
+
+/* قسم إضافة طريقة الدفع */
+.payment-method-section {
+    width: 80%;
+    padding: 20px;
+}
+
+.payment-method-section h4 {
+    font-size: 30px;
+    font-weight: bold;
+
+    color: white;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.add-payment {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 15px 20px;
+    width: 100%;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: 0.3s ease-in-out;
+    font-family: cursive;
+}
+
+.add-payment:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.plus-icon {
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    margin-right: 10px;
+}
+
+.add-payment p {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.line-effect {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, white, transparent);
+    margin-top: 10px;
+}
+
+.payment-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* تأثير تعتيم للخلفية */
+    backdrop-filter: blur(10px);
+    /* تأثير ضبابي ناعم */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.payment-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.1);
+    /* خلفية زجاجية شفافة */
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    /* تأثير الزجاج */
+    color: white;
+    width: 350px;
+    animation: scaleIn 0.3s ease-in-out;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-content h3 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.modal-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.modal-content ul li {
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.modal-content ul li:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.close-btn {
+    background: #ff4d4d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    background: #e60000;
+    transform: scale(1.1);
+}
+
+.payment-cards {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+    /* مسافة حتى لا يقطعها الـ Scroll */
+}
+
+.payment-card {
+    width: 400px;
+    height: 220px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-radius: 25px;
+    text-align: left;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+}
+
+.payment-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 10%, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.25) 80%);
+    pointer-events: none;
+}
+
+.payment-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+/* لوجو البنك أعلى اليسار */
+.bank-logo {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    width: 50px;
+    height: auto;
+}
+
+.logo {
+    width: 150px;
+}
+
+/* نوع البطاقة أعلى اليمين */
+.card-type {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* لوجو الشبكة أسفل اليمين */
+.schema-logo {
+    position: absolute;
+    bottom: 0px;
+    right: 110px;
+    width: 50px;
+    height: auto;
+}
+
+.card-details {
+    display: flex;
+    justify-content: center;
+    /* توسيط أفقي */
+    align-items: center;
+    /* توسيط رأسي */
+    height: 100%;
+    /* تأكد أن العنصر ياخذ ارتفاع البطاقة */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* لضبطه في المنتصف بالضبط */
+    width: 100%;
+    text-align: center;
+}
+
+.card-number {
+    font-family: cursive;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    /* تباعد بسيط لتحسين الشكل */
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+/* إظهار الـ Scroll دائمًا وتعديله */
+.payment-cards::-webkit-scrollbar {
+    height: 8px;
+    /* جعل الشريط صغير */
+}
+
+.payment-cards::-webkit-scrollbar-track {
+    background: transparent;
+    /* جعل الخلفية شفافة */
+}
+
+.payment-cards::-webkit-scrollbar-thumb {
+    background: #ff007f;
+    /* لون Rose */
+    border-radius: 10px;
+    /* زوايا ناعمة */
+}
+
+.payment-cards::-webkit-scrollbar-thumb:hover {
+    background: #ff3399;
+    /* تفتيح اللون عند التمرير */
+}
+
+/* أنيميشن عند ظهور الكارد */
+.animate-card {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s;
+    z-index: 5000;
+}
+
+.modal-content {
+    background: #222;
+    padding: 20px;
+    width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    animation: slideIn 0.3s;
+    z-index: 6000;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 15px;
+    box-shadow: inset 0 0 5px rosybrown;
+    background: #333;
+    color: #fff;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease-in-out;
+}
+
+.input-field:focus {
+    border-color: #ff4081;
+    box-shadow: 0 0 10px rgba(255, 64, 129, 0.7);
+    transform: scale(1.05);
+    transition: .6s;
+}
+
+input:focus::placeholder {
+    color: white;
+}
+
+.btn {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn.cancel {
+    background: #555;
+}
+
+.btn.cancel:hover {
+    background: #777;
+}
+
+.btn.submit {
+    background: #1db954;
+    color: #fff;
+}
+
+.btn.submit:hover {
+    background: #17a74a;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.form {
+    width: 95%;
+}
+
+.input-hint {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    color: rgba(149, 149, 149);
+    /* لون خافت لتحقيق التأثير المطلوب */
+    margin-bottom: 10px;
+}
+
+.label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 5px;
+    transition: all 0.3s ease-in-out;
+}

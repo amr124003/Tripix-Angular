@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-content">
+            <h1 class="head">Sell Your Car</h1>
+            <!-- Step 1: Image Upload -->
+            <div *ngIf="step === 1" class="upload-step fade-in" [ngClass]="{ 'blur': +step === 2 }">
+                <div class="drop-zone" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
+                    (drop)="onDrop($event)" [class.dragging]="isDragging">
+                    <p *ngIf="!images.length">Drag & Drop Car Images here or click to upload</p>
+                    <div *ngIf="loading" class="loader"></div>
+                    <div *ngFor="let image of images" class="image-preview">
+                        <img [src]="image.url" [alt]="image.name" />
+                        <div class="image-details">
+                            <p>{{ image.name }}</p>
+                            <p>{{ image.size }} KB</p>
+                        </div>
+                    </div>
+                </div>
+                <input type="file" #fileInput class="hidden-file-input" multiple (change)="onFileSelect($event)" />
+                <button class="upload-btn" (click)="fileInput.click()">Upload</button>
+                <div class="buttons">
+                    <button (click)="nextStep()">Next</button>
+                    <button (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Car Details -->
+            <div *ngIf="step === 2" class="details-step fade-in">
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="carDetails.name" placeholder="Enter Your Car Name" />
+                </div>
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="carDetails.model" placeholder="Enter Your Car  Model" />
+                </div>
+                <div class="input-group">
+                    <input type="text" [(ngModel)]="carDetails.condition" placeholder="Enter Your Car Condition" />
+                </div>
+                <div class="input-group">
+                    <textarea [(ngModel)]="carDetails.description" placeholder="Enter Your Car Description"></textarea>
+                </div>
+                <div class="input-group">
+                    <select [(ngModel)]="carDetails.type">
+                        <option value="Auto" selected>Choose Your Car Type</option>
+                        <option value="Electric">Electric Car</option>
+                        <option value="Fuel">Fuel Powered Car</option>
+                    </select>
+                </div>
+                <div class="buttons">
+                    <button (click)="previousStep()">Previous</button>
+                    <button (click)="finish()">Finish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

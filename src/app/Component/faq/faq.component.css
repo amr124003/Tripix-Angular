@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=Muli&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+    font-family: "Muli", sans-serif;
+    background-image: url(../../../assets/images/FAQ.jpg);
+    background-size: cover;    /* تجعل الصورة تغطي الصفحة بالكامل */
+    background-position: center;  /* توسيط الصورة */
+    background-repeat: no-repeat; /* منع تكرار الصورة */
+    background-attachment: fixed; /* تثبيت الصورة أثناء التمرير */
+    margin: -10px;
+    padding: 0;
+    height: 100vh; /* تجعل ارتفاع `body` يغطي الشاشة بالكامل */
+    width: 100vw; /* تضمن تغطية العرض بالكامل */
+    overflow-x: hidden; /* تمنع أي تمرير أفقي غير مرغوب فيه */
+  }
+  
+
+h1 {
+  text-align: center;
+  margin: 50px 0 30px;
+  font-family: cursive;
+}
+
+.container{
+    margin: 50px 0 30px;
+}
+
+.faq-container {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.faq {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid #9fa4a8;
+    border-radius: 10px;
+    margin: 20px 0;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 3px 4px 6px rgba(196, 207, 42, 0.3); /* ظل ناعم */
+    
+  }
+  
+  /* عند التحويل إلى Active */
+  .faq.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* ظل أقوى */
+    backdrop-filter: blur(10px);
+  }
+  
+  /* تأثير الـ Hover */
+  .faq:hover {
+    transform: scale(1.05) translateY(-5px); /* تكبير العنصر ورفعه */
+    box-shadow: 0 10px 20px rgba(23, 152, 12, 0.3); /* ظل أقوى عند المرور */
+  }
+
+.faq.active::before,
+.faq.active::after {
+  content: "\f075";
+  font-family: "Font Awesome 5 Free";
+  color: #2ecc71;
+  font-size: 7rem;
+  position: absolute;
+  opacity: 0.2;
+  top: 20px;
+  left: 20px;
+  z-index: 0;
+}
+
+.faq.active::before {
+  color: #3498db;
+  top: -10px;
+  left: -30px;
+  transform: rotateY(180deg);
+}
+
+.faq-title {
+  margin: 0 35px 0 0;
+  font-size: 22px;
+}
+
+.faq-text {
+  display: none;
+  margin: 30px 0 0;
+  font-size: 18px;
+}
+
+.faq.active .faq-text {
+  display: block;
+}
+
+.faq-toggle {
+  background-color: transparent;
+  color: white;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 0;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  height: 30px;
+  width: 30px;
+}
+
+.faq-toggle:focus {
+  outline: 0;
+}
+
+.faq-toggle .fa-times {
+  display: none;
+}
+
+.faq.active .faq-toggle .fa-times {
+  color: #fff;
+  display: block;
+}
+
+.faq.active .faq-toggle .fa-chevron-down {
+  display: none;
+}
+
+.faq.active .faq-toggle {
+  background-color: #9fa4a8;
+}

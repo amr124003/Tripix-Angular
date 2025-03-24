@@ -1,0 +1,246 @@
+/* Dark Mode Styling */
+.face-id-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #121212;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  overflow: hidden;
+  margin: -8px;
+}
+
+/* Gradient Text for Heading */
+.face-id-header h2 {
+  font-size: 32px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  animation: fadeInDown 1s ease-in-out;
+}
+
+/* Instructions Box with better visibility */
+.instructions {
+  background: rgba(255, 126, 95, 0.2);
+  color: #fcf9f9;
+  list-style: none;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 15px rgba(255, 204, 0, 0.3);
+  transition: transform 0.3s, opacity 0.3s;
+  animation: fadeInUp 1s ease-in-out;
+  border-left: 5px solid #ffcc00;
+}
+
+/* Video Container */
+.video-container {
+  position: relative;
+  border-radius: 250px;
+  overflow: hidden;
+  width: 320px;
+  height: 320px;
+  border: 3px solid #ff7e5f;
+  box-shadow: 0px 6px 15px rgba(255, 126, 95, 0.5);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Video Element */
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* Animation when Face Detected */
+.face-detected .video-container {
+  border-color: #4caf50;
+  transform: scale(1.05);
+  box-shadow: 0px 6px 20px rgba(76, 175, 80, 0.5);
+}
+
+/* Buttons */
+.button-container {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.retake-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.retake-button:hover {
+  background-color: #d32f2f;
+  transform: scale(1.1);
+}
+
+.save-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #388e3c;
+  transform: scale(1.1);
+}
+
+/* Animation Effects */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glow Effect */
+@keyframes glow {
+  0% {
+    box-shadow: 0px 0px 10px rgba(255, 126, 95, 0.5);
+  }
+  50% {
+    box-shadow: 0px 0px 20px rgba(255, 126, 95, 0.8);
+  }
+  100% {
+    box-shadow: 0px 0px 10px rgba(255, 126, 95, 0.5);
+  }
+}
+
+/* Animated Stripes */
+.stripe {
+  width: 100px;
+  height: 5px;
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  margin: 10px 0;
+  transform: scaleY(1);
+  transition: transform 0.3s ease-in-out;
+  animation: glow 1.5s infinite alternate;
+}
+
+/* Steps - without bullet points and yellow checkmarks */
+.steps {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.steps li {
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.steps li:hover {
+  transform: scale(1.05);
+}
+
+/* Custom yellow checkmark instead of bullet points */
+.steps li::before {
+  content: "✔";
+  margin-right: 12px;
+  color: #ffcc00;
+  font-size: 22px;
+  font-weight: bold;
+  text-shadow: 0 0 8px rgba(255, 204, 0, 0.8);
+}
+
+.face-verified {
+  border-color: #4caf50 !important;
+  background-color: rgba(76, 175, 80, 0.2);
+  box-shadow: 0px 6px 20px rgba(76, 175, 80, 0.5);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* إخفاء الفيديو عند نجاح التحقق */
+.face-verified video {
+  display: none;
+}
+
+
+
+
+/* علامة الصح */
+.checkmark {
+  width: 280px;
+  height: 280px;
+  stroke-width: 4;
+  stroke: #4caf50;
+  stroke-linecap: round;
+  margin-left: 20px;
+}
+
+.checkmark-circle {
+  stroke-dasharray: 157;
+  stroke-dashoffset: 157;
+  stroke-width: 2;
+  stroke: #4caf50;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.checkmark-check {
+  stroke-dasharray: 36;
+  stroke-dashoffset: 36;
+  stroke-width: 4;
+  stroke: #4caf50;
+  transition: stroke-dashoffset 0.5s 0.5s ease-in-out;
+}
+
+/* حاوية الدوائر */
+.circles-container {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}
+
+/* الدوائر */
+.circle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0;
+}

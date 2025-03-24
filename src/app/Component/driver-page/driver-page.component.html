@@ -1,0 +1,21 @@
+<div class="container">
+    <h1 #header style="padding-top: 90px; font-size: 60px; margin-bottom: 0px;">Hi, Amr !</h1>
+  
+    <div *ngIf="showSteps" style="backdrop-filter: blur(10px); height: 500px; border-radius: 30px;">
+      <div class="progress-bar" >
+        <div *ngFor="let step of steps" [class.completed]="step.completed"></div>
+      </div>
+      <ul class="steps-list">
+        <li *ngFor="let step of steps" (click)="selectStep(step)" >
+          {{step.name}}
+          
+        </li>
+      </ul>
+    </div>
+  
+    <div class="loading" *ngIf="isLoading">
+      <div class="spinner"></div>
+    </div>
+   
+</div>
+  

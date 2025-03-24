@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container" style="background-color: black;">
+
+    <div class="content">
+      <!-- ✅ نموذج إدخال بيانات الرحلة -->
+      <div class="ride-form">
+        <h2>Book Your Trip Now</h2>
+
+        <label for="pickup">📍 Your Location : </label>
+        <div class="input-container">
+          <input type="text" id="pickup" placeholder="Enter Your Location" (input)="getSuggestions('pickup')"
+            list="pickup-suggestions" [(ngModel)]="startLocation" (focus)="showStartSuggestions = true"
+            (input)="fetchAddressSuggestions('start')" (blur)="hideSuggestions('start')" #pickupInput
+            (change)="updatePickupLocation()" (input)="deletemarker($event)">
+          <datalist id="pickup-suggestions"></datalist>
+          <ul *ngIf="showStartSuggestions" class="suggestions-list">
+            <li *ngIf="!hasUserInputStart" (click)="useCurrentLocation()">📍 From Your Location</li>
+            <li *ngIf="!hasUserInputStart" (click)="selectFromMap('start')">🗺️ Select Location From Map</li>
+            <li *ngIf="!hasUserInputStart" (click)="openSavedPlacesModal('start')">⭐ Saved Locations</li>
+          </ul>
+        </div>
+
+        <label for="destination">🎯 Destination </label>
+        <div class="input-container">
+          <input type="text" id="destination" placeholder="Enter Your Destination"
+            (input)="getSuggestions('destination')" list="destination-suggestions" [(ngModel)]="destination"
+            (focus)="showDestinationSuggestions = true" (input)="fetchAddressSuggestions('destination')"
+            (blur)="hideSuggestions('destination')" #destinationInput (change)="updateDestinationLocation()">
+          <datalist id="destination-suggestions"></datalist>
+          <ul *ngIf="showDestinationSuggestions" class="suggestions-list">
+            <li *ngIf="!hasUserInputDestination" (click)="selectFromMap('destination')">🗺️ تحديد مكان من الخريطة</li>
+            <li *ngIf="!hasUserInputDestination" (click)="openSavedPlacesModal('destination')">⭐ Saved Locations</li>
+          </ul>
+        </div>
+
+        <div class="input-container">
+          <label for="datetimeInput">Date Of Your Trip:</label>
+          <input id="datetimeInput" [(ngModel)]="selectedDateTime" readonly (click)="openDialog()"
+            placeholder="Enter Date Of Trip">
+
+          <!-- النافذة المنبثقة -->
+          <div class="modal" *ngIf="isDialogOpen">
+            <div class="modal-content">
+              <h3>Select Date And Time</h3>
+
+              <label for="date">Date :</label>
+              <input type="date" min="{{minDate}}" id="date" [(ngModel)]="selectedDate" (change)="filterHours()">
+
+              <label for="time">Time :</label>
+              <select id="time" [(ngModel)]="selectedTime">
+                <option *ngFor="let hour of availableHours" [value]="hour">{{ hour }}</option>
+              </select>
+
+              <div class="modal-buttons">
+                <button (click)="confirmDateTime()">Okay</button>
+                <button (click)="closeDialog()">Close</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- تأثير التعتيم عند فتح النافذة -->
+          <div class="overlay" *ngIf="isDialogOpen"></div>
+        </div>
+
+
+        <label for="passengerType">This Trip To :</label>
+        <select id="passengerType" [(ngModel)]="passengerType" (change)="onPassengerTypeChange()">
+          <option value="me">For Me</option>
+          <option value="someoneElse">For Another Someone</option>
+        </select>
+        <!-- الحقول الإضافية تظهر مع الأنيميشن -->
+        <div class="extra-fields" *ngIf="isForSomeoneElse">
+          <div class="input-group">
+            <label for="firstName">First Name :</label>
+            <input id="firstName" type="text" [(ngModel)]="firstName" placeholder="Enter First Name">
+          </div>
+
+          <div class="input-group">
+            <label for="lastName">Last Name :</label>
+            <input id="lastName" type="text" [(ngModel)]="lastName" placeholder="Enter Last Name">
+          </div>
+
+          <div class="input-group">
+            <label for="phone">Phone Number :</label>
+            <input id="phone" type="tel" [(ngModel)]="phone" placeholder="Enter Phone Number ">
+          </div>
+        </div>
+        <button class="request-btn"> Search A Trip</button>
+      </div>
+      <!-- ✅ الخريطة -->
+      <div id="map"></div>
+    </div>
+  </div>
+</body>
+
+</html>

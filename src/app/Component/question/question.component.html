@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.12/iconfont/material-icons.min.css">
+</head>
+<body>
+    <nav class="navbar" >
+        <div class="container" >
+            <div class="row justify-content-between align-items-center">
+                <div class="logo"><span style="color: rgb(220, 20, 60);">Tripix</span></div>
+                <input type="checkbox" name="" id="click">
+                <label for="click" class="menu-btn">
+                    <i class="material-icons">menu</i>
+                </label>
+                <ul>
+                    <li><a href="#" >Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Feedback</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section>
+        <div class="container">
+            <div class="row full-screen align-items-center">
+                <div class="left">
+                    <span class="line"></span>
+                    <h2>Hello, Welcome to Tripix<br> <span>Who Are You?</span></h2>
+                    <p>Used And Loved By Over 1 Million People .....</p>
+                    <a href="#" class="btn">Continue Now</a>
+
+                    <div class="social-media">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i> </a>
+                        <a href="#"><i class="fa-brands fa-x-twitter"></i>  </a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i>  </a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i>    </a>
+                        <a href="#"><i class="fa-brands fa-linkedin-in"></i> </a>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="form">
+                        <div class="text-center">
+                            <h6> <label for="reg-log"> <a ><span style="font-size: 30px" class="gradient-text" (click)="disableuserLabelClick($event)">User</span></a></label> 
+                                <label for="reg-log"><a><span style="font-size: 30px;" class="gradient-text" (click)="disablestaffLabelClick($event)">Staff</span></a></label></h6>
+                            <input type="checkbox" class="checkbox" id="reg-log"  (change)="checkValue($event)">
+                            <label for="reg-log"></label>
+                            <div class="card-3d-wrap">
+                                <div class="card-3d-wrapper">
+                                    <div class="card-front">
+                                        <div class="center-wrap">
+                                            <h4 class="heading">Hi! <br><br><span class="Gradiant">Reliable, convenient, Safety for you.</span></h4>
+                                            <form [formGroup]="userForm">
+                                                <div class="form-group">
+                                                  <input 
+                                                    type="text" 
+                                                    class="form-style" 
+                                                    placeholder="Name" 
+                                                    autocomplete="off" 
+                                                    formControlName="name"
+                                                    (input)="onNameChange($event)"
+                                                  />
+                                                  <i class="input-icon material-icons">perm_identity</i>
+                                                </div>
+                                              
+                                                <div class="error" *ngIf="name?.invalid && userForm.get('name')?.touched">
+                                                    <span *ngIf="name?.errors?.['minlength']">Name Must be atleast 3 letters</span>
+                                                    <span *ngIf="name?.errors?.['required'] ">Name Is Required</span>
+                                                    <span *ngIf="name?.errors?.['maxlength']">Maxmuim 20 letters</span>
+                                                    <span *ngIf="name?.errors?.['pattern']">Invalid Name</span>
+                                                </div>
+
+                                                <button class="btn" routerLink="/Home" [disabled]="userForm.invalid">
+                                                    Yala Bena
+                                                  </button>
+                                              </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-back">
+                                        <div class="center-wrap">
+                                            <h4 class="heading" style="font-size: large;">ًWelcome to our team!<br><br><span class="Gradiant">You are our success.</span></h4>
+                                            <form [formGroup]="driverForm">
+                                            <div class="form-group">
+                                                <input 
+                                                    type="text" 
+                                                    class="form-style" 
+                                                    placeholder="First Name" 
+                                                    autocomplete="off" 
+                                                    formControlName="firstname"
+                                                    (input)="onNameChange($event)"
+                                                  />
+                                                <i class="input-icon material-icons">perm_identity</i>
+                                            </div>
+
+                                            <div class="error" *ngIf="firstname?.invalid && driverForm.get('firstname')?.touched">
+                                                <span *ngIf="firstname?.errors?.['minlength']">First Name Must be atleast 3 letters</span>
+                                                <span *ngIf="firstname?.errors?.['required'] ">First Name Is Required</span>
+                                                <span *ngIf="firstname?.errors?.['maxlength']">Maxmuim 20 letters</span>
+                                                <span *ngIf="firstname?.errors?.['pattern']">Invalid First Name</span>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input 
+                                                    type="text" 
+                                                    class="form-style" 
+                                                    placeholder="Last Name" 
+                                                    autocomplete="off" 
+                                                    formControlName="lastname"
+                                                    (input)="onNameChange($event)"
+                                                  />
+                                                <i class="input-icon material-icons">perm_identity</i>
+                                            </div>
+
+                                            <div class="error" *ngIf="lastname?.invalid && driverForm.get('lastname')?.touched">
+                                                <span *ngIf="lastname?.errors?.['minlength']">Last Name Must be atleast 3 letters</span>
+                                                <span *ngIf="lastname?.errors?.['required'] ">Last Name Is Required</span>
+                                                <span *ngIf="lastname?.errors?.['maxlength']">Maxmuim 20 letters</span>
+                                                <span *ngIf="lastname?.errors?.['pattern']">Invalid Last Name</span>
+                                            </div>
+                                            
+                                            <button class="btn" routerLink="/Home" [disabled]="userForm.invalid">
+                                                Yala Bena
+                                              </button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+	<link href='https://unpkg.com/boxicons@2.1.4/dist/boxicons.js' rel='stylesheet'>
+
+	<title>AdminHub</title>
+</head>
+
+<body>
+
+	<!-- المودال -->
+	<div class="modal" [ngClass]="{ 'active': isModalOpen }" (click)="closeModal()">
+		<div class="modal-content">
+			<img [src]="imageSrc" alt="Expanded Image" class="ExpandedImage">
+			<button class="close" (click)="closeModal()">&times;</button>
+		</div>
+	</div>
+
+	<!-- نافذة الـ Create -->
+	<div class="modal1" *ngIf="isCreateModalOpen" (click)="closeModal1()">
+		<div class="modal-content1 animate-modal" (click)="$event.stopPropagation()">
+			<h2>Create Product</h2>
+
+
+			<!-- Drag & Drop -->
+			<!-- Drag & Drop مربع في المنتصف -->
+			<div class="drop-zone1" [class.dragging]="isDragging" (dragover)="onDragOver($event)"
+				(dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+				<div class="drop-content1">
+					<i class="fas fa-upload"></i>
+					<p *ngIf="!uploadedImage">Drag & Drop Image Here</p>
+					<img *ngIf="uploadedImage" [src]="uploadedImage" alt="Uploaded Image" class="preview1">
+				</div>
+			</div>
+
+			<input type="file" id="fileInput" hidden (change)="onFileSelected($event)">
+			<button class="upload-btn1" (click)="triggerFileInput()">Upload</button>
+
+			<input type="text" placeholder="Product Name">
+			<textarea placeholder="Description"></textarea>
+			<input type="text" placeholder="Section Name" *ngIf="selectedsection == 'Spare Parts'">
+			<input type="number" placeholder="Price">
+
+			<button class="submit-btn1">Submit</button>
+		</div>
+	</div>
+
+	<div class="modal1" *ngIf="isUpdateModalOpen" (click)="closeModal1()">
+		<div class="modal-content1 animate-modal" (click)="$event.stopPropagation()">
+		  <h2>Update Product</h2>
+	  
+		  <table *ngIf="!selectedProduct" class="table1">
+			<thead>
+			  <tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th *ngIf="selectedsection == 'Spare Parts'" >Section</th>
+				<th>Description</th>
+			  </tr>
+			</thead>
+			<tr *ngFor="let product of products" (click)="selectProduct(product)">
+			  <td>{{product.ID}}</td>
+			  <td>{{ product.name }}</td>
+			  <td *ngIf="selectedsection == 'Spare Parts'" >{{ product.section }}</td>
+			  <td>{{product.description}}</td>
+			</tr>
+		  </table>
+	  
+		  <div *ngIf="selectedProduct">
+			<img [src]="selectedProduct.image" alt="Product Image" class="preview2">
+			<input type="text" [(ngModel)]="selectedProduct.name">
+			<textarea [(ngModel)]="selectedProduct.description"></textarea>
+			<input type="number" [(ngModel)]="selectedProduct.price">
+	  
+			<button class="submit-btn1">Update</button>
+		  </div>
+		</div>
+	  </div>
+
+	  <div class="modal1" *ngIf="isDeleteModalOpen" (click)="closeModal1()">
+		<div class="modal-content1 animate-modal" (click)="$event.stopPropagation()">
+		  <h2>Update Product</h2>
+	  
+		  <table class="table1">
+			<thead>
+			  <tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Description</th>
+				<th *ngIf="selectedsection == 'Spare Parts'" >Section</th>
+				<th>Action</th>
+			  </tr>
+			</thead>
+			<tr *ngFor="let product of products" (click)="deleteProduct(product)">
+			  <td>{{product.ID}}</td>
+			  <td>{{ product.name }}</td>
+			  <td>{{product.description}}</td>
+			  <td *ngIf="selectedsection == 'Spare Parts'" >{{ product.section }}</td>
+			  <td><i class="fa-solid fa-trash fa-xl" style="color: #d80e0e;"></i></td>
+			</tr>
+		  </table>
+		</div>
+	  </div>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar" #sidebar>
+		<a href="#" class="brand">
+			<img src="../../../assets/images/BackgroundEraser_20250128_224827729.png"
+				style="width: 50px; height: 50px; margin-right: 20px; margin-left: 10px; margin-top: 10px;">
+			<span class="text">TripixHub</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active">
+				<a href="#" #sideMenuItems (click)="UpdateSelectedPage('Our Cars')">
+					<i class="fa-solid fa-car fa-xl"></i>
+					<span class="text">Our Cars</span>
+				</a>
+			</li>
+			<li>
+				<a href="#" #sideMenuItems (click)="UpdateSelectedPage('Our Motorbikes')">
+					<i class="fa-solid fa-motorcycle fa-xl"></i>
+					<span class="text">Our Motorbikes</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="#" #sideMenuItems (click)="UpdateSelectedPage('Our Trucks')">
+					<i class="fa-solid fa-truck fa-xl"></i>
+					<span class="text">Our Trucks</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="#" #sideMenuItems (click)="UpdateSelectedPage('Jop Application')">
+					<i class="fa-solid fa-file-csv fa-xl"></i>
+					<span class="text">Jop Applications</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="#" #sideMenuItems (click)="UpdateSelectedPage('Drivers')">
+					<i class="fa-solid fa-people-group fa-xl"></i>
+					<span class="text">Drivers</span>
+				</a>
+			</li>
+			<li>
+				<a href="#" #sideMenuItems (click)="UpdateSelectedPage('Mangment')">
+					<i class="fa-solid fa-screwdriver-wrench fa-xl"></i>
+					<span class="text">Mangment</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="#" #sideMenuItems (click)="UpdateSelectedPage('Admin Operations')">
+					<i class="fa-solid fa-users-gear fa-xl"></i>
+					<span class="text">Admin Operations</span>
+				</a>
+			</li>
+
+			<li>
+				<a href="#" #sideMenuItems (click)="UpdateSelectedPage('User Mangment')">
+					<i class="fa-solid fa-user-gear fa-xl"></i>
+					<span class="text">User Mangment</span>
+				</a>
+			</li>
+			<li>
+				<a href="#" #sideMenuItems (click)="UpdateSelectedPage('Complaints')">
+					<i class="fa-solid fa-envelope fa-xl"></i>
+					<span class="text">Complaints & Comments</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu bottom">
+			<li>
+				<a href="#" class="logout">
+					<i class='bx bx-power-off bx-sm bx-burst-hover'></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu bx-sm' #menuBar></i>
+			<form action="#">
+				<div class="form-input">
+					<input type="text" placeholder="Search..." >
+					<button type="submit" class="search-btn" #searchButton><i class='bx bx-search'></i></button>
+				</div>
+			</form>
+			<input type="checkbox" class="checkbox" id="switch-mode" #switchMode hidden />
+
+			<!-- Notification Bell -->
+			<a href="#" class="notification" id="notificationIcon" #notificationIcon>
+				<i class='bx bxs-bell bx-tada-hover'></i>
+				<span class="num">8</span>
+			</a>
+			<div class="notification-menu" id="notificationMenu">
+				<ul>
+					<li>New message from John</li>
+					<li>Your order has been shipped</li>
+					<li>New comment on your post</li>
+					<li>Update available for your app</li>
+					<li>Reminder: Meeting at 3PM</li>
+				</ul>
+			</div>
+
+			<!-- Profile Menu -->
+			<a href="#" class="profile" id="profileIcon" #profileIcon>
+				<img src="https://placehold.co/600x400/png" alt="Profile">
+			</a>
+			<div class="profile-menu" id="profileMenu">
+				<ul>
+					<li><a href="#">My Profile</a></li>
+					<li><a href="#">Settings</a></li>
+					<li><a href="#">Log Out</a></li>
+				</ul>
+			</div>
+		</nav>
+		<!-- NAVBAR -->
+
+
+		<!-- MAIN -->
+		<main *ngIf="SelectedPage == 'Our Cars'">
+			<div class="head-title">
+				<div class="left">
+					<h1>Our Cars</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="#">{{SelectedPage}}</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download bx-fade-down-hover'></i>
+					<span class="text">Get Your Pdf</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check'></i>
+					<span class="text">
+						<h3>{{CarsOrders}}</h3>
+						<p>New Bookings</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group'></i>
+					<span class="text">
+						<h3>{{CarsVisitors}}</h3>
+						<p>Visitors</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-dollar-circle'></i>
+					<span class="text">
+						<h3>{{CarsTotal_Sales}}</h3>
+						<p>Total Sales</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>New Cars Bookings</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Date Order</th>
+								<th>Phone Number</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of CarsOrdersData">
+								<td>
+									<img src="https://placehold.co/600x400/png">
+									<p>{{item.Username}}</p>
+								</td>
+								<td>{{item.Orderdate}}</td>
+								<td>{{item.PhoneNumber}}</td>
+								<td><span class="status completed">{{item.OrderStatus}}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3></h3>
+						<i class='bx bx-plus icon'></i>
+						<i class='bx bx-filter'></i>
+
+					</div>
+					<ul class="todo-list">
+						<li *ngFor="let type of CarTypes" [class]="type">
+							<p>{{type}}</p>
+							<i></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Used Cars Bookings</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Date Order</th>
+								<th>Phone Number</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of CarsOrdersData">
+								<td>
+									<img src="https://placehold.co/600x400/png">
+									<p>{{item.Username}}</p>
+								</td>
+								<td>{{item.Orderdate}}</td>
+								<td>{{item.PhoneNumber}}</td>
+								<td><span class="status completed">{{item.OrderStatus}}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3></h3>
+						<i class='bx bx-plus icon'></i>
+						<i class='bx bx-filter'></i>
+
+					</div>
+					<ul class="todo-list">
+						<li *ngFor="let type of CarTypes" [class]="type">
+							<p>{{type}}</p>
+							<i class='bx bx-dots-vertical-rounded'></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+
+		<main *ngIf="SelectedPage == 'Our Motorbikes'">
+			<div class="head-title">
+				<div class="left">
+					<h1>Our Motorbikes</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="#">{{SelectedPage}}</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download bx-fade-down-hover'></i>
+					<span class="text">Get Your Pdf</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check'></i>
+					<span class="text">
+						<h3>{{MotorbikesOrders}}</h3>
+						<p>New Bookings</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group'></i>
+					<span class="text">
+						<h3>{{MotorbikesVisitors}}</h3>
+						<p>Visitors</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-dollar-circle'></i>
+					<span class="text">
+						<h3>{{MotorbikesTotal_Sales}}</h3>
+						<p>Total Sales</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>New Motorbikes Bookings</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Date Order</th>
+								<th>Phone Number</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of MotorbikesOrdersData">
+								<td>
+									<img src="https://placehold.co/600x400/png">
+									<p>{{item.Username}}</p>
+								</td>
+								<td>{{item.Orderdate}}</td>
+								<td>{{item.PhoneNumber}}</td>
+								<td><span class="status completed">{{item.OrderStatus}}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3></h3>
+						<i class='bx bx-plus icon'></i>
+						<i class='bx bx-filter'></i>
+
+					</div>
+					<ul class="todo-list">
+						<li *ngFor="let type of MotorbikesTypes" [class]="type">
+							<p>{{type}}</p>
+							<i></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Used Motorbikes Bookings</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Date Order</th>
+								<th>Phone Number</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of MotorbikesOrdersData">
+								<td>
+									<img src="https://placehold.co/600x400/png">
+									<p>{{item.Username}}</p>
+								</td>
+								<td>{{item.Orderdate}}</td>
+								<td>{{item.PhoneNumber}}</td>
+								<td><span class="status completed">{{item.OrderStatus}}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3></h3>
+						<i class='bx bx-plus icon'></i>
+						<i class='bx bx-filter'></i>
+
+					</div>
+					<ul class="todo-list">
+						<li *ngFor="let type of CarTypes" [class]="type">
+							<p>{{type}}</p>
+							<i class='bx bx-dots-vertical-rounded'></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+		<main *ngIf="SelectedPage == 'Our Trucks'">
+			<div class="head-title">
+				<div class="left">
+					<h1>Our Trucks</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="#">{{SelectedPage}}</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download bx-fade-down-hover'></i>
+					<span class="text">Get Your Pdf</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check'></i>
+					<span class="text">
+						<h3>{{TrucksOrders}}</h3>
+						<p>New bookings</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group'></i>
+					<span class="text">
+						<h3>{{TrucksVisitors}}</h3>
+						<p>Visitors</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-dollar-circle'></i>
+					<span class="text">
+						<h3>{{TrucksTotal_Sales}}</h3>
+						<p>Total Sales</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>New Trucks Bookings</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Date Order</th>
+								<th>Phone Number</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of TrucksOrdersData">
+								<td>
+									<img src="https://placehold.co/600x400/png">
+									<p>{{item.Username}}</p>
+								</td>
+								<td>{{item.Orderdate}}</td>
+								<td>{{item.PhoneNumber}}</td>
+								<td><span class="status {{item.OrderStatus}}">{{item.OrderStatus}}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3></h3>
+						<i class='bx bx-plus icon'></i>
+						<i class='bx bx-filter'></i>
+
+					</div>
+					<ul class="todo-list">
+						<li *ngFor="let type of TrucksTypes" [class]="type">
+							<p>{{type}}</p>
+							<i></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Used Trucks Bookings</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Date Order</th>
+								<th>Phone Number</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of TrucksOrdersData">
+								<td>
+									<img src="https://placehold.co/600x400/png">
+									<p>{{item.Username}}</p>
+								</td>
+								<td>{{item.Orderdate}}</td>
+								<td>{{item.PhoneNumber}}</td>
+								<td><span class="status completed">{{item.OrderStatus}}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3></h3>
+						<i class='bx bx-plus icon'></i>
+						<i class='bx bx-filter'></i>
+
+					</div>
+					<ul class="todo-list">
+						<li *ngFor="let type of CarTypes" [class]="type">
+							<p>{{type}}</p>
+							<i class='bx bx-dots-vertical-rounded'></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+
+
+		<main *ngIf="SelectedPage == 'Jop Application'">
+			<div class="head-title">
+				<div class="left">
+					<h1>Job Applications</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="#">{{SelectedPage}}</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download bx-fade-down-hover'></i>
+					<span class="text">Get Your Pdf</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check'></i>
+					<span class="text">
+						<h3></h3>
+						<p>New Applications</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group'></i>
+					<span class="text">
+						<h3></h3>
+						<p>Visitors</p>
+					</span>
+				</li>
+			</ul>
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Applications Files</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Driver</th>
+								<th>FaceID</th>
+								<th>DriverLicense</th>
+								<th>Front CarLicense</th>
+								<th>Back CarLicense</th>
+								<th>Criminal Record</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of Applicationfiles">
+								<td>
+									<p>{{item.Drivername}}</p>
+								</td>
+								<td>
+									<div class="imagecontainer">
+										<img [src]="item.FaceID" alt="Click to enlarge" class="fileimage"
+											(click)="openModal(item.FaceID)">
+									</div>
+								</td>
+								<td>
+									<div class="imagecontainer">
+										<img [src]="item.DriverLicense" alt="Click to enlarge" class="fileimage"
+											(click)="openModal(item.DriverLicense)">
+									</div>
+								</td>
+								<td>
+									<div class="imagecontainer">
+										<img [src]="item.FrontCarLicense" alt="Click to enlarge" class="fileimage"
+											(click)="openModal(item.FrontCarLicense)">
+									</div>
+								</td>
+								<td>
+									<div class="imagecontainer">
+										<img [src]="item.BackCarLicense" alt="Click to enlarge" class="fileimage"
+											(click)="openModal(item.BackCarLicense)">
+									</div>
+								</td>
+								<td>
+									<div class="imagecontainer">
+										<img [src]="item.Criminalrecord" alt="Click to enlarge" class="fileimage"
+											(click)="openModal(item.Criminalrecord)">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="todo">
+					<div class="head">
+						<h3></h3>
+						<i class='bx bx-plus icon'></i>
+						<i class='bx bx-filter'></i>
+
+					</div>
+					<ul class="todo-list">
+						<li *ngFor="let type of CarTypes" [class]="type">
+							<p>{{type}}</p>
+							<i></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Applications Personal Data</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Driver</th>
+								<th>Date Enroll</th>
+								<th>Phone Number</th>
+								<th>Status</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of Applications">
+								<td>
+									<p>{{item.Drivername}}</p>
+								</td>
+								<td>{{item.Enrolldate}}</td>
+								<td>{{item.PhoneNumber}}</td>
+								<td><span class="status completed">{{item.ApplicationStatus}}</span></td>
+								<td>
+									<button class="accept">Accept</button>
+									<button class="reject">Reject</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3></h3>
+						<i class='bx bx-plus icon'></i>
+						<i class='bx bx-filter'></i>
+
+					</div>
+					<ul class="todo-list">
+						<li *ngFor="let type of NewDriversData" [class]="type">
+							<p>{{type}}</p>
+							<i>{{type.number}}</i>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+
+		<main *ngIf="SelectedPage == 'Drivers'">
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="#">{{SelectedPage}}</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download bx-fade-down-hover'></i>
+					<span class="text">Get Your Pdf</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check'></i>
+					<span class="text">
+						<h3></h3>
+						<p>Drivers</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group'></i>
+					<span class="text">
+						<h3></h3>
+						<p>Avilable Now</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Our Drivers</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Driver</th>
+								<th>Phone Number</th>
+								<th>Start Date</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of Drivers">
+								<td>
+									<img src="https://placehold.co/600x400/png">
+									<p>{{item.Username}}</p>
+								</td>
+								<td>{{item.PhoneNumber}}</td>
+								<td><span class="status completed">{{item.OrderStatus}}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3></h3>
+						<i class='bx bx-plus icon'></i>
+						<i class='bx bx-filter'></i>
+
+					</div>
+					<ul class="todo-list">
+						<li *ngFor="let type of Governorates" [class]="type">
+							<p>{{type}}</p>
+							<i></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+		<main *ngIf="SelectedPage == 'Mangment'">
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="#">{{SelectedPage}}</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download bx-fade-down-hover'></i>
+					<span class="text">Get Your Pdf</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check'></i>
+					<span class="text">
+						<h3></h3>
+						<p>Admins</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group'></i>
+					<span class="text">
+						<h3></h3>
+						<p>Super Admins</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Avilable Permissions</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Permission</th>
+								<th>Section</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of Permissions">
+								<td>
+									<button *ngIf="item.permission == 'Create'" (click)="openCreateModal(item.section)"
+										[class]="item.permission">{{item.permission}}</button>
+									<button *ngIf="item.permission == 'Update'" (click)="openUpdateModal(item.section)"
+										[class]="item.permission">{{item.permission}}</button>
+									<button *ngIf="item.permission == 'Delete'" (click)="openDeleteModal(item.section)"
+										[class]="item.permission">{{item.permission}}</button>
+								</td>
+								<td>{{item.section}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3></h3>
+						<i class='bx bx-filter'></i>
+					</div>
+					<ul class="todo-list">
+						<li *ngFor="let permission of avilablepermissions" [class]="permission.class">
+							<p>{{permission.type}}</p>
+							<i></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+
+		<main *ngIf="SelectedPage == 'Admin Operations'">
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="#">{{SelectedPage}}</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download bx-fade-down-hover'></i>
+					<span class="text">Get Your Pdf</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check'></i>
+					<span class="text">
+						<h3></h3>
+						<p>Admins</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-group'></i>
+					<span class="text">
+						<h3></h3>
+						<p>Super Admins</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Admin Operations</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Admin Name</th>
+								<th>Section</th>
+								<th>Action Name</th>
+								<th>Action Date</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of AdminOperation">
+								<td>
+									<p>{{item.Adminname}}</p>
+								</td>
+								<td>{{item.section}}</td>
+								<td>{{item.Actionname}}</td>
+								<td>{{item.Actiondate}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+
+		<main *ngIf="SelectedPage == 'User Mangment'">
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="#">{{SelectedPage}}</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download bx-fade-down-hover'></i>
+					<span class="text">Get Your Pdf</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check'></i>
+					<span class="text">
+						<h3></h3>
+						<p>Users</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Users</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>User Name</th>
+								<th>Email</th>
+								<th>Phone Number</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of Users">
+								<td>
+									<p>{{item.Username}}</p>
+								</td>
+								<td>{{item.Email}}</td>
+								<td>{{item.Phonenumber}}</td>
+								<td><button class="reject">Block</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+		<main *ngIf="SelectedPage == 'Complaints'">
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class='bx bx-chevron-right'></i></li>
+						<li>
+							<a class="active" href="#">{{SelectedPage}}</a>
+						</li>
+					</ul>
+				</div>
+				<a href="#" class="btn-download">
+					<i class='bx bxs-cloud-download bx-fade-down-hover'></i>
+					<span class="text">Get Your Pdf</span>
+				</a>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar-check'></i>
+					<span class="text">
+						<h3></h3>
+						<p>Complaints</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>User Complaints</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Submit Date</th>
+								<th>Phone Number</th>
+								<th>Section</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of Complaints">
+								<td>
+									<p>{{item.Username}}</p>
+								</td>
+								<td>{{item.Submitdate}}</td>
+								<td>{{item.PhoneNumber}}</td>
+								<td>{{item.Section}}</td>
+								<td><span class="status completed">{{item.status}}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3></h3>
+						<i class='bx bx-plus icon'></i>
+						<i class='bx bx-filter'></i>
+
+					</div>
+					<ul class="todo-list">
+						<li *ngFor="let type of ComplaintsSection" [class]="type">
+							<p>{{type}}</p>
+							<i></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>User Comments</h3>
+						<i class='bx bx-search'></i>
+						<i class='bx bx-filter'></i>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Submit Date</th>
+								<th>Phone Number</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of Comments">
+								<td>
+									<p>{{item.Username}}</p>
+								</td>
+								<td>{{item.Submitdate}}</td>
+								<td>{{item.PhoneNumber}}</td>
+								<td><span class="status completed">{{item.status}}</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+		<!-- MAIN -->
+	</section>
+</body>
+
+</html>

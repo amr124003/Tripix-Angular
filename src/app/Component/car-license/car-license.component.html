@@ -1,0 +1,58 @@
+<div class="main-container">
+    <div class="header-section">
+        <h1 class="gradient-text">Add Your Car License</h1>
+        <div class="instructions-box">
+            <ul class="instructions">
+                <li>Ensure that your license is <b>valid</b> and the image is clear.</li>
+                <li>The text should be <b>readable</b> without blurriness or glare.</li>
+                <li>Only upload images in <b>JPG, PNG, or PDF</b> format.</li>
+                <li>Avoid cropped or partially visible documents.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="upload-section">
+            <div class="upload-container">
+                <h2>Front side</h2>
+                <div class="drop-zone" [class.dragging]="isDragging1" 
+                    (dragover)="onDragOver1($event)" 
+                    (dragleave)="onDragLeave1()" 
+                    (drop)="onFileDropped1($event)">
+                    <p *ngIf="!previewUrl1">Drag the image here or click to select a file</p>
+                    <img *ngIf="previewUrl1" [src]="previewUrl1" alt="Preview">
+                </div>
+                <input type="file" (change)="onFileSelected1($event)" hidden #fileInput1>
+                <button (click)="fileInput1.click()" class="upload-btn">Choose File</button>
+                <div class="ocr-container">
+                    <div *ngIf="isProcessing1" class="loading"></div>
+                    <div *ngIf="extractedData1" class="result-box">
+                        <h3>Extracted Data:</h3>
+                        <pre>{{ extractedData1 }}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="upload-container">
+                <h2>Back side</h2>
+                <div class="drop-zone" [class.dragging]="isDragging2" 
+                    (dragover)="onDragOver2($event)" 
+                    (dragleave)="onDragLeave2()" 
+                    (drop)="onFileDropped2($event)">
+                    <p *ngIf="!previewUrl2">Drag the image here or click to select a file</p>
+                    <img *ngIf="previewUrl2" [src]="previewUrl2" alt="Preview">
+                </div>
+                <input type="file" (change)="onFileSelected2($event)" hidden #fileInput2>
+                <button (click)="fileInput2.click()" class="upload-btn">Choose File</button>
+                <div class="ocr-container">
+                    <div *ngIf="isProcessing2" class="loading"></div>
+                    <div *ngIf="extractedData2" class="result-box">
+                        <h3>Extracted Data:</h3>
+                        <pre>{{ extractedData2 }}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button (click)="confirm()" class="upload-btn1" *ngIf="extractedData2 && extractedData1">Save</button>
+</div>
