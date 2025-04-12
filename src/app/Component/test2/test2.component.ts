@@ -1,7 +1,10 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { AfterViewInit, Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import Tesseract from 'tesseract.js';
+
+
+declare var google: any;  // إعلان `google` لتجنب أخطاء الـ TypeScript
 
 
 @Component({
@@ -10,60 +13,39 @@ import Tesseract from 'tesseract.js';
   templateUrl: './test2.component.html',
   styleUrl: './test2.component.css'
 })
-export class Test2Component  {
-   selectedFile: File | null = null;
-  previewUrl: string | ArrayBuffer | null = null;
-  isDragging = false;
-  extractedData: string = '';
-  isProcessing: boolean = false;
+export class Test2Component  implements AfterViewInit {
 
-  onFileDropped(event: DragEvent) {
-    event.preventDefault();
-    this.isDragging = false;
-    if (event.dataTransfer && event.dataTransfer.files.length > 0) {
-      this.processFile(event.dataTransfer.files[0]);
+  constructor(private http: HttpClient) {}
+
+  ngAfterViewInit(): void {
+    // تأكيد تحميل مكتبة Google Identity Services
+    if (typeof google !== 'undefined') {
+      google.accounts.id.initialize({
+        client_id: "1043954645475-7nninb1a3ddm67tb23k5v50hodrgjpai.apps.googleusercontent.com",
+        callback: this.handleCredentialResponse.bind(this)
+      });
+
+      google.accounts.id.renderButton(
+        document.getElementById('googleSignInButton'),
+        { theme: 'outline', size: 'large' }
+      );
     }
   }
 
-  onDragOver(event: DragEvent) {
-    event.preventDefault();
-    this.isDragging = true;
-  }
-
-  onDragLeave() {
-    this.isDragging = false;
-  }
-
-  onFileSelected(event: any) {
-    if (event.target.files.length > 0) {
-      this.processFile(event.target.files[0]);
-    }
-  }
-
-  processFile(file: File) {
-    if (file.type.startsWith('image/')) {
-      this.selectedFile = file;
-      const reader = new FileReader();
-      reader.onload = (e) => this.previewUrl = reader.result;
-      reader.readAsDataURL(file);
-      this.extractText(file);
-    }
-  }
-
-  extractText(file: File) {
-    this.isProcessing = true;
-    Tesseract.recognize(
-      file,
-      'eng+ara', // دعم اللغتين الإنجليزية والعربية
-      {
-        logger: (m) => console.log(m) // لعرض تقدم التحليل في الكونسول
-      }
-    ).then(({ data: { text } }) => {
-      this.extractedData = text;
-      this.isProcessing = false;
-    }).catch(error => {
-      console.error('Error during OCR processing:', error);
-      this.isProcessing = false;
-    });
+  handleCredentialResponse(response: any) {
+    console.log("Google Token:", response.credential);
+    
+    // إرسال التوكن للـ API للتحقق منه
+    this.http.post('https://localhost:7012/api/Auth/GoogleLogin', { tokenID: response.credential })
+      .subscribe({
+        next:(res) => 
+        {
+          console.log(res);
+        },
+        error:(error) => 
+        {
+          console.log(error);
+        }
+      });
   }
 }

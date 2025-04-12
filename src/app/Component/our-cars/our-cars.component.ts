@@ -1,16 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, ViewChild, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import gsap from 'gsap';
 
 @Component({
   selector: 'app-our-cars',
   templateUrl: './our-cars.component.html',
-  imports : [CommonModule , FormsModule],
+  imports: [CommonModule, FormsModule,RouterLink,RouterLinkActive],
   styleUrls: ['./our-cars.component.css'],
-  schemas : [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class OurCarsComponent implements AfterViewInit , OnInit {
+export class OurCarsComponent implements AfterViewInit, OnInit {
   @ViewChild('categoryContainer') categoryContainer!: ElementRef;
 
   isDragging = false;
@@ -20,8 +21,10 @@ export class OurCarsComponent implements AfterViewInit , OnInit {
   animationFrame: any;
   nextElementSibling: any;
   classList: any;
+  toastpoen = true;
+  
 
-  constructor() {}
+  constructor(private router: ActivatedRoute) { }
 
   //////////////////////////////////////////////////////////////////////////////
   filterType = 'all';
@@ -36,6 +39,25 @@ export class OurCarsComponent implements AfterViewInit , OnInit {
   searchQuery: string = '';
   filteredBrands: any[] = [];
   step: number = 1000; // مقدار الزيادة عند الضغط على + و -
+  ProductsLoading = true;
+  currentPage: number = 1;
+  totalPages: number = 5; // غير الرقم حسب عدد الصفحات الحقيقي
+  fuelTypes: string[] = ['Benzine', 'Diesel', 'Electric', 'Hybrid'];  // Types of fuel
+  bodyTypes: string[] = ['Sedan', 'Coupe', 'Hatchback', 'SUV'];  // Types of fuel
+  selectedFuelTypes: { [key: string]: boolean } = {
+    'Benzine': false,
+    'Diesel': false,
+    'Electric': false,
+    'Hybrid': false
+  };
+  selectedBodyTypes: { [key: string]: boolean } = {
+    'Sedan': false,
+    'Coupe': false,
+    'Hatchback': false,
+    'SUV': false
+  };
+  
+  
 
   brands = [
     { name: 'كل الماركات', logo: '', options: [], expanded: false },
@@ -48,6 +70,50 @@ export class OurCarsComponent implements AfterViewInit , OnInit {
 
   ngOnInit(): void {
     this.filteredBrands = [...this.brands]; // تخزين كل البيانات الأصلية
+
+    setTimeout(() => {
+      this.ProductsLoading = false;
+    }, 5000);
+
+    this.router.queryParams.subscribe((params) => {
+      console.log(params['type']);
+    });
+
+  }
+
+  get totalPagesArray(): number[] {
+    return Array(this.totalPages).fill(0);
+  }
+  
+  goToPage(page: number): void {
+    this.currentPage = page;
+    // نادِ دالة تجيب الداتا على حسب الصفحة المختارة
+  }
+
+  filterCarsByFuel() {
+    // هنا يمكن إضافة الكود اللازم لتصفية السيارات حسب الوقود
+    console.log('Selected Fuel Types:', this.selectedFuelTypes);
+  }
+
+  filterCarsByBodyType() {
+    // هنا يمكن إضافة الكود اللازم لتصفية السيارات حسب الوقود
+    console.log('Selected Fuel Types:', this.selectedBodyTypes);
+  }
+
+  toggleFuelSelection(fuel: string): void {
+    this.selectedFuelTypes[fuel] = !this.selectedFuelTypes[fuel];
+    this.filterCarsByFuel(); // لو عندك فلترة بناء على نوع الوقود
+  }
+
+  toggleBodytypeSelection(type: string): void {
+    this.selectedBodyTypes[type] = !this.selectedBodyTypes[type];
+    this.filterCarsByBodyType(); // لو عندك فلترة بناء على نوع الوقود
+  }
+
+  getSelectedBodyTypes(): string[] {
+    return Object.entries(this.selectedBodyTypes)
+      .filter(([key, value]) => value)
+      .map(([key]) => key);
   }
 
   filterBrands() {
@@ -120,6 +186,10 @@ export class OurCarsComponent implements AfterViewInit , OnInit {
     }
   }
 
+  closetoast() {
+    this.toastpoen = false;
+  }
+
   updatePrice(target: 'min' | 'max', value: number) {
     this.priceChanging = true;
     const startValue = target === 'min' ? this.animatedMinPrice : this.animatedMaxPrice;
@@ -170,7 +240,7 @@ export class OurCarsComponent implements AfterViewInit , OnInit {
     this.selectedBrand = brand;
   }
   ///////////////////////////////////////////////////////////////////////////////
- 
+
 
   ngAfterViewInit(): void {
     const container = this.categoryContainer.nativeElement;
@@ -261,7 +331,7 @@ export class OurCarsComponent implements AfterViewInit , OnInit {
   dragging(event: MouseEvent, container: HTMLElement) {
     if (!this.isDragging) return;
     event.preventDefault();
-    
+
     const x = event.pageX - container.offsetLeft;
     const walk = (x - this.startX) * 2; // التحكم في سرعة السحب
     container.scrollLeft = this.scrollLeft - walk;

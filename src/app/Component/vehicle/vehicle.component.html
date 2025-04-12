@@ -1,0 +1,171 @@
+<body class="block-center-center">
+  <!-- Navbar جديد -->
+  <nav class="navbar">
+    <div class="logo">Tripix</div>
+    <ul class="nav-links">
+        <li *ngFor="let link of navLinks">
+            <a  class="nav-link">
+                <span>{{ link.name }}</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+  <section class="Product inline-center-center">
+      <!-- Carousel للصور -->
+      <div class="Visual block-center-center carousel" style="width: 600px;">
+          <button class="arrow left" (click)="prevImage()">❮</button>
+          <div class="carousel-inner">
+            <picture class="active">
+                <source srcset="https://raw.githubusercontent.com/mobalti/open-props-interfaces/main/product-details/images/img-1.avif" type="image/avif"/>
+                <img src="../../../assets/images/1.png" alt="car image"/>
+            </picture>
+            <picture>
+                <source srcset="https://raw.githubusercontent.com/mobalti/open-props-interfaces/main/product-details/images/img-2.avif" type="image/avif"/>
+                <img src="../../../assets/images/1.png" alt="car interior"/>
+            </picture>
+          </div>
+          <button class="arrow right" (click)="nextImage()">❯</button>
+      </div>
+
+      <form action="" class="Form block-start-start gap-4">
+          <h3>CHEETAH GLAM HOODIE</h3>
+
+          <div class="PriceBox">
+              <div class="DiscountedPrice">$80.00</div>
+            <div class="OriginalPrice">$100.00</div>
+          </div>
+          
+
+          <!-- بدل الـ Sizes - مواصفات جديدة -->
+          <div class="specs">
+              <div class="spec-item">
+                  <i class="fas fa-road"></i>
+                  <span>50,000 km</span>
+              </div>
+              <div class="spec-item">
+                <i class="fa-solid fa-car-on"></i>
+                  <span>Excellent</span>
+              </div>
+              <div class="spec-item">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>2020</span>
+              </div>
+              <div class="spec-item">
+                  <i class="fas fa-gas-pump"></i>
+                  <span>Petrol</span>
+              </div>
+          </div>
+        
+          <!-- Pre-Order Button -->
+          <button class="Button Primary" id="orderBtn" (click)="openModal()">Book Now</button>
+      </form>
+      
+  </section>
+  <div class="specs-safety-container">
+    <div class="specs-container">
+      <div class="specs-column">
+        <div class="spec-item">
+          <span>Model: <strong>Camry</strong></span>
+        </div>
+        <div class="spec-item">
+          <span>Brand: <strong>Toyota</strong></span>
+        </div>
+        <div class="spec-item">
+          <span>Year: <strong>2020</strong></span>
+        </div>
+        <div class="spec-item">
+            <span>Year: <strong>2020</strong></span>
+        </div>
+        <div class="spec-item">
+            <span>Year: <strong>2020</strong></span>
+        </div>
+      </div>
+      <div class="specs-column">
+        <div class="spec-item">
+          <span>Transmission: <strong>Automatic</strong></span>
+        </div>
+        <div class="spec-item">
+          <span>Engine: <strong>2.5L</strong></span>
+        </div>
+        <div class="spec-item">
+          <span>Mileage: <strong>50,000 km</strong></span>
+        </div>
+        <div class="spec-item">
+            <span>Mileage: <strong>50,000 km</strong></span>
+        </div>
+        <div class="spec-item">
+            <span>Mileage: <strong>50,000 km</strong></span>
+        </div>
+      </div>
+    </div>
+  
+    <div class="safety-box">
+      <h4>Your safety matters to us!</h4>
+      <ul>
+        <li>Only meet in public / crowded places (e.g. metro stations and malls).</li>
+        <li>Never go alone to meet a buyer / seller. Always take someone with you.</li>
+        <li>Check and inspect the product properly before purchasing it.</li>
+        <li>Never pay anything in advance or transfer money before inspection.</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="desc-map-container">
+    <div class="description-box">
+      <p class="description">JUMBO SCREENPRINTED GRAPHIC</p>
+    </div>
+  
+    <div class="map-box">
+      <div id="map" style="height: 400px; border-radius: 10px;"></div>
+    </div>
+  </div>
+
+  <!-- قسم المواصفات الجديد -->
+
+  <!-- Modal جديد -->
+  <div class="overlay" *ngIf="showModal" (click)="closeModal()"></div>
+
+    <!-- Form Container with animation -->
+    <div class="form-container" *ngIf="showModal">
+        <div class="form-content" *ngIf="!isSubmitted">
+            <h2 style="margin-left: 140px;">Book Your Car</h2>
+            <form (ngSubmit)="onSubmit1()" [formGroup]="bookingForm1">
+                <div class="input-container" >
+                    <label for="name">Name</label>
+                    <input id="name" type="text" placeholder="Enter Your Name" formControlName="name">
+                    <div *ngIf="bookingForm1.get('name')?.invalid && bookingForm1.get('name')?.touched" class="error">
+                        <span *ngIf="bookingForm1.get('name')?.errors?.['required']"> Card number is required.</span>
+                        <span *ngIf="bookingForm1.get('name')?.errors?.['minlength']">Name Must be greater than 3 letters</span>
+                        <span *ngIf="bookingForm1.get('name')?.errors?.['maxlength']">Name Must be smaller than 20 letters</span>
+                        <span *ngIf="bookingForm1.get('name')?.errors?.['pattern']">Invalid Name</span>
+                    </div>
+
+                    <label for="phone">Phone</label>
+                    <input id="phone" type="text" placeholder="Enter Your Phone" formControlName="phone">
+                    <div *ngIf="bookingForm1.get('phone')?.invalid && bookingForm1.get('phone')?.touched" class="error">
+                        <span *ngIf="bookingForm1.get('phone')?.errors?.['required']">Phone number is required.</span>
+                        <span *ngIf="bookingForm1.get('phone')?.errors?.['pattern']">Invalid phone number.</span>
+                    </div>
+
+                    <label for="date">Date</label>
+                    <input id="date" type="date" formControlName="date">
+                    <div *ngIf="bookingForm1.get('date')?.invalid && bookingForm1.get('date')?.touched" class="error">
+                        <span *ngIf="bookingForm1.get('date')?.errors?.['required']">Date is required.</span>
+                        <span *ngIf="bookingForm1.get('date')?.errors?.['min']">Invalid Date</span>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                <button type="submit" [disabled]="bookingForm1.invalid">Submit</button>
+                </div>
+            </form>
+                              
+        </div>
+
+        <!-- Success Message with Animation -->
+        <div *ngIf="isSubmitted" class="success-message">
+            <ion-icon name="checkmark-circle"></ion-icon> Car Is Booked!
+        </div>
+
+    </div>
+</body>

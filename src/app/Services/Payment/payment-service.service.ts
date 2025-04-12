@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class PaymentServiceService {
 
-  private addcardurl = 'https://localhost:7012/api/Payment/add-card'; // ضع رابط الـ API الفعلي هنا
+  private addcardurl = 'https://tripix.runasp.net/api/Payment/add-card'; // ضع رابط الـ API الفعلي هنا
   private getCardsurl = 'https://localhost:7012/api/Payment/get-cards'; // ضع رابط الـ API الفعلي هنا
 
   constructor(private http: HttpClient) {}

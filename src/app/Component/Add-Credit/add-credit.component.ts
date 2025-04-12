@@ -4,11 +4,11 @@ import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModu
 import { PaymentServiceService } from '../../Services/Payment/payment-service.service';
 
 @Component({
-  selector: 'app-test4',
+  selector: 'app-add-credit',
   standalone: true,
   imports: [FormsModule, CommonModule, ReactiveFormsModule],
-  templateUrl: './test4.component.html',
-  styleUrl: './test4.component.css',
+  templateUrl: './add-credit.component.html',
+  styleUrl: './add-credit.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class Test4Component implements OnInit {

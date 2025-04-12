@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, ViewChild , ElementRef} from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import * as L from 'leaflet';
 import { HttpClientModule } from '@angular/common/http'; // ✅ استيراد HttpClientModule
 import 'leaflet-routing-machine';
+import { log } from 'console';
 
 
 
@@ -12,19 +13,20 @@ import 'leaflet-routing-machine';
 
 @Component({
   selector: 'app-tripbook',
-  imports: [FormsModule, CommonModule, HttpClientModule],
+  imports: [FormsModule, CommonModule, HttpClientModule,ReactiveFormsModule],
   templateUrl: './tripbook.component.html',
   styleUrl: './tripbook.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TripbookComponent implements AfterViewInit, OnInit {
+  rideForm: FormGroup;
   private map!: L.Map;
   private userMarker!: L.Marker;
   isModalOpen = false;
   private defaultLocation: L.LatLngExpression = [30.0444, 31.2357]; // موقع افتراضي (القاهرة)
   startLocation: string = '';
   destination: string = '';
-  private selectedMarker!: L.Marker;
+  private selectedMarker: L.Marker | null = null;
   private selectedMarker2 : L.Marker<any> | null = null;
   showStartSuggestions: boolean = false;
   showDestinationSuggestions: boolean = false;
@@ -57,8 +59,55 @@ export class TripbookComponent implements AfterViewInit, OnInit {
   private endMarker!: L.Marker;
   
 
-  constructor(private http: HttpClient ) {
+  constructor(private http: HttpClient , private fb: FormBuilder) {
+    this.rideForm = this.fb.group({
+      passengerType: ['me', Validators.required],
+      firstName: [''],
+      lastName: [''],
+      phone: ['']
+    });
+  }
+
+  TripOrder = {
+    pickupLocation: '',
+    destinationLocation: '',
+    dateTime: '',
+    passengerType: '',
+    firstName: '',
+    lastName: '',
+    phone: ''
+  }
+  // عند تغيير نوع الركاب
+ 
+  onSubmit() {
+
+    if (this.isForSomeoneElse) {
+      this.rideForm.get('firstName')?.markAsTouched();
+      this.rideForm.get('lastName')?.markAsTouched();
+      this.rideForm.get('phone')?.markAsTouched();
+    }
+
+
+  
+    if (this.isForSomeoneElse && this.rideForm.invalid) {
+      return; // مش هيكمل التنفيذ وهيظهر الأخطاء
+    }
+
     
+    if (this.rideForm.valid) {
+      // عند إرسال النموذج
+      console.log(this.rideForm.value);
+    }
+  }
+
+  validateForm() {
+    console.log('Form submitted:', this.rideForm.value);
+    if (this.isForSomeoneElse) {
+      
+      this.rideForm.get('firstName')?.markAsTouched();
+      this.rideForm.get('lastName')?.markAsTouched();
+      this.rideForm.get('phone')?.markAsTouched();
+    }
   }
 
   hideSuggestions(type: 'start' | 'destination'): void {
@@ -113,12 +162,15 @@ export class TripbookComponent implements AfterViewInit, OnInit {
           this.selectedMarker2 = null;
         }
         this.updatePickupLocation();
+        this.getCurrentLocation();
+        this.drawRoute1(this.userMarker.getLatLng(), this.selectedMarker!.getLatLng());
         this.showStartSuggestions = false;
       });
     
   }
 
   private getCurrentLocation(): void {
+    this.startLocation = '';
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -161,7 +213,7 @@ export class TripbookComponent implements AfterViewInit, OnInit {
             this.userMarker.on('dragend', (event: any) => {
               const newCoords = event.target.getLatLng();
               this.startLocation = this.address;
-              this.drawRoute1(this.userMarker.getLatLng(), this.selectedMarker.getLatLng());
+              this.drawRoute1(this.userMarker.getLatLng(), this.selectedMarker!.getLatLng());
             });
           }
         },
@@ -194,11 +246,14 @@ export class TripbookComponent implements AfterViewInit, OnInit {
         icon : customIcon1
       }).addTo(this.map);
 
+      this.map.removeLayer(this.userMarker);
+
       this.selectedMarker2.on('dragend',(event:L.DragEndEvent) => 
       {
         this.selectedType = 'start';
         this.updateInputWithMarker(this.selectedMarker2!.getLatLng())
       })
+      this.drawRoute2(this.selectedMarker2.getLatLng(), this.selectedMarker!.getLatLng())
     }
 
     const customIcon2 = L.icon({
@@ -220,7 +275,7 @@ export class TripbookComponent implements AfterViewInit, OnInit {
         this.updateInputWithMarker(this.selectedMarker!.getLatLng());
       });
     }
-    this.map.setView(this.selectedMarker.getLatLng(), 15);
+    this.map.setView(this.selectedMarker!.getLatLng(), 15);
   }
 
   drawRoute1(start: L.LatLngExpression, end: L.LatLngExpression) {
@@ -318,6 +373,29 @@ export class TripbookComponent implements AfterViewInit, OnInit {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // التأكد أن الرقم مكون من خانتين
     const day = String(today.getDate()).padStart(2, '0'); // التأكد أن الرقم مكون من خانتين
     this.minDate = `${year}-${month}-${day}`;
+
+     // راقب تغيير passengerType
+     this.rideForm.get('passengerType')?.valueChanges.subscribe(value => {
+      if (value === 'someoneElse') {
+        this.isForSomeoneElse = true;
+        this.rideForm.get('firstName')?.setValidators(Validators.required);
+        this.rideForm.get('lastName')?.setValidators(Validators.required);
+        this.rideForm.get('phone')?.setValidators([
+          Validators.required,
+          Validators.pattern('^[0-9]{10}$') // التحقق من أن الرقم مكون من 10 أرقام
+        ]);
+      } else {
+        this.isForSomeoneElse = false;
+        this.rideForm.get('firstName')?.clearValidators();
+        this.rideForm.get('lastName')?.clearValidators();
+        this.rideForm.get('phone')?.clearValidators();
+      }
+
+      // تحديث القيم بعد تغيير الفاليديشن
+      this.rideForm.get('firstName')?.updateValueAndValidity();
+      this.rideForm.get('lastName')?.updateValueAndValidity();
+      this.rideForm.get('phone')?.updateValueAndValidity();
+    });
   }
 
   getSuggestions(type: string): void {
@@ -391,7 +469,7 @@ export class TripbookComponent implements AfterViewInit, OnInit {
           this.pickupLocation = coords;
           this.userMarker.setLatLng(coords);
           this.map.setView(coords, 14);
-          this.drawRoute1(this.userMarker.getLatLng(),this.selectedMarker.getLatLng());
+          this.drawRoute1(this.userMarker.getLatLng(),this.selectedMarker!.getLatLng());
           this.calculateRoute();
         }
       });
@@ -403,7 +481,7 @@ export class TripbookComponent implements AfterViewInit, OnInit {
           this.pickupLocation = coords;
           this.selectedMarker2!.setLatLng(coords);
           this.map.setView(coords, 14);
-          this.drawRoute2(this.selectedMarker2!.getLatLng(),this.selectedMarker.getLatLng());
+          this.drawRoute2(this.selectedMarker2!.getLatLng(),this.selectedMarker!.getLatLng());
           this.calculateRoute();
         }
       });
@@ -433,13 +511,21 @@ export class TripbookComponent implements AfterViewInit, OnInit {
   updateDestinationLocation() {
     this.selectFromMap('destination');
     const address = this.destinationInput.nativeElement.value;
+    if(address == '')
+    {
+      this.map.removeLayer(this.selectedMarker!);  
+      this.selectedMarker = null;
+      if (this.routingControl) {
+        this.map.removeControl(this.routingControl); // إزالة المسار القديم إن وجد
+      }
+    }
     this.getCoordinatesFromAddress(address).then((coords) => {
       if (coords) {
         this.destinationLocation = coords;
-        this.selectedMarker.setLatLng(coords);
+        this.selectedMarker!.setLatLng(coords);
         console.log('hi');
         this.map.setView(coords, 14);
-        this.drawRoute1(this.userMarker.getLatLng(),this.selectedMarker.getLatLng());
+        this.drawRoute1(this.userMarker.getLatLng(),this.selectedMarker!.getLatLng());
         this.calculateRoute();
       }
     });
@@ -525,12 +611,11 @@ export class TripbookComponent implements AfterViewInit, OnInit {
   passengerType: string = 'me'; // القيمة الافتراضية "لي"
   isForSomeoneElse = false;
 
-  firstName: string = '';
-  lastName: string = '';
-  phone: string = '';
+  
 
   onPassengerTypeChange() {
-    this.isForSomeoneElse = this.passengerType === 'someoneElse';
+    console.log('Passenger type changed:', this.rideForm.get('passengerType')?.value);
+    this.isForSomeoneElse = this.rideForm.get('passengerType')?.value === 'someoneElse';
   }
 
   deletemarker(event:any)

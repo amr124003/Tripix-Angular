@@ -11,7 +11,7 @@
 <body style="background-image: url('../../../assets/images/jimmy-woo-uotuURAyPGI-unsplash.jpg');">
   <div class="container" #container>
     <div class="form-box login" *ngIf="!register">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
         <h1 class="header">Login</h1>
 
         <div class="input-box">
@@ -28,6 +28,8 @@
           <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
             <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</span>
             <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Must be at least 8 characters.</span>
+            <span *ngIf="loginForm.get('password')?.errors?.['maxlength']">Maximum is 25 Characters.</span>
+            
             <span *ngIf="loginForm.get('password')?.errors?.['invalidPassword']">
               Password must contain at least:
               <ul class="password-checklist" *ngIf="loginForm.get('password')?.touched">
@@ -38,28 +40,38 @@
               </ul>
             </span>
           </div>
+          <div class="error">
+            <span *ngIf="Loginerrormessageshow">{{Loginerrormessage}}</span>
+          </div>
+        </div>
+
+        <div class="remember-me">
+          <input type="checkbox" id="rememberMe" formControlName="rememberMe" >
+          
+          <label for="rememberMe" class="animated-checkbox">
+            <span class="checkmark"></span> <span class="remember-me">Remember Me</span>
+          </label>
         </div>
 
         <div class="forgot-link">
-          <a href="#" (click)="openOtpModal($event)">Forgot Password?</a>
+          <a href="#" (click)="forgetPassword($event)">Forgot Password?</a>
         </div>
 
         <button type="submit" class="btn" [disabled]="loginForm.invalid">Login</button>
 
         <p>or login with social platforms</p>
         <div class="social-icons">
-          <a href="#"><i class='bx bxl-google'></i></a>
-          <a href="#"><i class='bx bxl-facebook'></i></a>
-          <a href="#"><i class='bx bxl-github'></i></a>
-          <a href="#"><i class='bx bxl-linkedin'></i></a>
+          <a id="googleSignInButton"></a>
         </div>
       </form>
     </div>
 
+    
+
 
 
     <div class="form-box register" *ngIf="register">
-      <form action="#" [formGroup]="RegisterForm" (ngSubmit)="onSubmit()">
+      <form action="#" [formGroup]="RegisterForm" (ngSubmit)="onRegisterSubmit()">
         <h1 class="header">Registration</h1>
         <div class="input-box">
           <input type="email" formControlName="username" placeholder="Username">
@@ -77,14 +89,31 @@
             <span *ngIf="RegisterForm.get('email')?.errors?.['email']">⚠️ Invalid email format</span>
             <span *ngIf="RegisterForm.get('email')?.errors?.['invalidEmailDomain']">⚠️ Email must end with .com or .net</span>
           </div>
-          
         </div>
+
+        <div class="input-box">
+          <input type="text" formControlName="phone" placeholder="Phone">
+          <div *ngIf="RegisterForm.get('phone')?.invalid && RegisterForm.get('phone')?.touched" class="error">
+            <span *ngIf="RegisterForm.get('phone')?.errors?.['required']">⚠️ Email is required</span>
+            <span *ngIf="RegisterForm.get('phone')?.errors?.['pattern']">⚠️ Invalid email format</span>
+          </div>
+        </div>
+
         <div class="input-box">
           <input type="password" formControlName="password" placeholder="Password">
           <div *ngIf="RegisterForm.get('password')?.invalid && RegisterForm.get('password')?.touched" class="error">
-            <span *ngIf="RegisterForm.get('password')?.errors?.['required']">⚠️ Password is required</span>
-            <span *ngIf="RegisterForm.get('password')?.errors?.['minlength']">⚠️ Minimum 8 characters</span>
-            <span *ngIf="RegisterForm.get('password')?.errors?.['weakPassword']">⚠️ Password must contain Uppercase, Lowercase, Number & Special Character</span>
+            <span *ngIf="RegisterForm.get('password')?.errors?.['required']">Password is required.</span>
+            <span *ngIf="RegisterForm.get('password')?.errors?.['minlength']">Must be at least 8 characters.</span>
+            <span *ngIf="RegisterForm.get('password')?.errors?.['maxlength']">Maximum is 25 Characters.</span>
+            <span *ngIf="RegisterForm.get('password')?.errors?.['invalidPassword']">
+              Password must contain at least:
+              <ul class="password-checklist" *ngIf="RegisterForm.get('password')?.touched">
+                <li *ngIf="!hasUpperCase()">One uppercase letter (A-Z).</li>
+                <li *ngIf="!hasLowerCase()">One lowercase letter (a-z).</li>
+                <li *ngIf="!hasNumber()">One number (0-9).</li>
+                <li *ngIf="!hasSpecialChar()">One special character (&#64;#$%^&*).</li>
+              </ul>
+            </span>
           </div>
           
         </div>
@@ -98,12 +127,9 @@
           </div>
         </div>
         <button type="submit" class="btn" [disabled]="RegisterForm.invalid">Register</button>
-        <p>or register with social platforms</p>
+        <p>or login with social platforms</p>
         <div class="social-icons">
-          <a href="#"><i class='bx bxl-google'></i></a>
-          <a href="#"><i class='bx bxl-facebook'></i></a>
-          <a href="#"><i class='bx bxl-github'></i></a>
-          <a href="#"><i class='bx bxl-linkedin'></i></a>
+          <a id="googleSignInButton"></a>
         </div>
       </form>
     </div>
@@ -125,33 +151,83 @@
 
   <div class="modal" *ngIf="isOtpModalOpen">
     <div class="modal-content">
-      <span class="close-icon" (click)="closeModal()">&#10006;</span> <!-- ❌ زرار الإغلاق -->
+      <span class="close-icon" (click)="closeforgetModal()">&#10006;</span> <!-- ❌ زرار الإغلاق -->
       <div class="Otpheader">
         <h4>Technical support has sent you a Reset Password Code to your email. Please check the latest messages sent to
           the registered email.</h4>
       </div>
       <h2>Enter OTP</h2>
-      <form [formGroup]="OTPForm">
+      <form [formGroup]="forgetOTPForm">
         <div class="otp-container">
-          <input type="text" maxlength="1" [(ngModel)]="otp[0]" formControlName="otp0" (input)="moveToNext($event, 0)"
-            [class.animated]="otp[0]" [class.invalid]="OTPForm.get('otp0')?.invalid && OTPForm.get('otp0')?.touched"
-            (blur)="onInputFocus()" (keydown)="moveToNext($event, 0)" (paste)="handlePaste($event)">
-          <input type="text" maxlength="1" [(ngModel)]="otp[1]" formControlName="otp1" (input)="moveToNext($event, 1)"
-            [class.animated]="otp[1]" [class.invalid]="OTPForm.get('otp1')?.invalid && OTPForm.get('otp1')?.touched"
-            (blur)="onInputFocus()" (keydown)="moveToNext($event, 1)" (paste)="handlePaste($event)">
-          <input type="text" maxlength="1" [(ngModel)]="otp[2]" formControlName="otp2" (input)="moveToNext($event, 2)"
-            [class.animated]="otp[2]" [class.invalid]="OTPForm.get('otp02')?.invalid && OTPForm.get('otp2')?.touched"
-            (blur)="onInputFocus()" (keydown)="moveToNext($event, 2)" (paste)="handlePaste($event)">
-          <input type="text" maxlength="1" [(ngModel)]="otp[3]" formControlName="otp3" (input)="moveToNext($event, 3)"
-            [class.animated]="otp[3]" [class.invalid]="OTPForm.get('otp3')?.invalid && OTPForm.get('otp3')?.touched"
-            (blur)="onInputFocus()" (keydown)="moveToNext($event, 3)" (paste)="handlePaste($event)">
+          <input type="text" maxlength="1" [(ngModel)]="forgetotp[0]" formControlName="otp0" (input)="forgetmoveToNext($event, 0)"
+            [class.animated]="forgetotp[0]" [class.invalid]="forgetOTPForm.get('otp0')?.invalid && forgetOTPForm.get('otp0')?.touched"
+            (blur)="forgetonInputFocus()" (keydown)="forgetmoveToNext($event, 0)" (paste)="handleforgetPaste($event)">
+          <input type="text" maxlength="1" [(ngModel)]="forgetotp[1]" formControlName="otp1" (input)="forgetmoveToNext($event, 1)"
+            [class.animated]="forgetotp[1]" [class.invalid]="forgetOTPForm.get('otp1')?.invalid && forgetOTPForm.get('otp1')?.touched"
+            (blur)="forgetonInputFocus()" (keydown)="forgetmoveToNext($event, 1)" (paste)="handleforgetPaste($event)">
+          <input type="text" maxlength="1" [(ngModel)]="forgetotp[2]" formControlName="otp2" (input)="forgetmoveToNext($event, 2)"
+            [class.animated]="forgetotp[2]" [class.invalid]="forgetOTPForm.get('otp02')?.invalid && forgetOTPForm.get('otp2')?.touched"
+            (blur)="forgetonInputFocus()" (keydown)="forgetmoveToNext($event, 2)" (paste)="handleforgetPaste($event)">
+          <input type="text" maxlength="1" [(ngModel)]="forgetotp[3]" formControlName="otp3" (input)="forgetmoveToNext($event, 3)"
+            [class.animated]="forgetotp[3]" [class.invalid]="forgetOTPForm.get('otp3')?.invalid && forgetOTPForm.get('otp3')?.touched"
+            (blur)="forgetonInputFocus()" (keydown)="forgetmoveToNext($event, 3)" (paste)="handleforgetPaste($event)">
         </div>
         <div class="error">
           <span *ngIf="invalidOtp">Invalid OTP</span>
           <span *ngIf="otpRequired">OTP is Required</span>
         </div>
         <div class="otp-buttons">
-          <button class="btn btn-verify" (click)="verifyOtp()" [disabled]="OTPForm.invalid">
+          <button class="btn btn-verify" (click)="forgetverifyOtp()" [disabled]="forgetOTPForm.invalid">
+            Verify
+          </button>
+          <button class="btn btn-resend" [disabled]="showMessage" (click)="ResendOTP()">
+            Resend OTP
+          </button>
+        </div>
+        <p>or login with social platforms</p>
+        <div class="social-icons">
+          <a  id="googleSignInButton" ><i class='bx bxl-google'></i></a>
+        </div>
+      </form>
+      <div class="resendmessage" *ngIf="showMessage">
+        <p>Reset Password Code has been resent to Your Email</p>
+        <div class="timer">{{ minutes }}:{{ seconds | number: '2.0' }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Blur Effect -->
+  <div class="blur-overlay" *ngIf="isOtpModalOpen"></div>
+
+  <div class="modal" *ngIf="isRegisterOtpModalOpen">
+    <div class="modal-content">
+      <span class="close-icon" (click)="closeRegisterModal()">&#10006;</span> <!-- ❌ زرار الإغلاق -->
+      <div class="Otpheader">
+        <h4>Technical support has sent you a Reset Password Code to your email. Please check the latest messages sent to
+          the registered email.</h4>
+      </div>
+      <h2>Enter OTP</h2>
+      <form [formGroup]="registerOTPForm">
+        <div class="otp-container">
+          <input type="text" maxlength="1" [(ngModel)]="registerotp[0]" formControlName="otp0" (input)="registermoveToNext($event, 0)"
+            [class.animated]="registerotp[0]" [class.invalid]="registerOTPForm.get('otp0')?.invalid && registerOTPForm.get('otp0')?.touched"
+            (blur)="registeronInputFocus()" (keydown)="registermoveToNext($event, 0)" (paste)="handleRegisterPaste($event)">
+          <input type="text" maxlength="1" [(ngModel)]="registerotp[1]" formControlName="otp1" (input)="registermoveToNext($event, 1)"
+            [class.animated]="registerotp[1]" [class.invalid]="registerOTPForm.get('otp1')?.invalid && registerOTPForm.get('otp1')?.touched"
+            (blur)="registeronInputFocus()" (keydown)="registermoveToNext($event, 1)" (paste)="handleRegisterPaste($event)">
+          <input type="text" maxlength="1" [(ngModel)]="registerotp[2]" formControlName="otp2" (input)="registermoveToNext($event, 2)"
+            [class.animated]="registerotp[2]" [class.invalid]="registerOTPForm.get('otp02')?.invalid && registerOTPForm.get('otp2')?.touched"
+            (blur)="registeronInputFocus()" (keydown)="registermoveToNext($event, 2)" (paste)="handleRegisterPaste($event)">
+          <input type="text" maxlength="1" [(ngModel)]="registerotp[3]" formControlName="otp3" (input)="registermoveToNext($event, 3)"
+            [class.animated]="registerotp[3]" [class.invalid]="registerOTPForm.get('otp3')?.invalid && registerOTPForm.get('otp3')?.touched"
+            (blur)="registeronInputFocus()" (keydown)="registermoveToNext($event, 3)" (paste)="handleRegisterPaste($event)">
+        </div>
+        <div class="error">
+          <span *ngIf="invalidOtp">Invalid OTP</span>
+          <span *ngIf="otpRequired">OTP is Required</span>
+        </div>
+        <div class="otp-buttons">
+          <button class="btn btn-verify" (click)="registerverifyOtp()" [disabled]="registerOTPForm.invalid">
             Verify
           </button>
           <button class="btn btn-resend" [disabled]="showMessage" (click)="ResendOTP()">
@@ -167,7 +243,8 @@
   </div>
 
   <!-- ✅ Blur Effect -->
-  <div class="blur-overlay" *ngIf="isOtpModalOpen"></div>
+  <div class="blur-overlay" *ngIf="isRegisterOtpModalOpen"></div>
+
 
 
 </body>

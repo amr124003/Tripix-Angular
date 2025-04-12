@@ -22,7 +22,7 @@ body {
 
 a { text-decoration: none; }
 ul { list-style: none; }
-.container { max-width: 1367px; margin: auto; }
+.container { max-width: 1390px; }
 .row { display: flex; flex-wrap: wrap; }
 .justify-content-between { justify-content: space-between; }
 .align-items-center { align-items: center; }
@@ -65,6 +65,12 @@ nav {
     .left h2 { margin-top: 23px; font-size: 63px; color: white; line-height: 65px; }
         .left h2 span { color: rgb(220, 20, 60); font-size: 52px; }
     .left p { color: whitesmoke; font-size: 18px; margin-top: 20px; margin-bottom: 10px; }
+
+    .left
+    {
+        text-align: left;
+        
+    }
 
 .btn {
     height: 44px;

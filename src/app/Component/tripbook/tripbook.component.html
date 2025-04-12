@@ -73,29 +73,43 @@
         </div>
 
 
-        <label for="passengerType">This Trip To :</label>
-        <select id="passengerType" [(ngModel)]="passengerType" (change)="onPassengerTypeChange()">
-          <option value="me">For Me</option>
-          <option value="someoneElse">For Another Someone</option>
-        </select>
+
+
         <!-- الحقول الإضافية تظهر مع الأنيميشن -->
-        <div class="extra-fields" *ngIf="isForSomeoneElse">
-          <div class="input-group">
-            <label for="firstName">First Name :</label>
-            <input id="firstName" type="text" [(ngModel)]="firstName" placeholder="Enter First Name">
-          </div>
+        <form [formGroup]="rideForm" (ngSubmit)="onSubmit()">
+          <label for="passengerType">This Trip To :</label>
+          <select id="passengerType" formControlName="passengerType" (change)="onPassengerTypeChange()">
+            <option value="me">For Me</option>
+            <option value="someoneElse">For Another Someone</option>
+          </select>
+          <div class="extra-fields" *ngIf="isForSomeoneElse">
+            <div class="input-group">
+              <label for="firstName">First Name :</label>
+              <input id="firstName" type="text" formControlName="firstName" placeholder="Enter First Name">
+              <div *ngIf="rideForm.get('firstName')?.invalid && rideForm.get('firstName')?.touched" class="error">
+                <span *ngIf="rideForm.get('firstName')?.errors?.['required']">First Name is required.</span>
+              </div>
+            </div>
 
-          <div class="input-group">
-            <label for="lastName">Last Name :</label>
-            <input id="lastName" type="text" [(ngModel)]="lastName" placeholder="Enter Last Name">
-          </div>
+            <div class="input-group">
+              <label for="lastName">Last Name :</label>
+              <input id="lastName" type="text" formControlName="lastName" placeholder="Enter Last Name">
+              <div *ngIf="rideForm.get('lastName')?.invalid && rideForm.get('lastName')?.touched" class="error">
+                <span *ngIf="rideForm.get('lastName')?.errors?.['required']">Last Name is required.</span>
+              </div>
+            </div>
 
-          <div class="input-group">
-            <label for="phone">Phone Number :</label>
-            <input id="phone" type="tel" [(ngModel)]="phone" placeholder="Enter Phone Number ">
+            <div class="input-group">
+              <label for="phone">Phone Number :</label>
+              <input id="phone" type="tel" formControlName="phone" placeholder="Enter Phone Number">
+              <div *ngIf="rideForm.get('phone')?.invalid && rideForm.get('phone')?.touched" class="error">
+                <span *ngIf="rideForm.get('phone')?.errors?.['required']">Phone number is required.</span>
+                <span *ngIf="rideForm.get('phone')?.errors?.['pattern']">Invalid Phone number.</span>
+              </div>
+            </div>
           </div>
-        </div>
-        <button class="request-btn"> Search A Trip</button>
+          <button class="request-btn" type="submit" (click)="onSubmit()" > Search ATrip</button>
+        </form>
       </div>
       <!-- ✅ الخريطة -->
       <div id="map"></div>

@@ -23,7 +23,7 @@ import { CarLicenseComponent } from "./Component/car-license/car-license.compone
 import { CriminalrecordComponent } from "./Component/criminalrecord/criminalrecord.component";
 import { FaceIDComponent } from "./Component/face-id/face-id.component";
 import { ChatBotComponent } from "./Component/chat-bot/chat-bot.component";
-import { Test4Component } from "./Component/test4/test4.component";
+import { Test4Component } from "./Component/Add-Credit/add-credit.component";
 import { OurCarsComponent } from "./Component/our-cars/our-cars.component";
 import { DashboardComponent } from "./Component/dashboard/dashboard.component";
 import { PaymentComponent } from "./Component/payment/payment.component";
@@ -31,27 +31,24 @@ import { HelpooComponent } from "./Component/helpoo/helpoo.component";
 import { CarMaintenanceComponent } from "./Component/car-maintenance/car-maintenance.component";
 import { FAQComponent } from './Component/faq/faq.component';
 import { AboutComponent } from "./Component/about/about.component";
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { LoginComponent } from './Component/login/login.component';
 import { JobsComponent } from "./Component/jobs/jobs.component";
 import { TipsComponent } from './Component/tips/tips.component';
 import { TIPComponent } from "./Component/tip/tip.component";
 import { SellCarComponent } from "./Component/sell-car/sell-car.component";
-import { OurStoryComponent } from "./Component/our-story/our-story.component";
+
 import { LoaderComponent } from './Component/shared/loader/loader.component';
 import { TripbookComponent } from './Component/tripbook/tripbook.component';
 
 import { PrombetComponent } from './Component/Prombet/prombet.component';
-
-
-
-
-
+import { VehicleComponent } from "./Component/vehicle/vehicle.component";
+import { SparepartComponent } from "./Component/sparepart/sparepart.component";
+import { RecruiterComponent } from "./Component/recruiter/recruiter.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, IntroComponent, Intro2Component, QuestionComponent, HomeComponent, ServicesComponent, BlogsComponent, EventsComponent, HotelsComponent, EventComponent, CarRentComponent, CarWashComponent, Test2Component, TripixComponent, DriverPageComponent, LicenseCardComponent, DriverInfoComponent, DriverProfileComponent, EditAccountComponent, AddcarPhohtosComponent, CarLicenseComponent, CriminalrecordComponent, FaceIDComponent, ChatBotComponent, Test4Component, OurCarsComponent, DashboardComponent, PaymentComponent, HelpooComponent, CarMaintenanceComponent, FAQComponent, AboutComponent,  LoginComponent, JobsComponent, TipsComponent, TIPComponent, SellCarComponent, OurStoryComponent,LoaderComponent,TripbookComponent,PrombetComponent],
+  imports: [RouterOutlet, IntroComponent, Intro2Component, QuestionComponent, HomeComponent, ServicesComponent, BlogsComponent, EventsComponent, HotelsComponent, EventComponent, CarRentComponent, CarWashComponent, Test2Component, TripixComponent, DriverPageComponent, LicenseCardComponent, DriverInfoComponent, DriverProfileComponent, EditAccountComponent, AddcarPhohtosComponent, CarLicenseComponent, CriminalrecordComponent, FaceIDComponent, ChatBotComponent, Test4Component, OurCarsComponent, DashboardComponent, PaymentComponent, HelpooComponent, CarMaintenanceComponent, FAQComponent, AboutComponent, LoginComponent, JobsComponent, TipsComponent, TIPComponent, SellCarComponent,  LoaderComponent, TripbookComponent, PrombetComponent, VehicleComponent, SparepartComponent, RecruiterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

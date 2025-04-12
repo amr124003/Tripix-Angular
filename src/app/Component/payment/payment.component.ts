@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import gsap from 'gsap';
-import { Test4Component } from '../test4/test4.component';
+import { Test4Component } from '../Add-Credit/add-credit.component';
 import { PaymentServiceService } from '../../Services/Payment/payment-service.service';
 import { FormsModule } from '@angular/forms';
 

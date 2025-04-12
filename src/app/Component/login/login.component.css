@@ -149,11 +149,11 @@ form{ width: 100%; }
 
 .social-icons a {
     display: inline-flex;
-    padding: 10px;
-    border: 2px solid #ccc;
+    padding: 5px;
+    border: 2px solid #9e9c9c;
     border-radius: 8px;
-    font-size: 24px;
-    color: #916c6c;
+    font-size: 40px;
+    color: #fcfafa;
     margin: 0 8px;
     transition: all 0.3s ease-in-out; /* تأثير سلس */
 }
@@ -546,5 +546,75 @@ form{ width: 100%; }
     }
   }
 
-
+  .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    
+  }
   
+  /* ✅ إخفاء الـ Checkbox الافتراضي */
+  .remember-me input[type="checkbox"] {
+    display: none;
+    margin-right: 10px;
+  }
+  
+  /* ✅ تصميم المربع */
+  .animated-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    
+  }
+  
+  .animated-checkbox .checkmark {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    
+  }
+  
+  .remember-me{
+    margin-left: 10px;
+    font-size: 17px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  
+  /* ✅ عند التفعيل يظهر علامة الصح مع Animation */
+  .remember-me input:checked + .animated-checkbox .checkmark {
+    background-color: #007bff;
+    border-color: #007bff;
+    transform: scale(1.2);
+  }
+  
+  .remember-me input:checked + .animated-checkbox .checkmark::after {
+    content: "✔";
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* ✅ Animation للعلامة */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+ 

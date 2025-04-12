@@ -225,26 +225,7 @@
     </section>
 
     <!-- Button to open the modal -->
-    <div class="overlay" *ngIf="ismodalVisible" (click)="closeModal()"></div>
-
-    <!-- Form Container with animation -->
-    <div class="form-container" *ngIf="ismodalVisible">
-        
-            <div class="modal-content">
-                <div *ngFor="let item of menu">
-                    <h3>{{ item.title }}</h3>
-                    <ul>
-                        <li *ngFor="let subItem of item.subItems">{{ subItem }}</li>
-                    </ul>
-                </div>
-            </div>
-        
-            <div class="modal-footer">
-                <button (click)="closeModal()" class="close-modal-btn">Close</button>
-            </div>
-        
-    </div>
-
+    openModal
 
     <section class="services section-padding" id="services" data-scroll-index="2"
         style="background-color: black; border-bottom: 1px solid rosybrown;">

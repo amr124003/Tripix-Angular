@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { VariabletransferService } from '../../Services/VariableTransfer/variabletransfer.service';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { PrombetComponent } from '../Prombet/prombet.component';
 import L from 'leaflet';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
     selector: 'app-home',
-    imports: [CommonModule,RouterLink,PrombetComponent],
+    imports: [CommonModule, RouterLink, PrombetComponent, FormsModule],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -21,11 +22,19 @@ export class HomeComponent implements AfterViewInit, OnInit {
     destination: [number, number] = [30.128360, 31.135258]; // إحداثيات الوجهة (القاهرة كمثال)
     map: any;
     routeLayer: any;
+    ProductsLoading = true;
+    
+
+    CloseModal(modal: HTMLElement) {
+        modal.classList.add('modal-hide');
+
+        console.log(modal.classList);
+    }
 
 
     openMapModal() {
         this.isMapOpen = true;
-        setTimeout(() => this.initMap(), 100); // تأخير بسيط لضمان تحميل العنصر
+        this.initMap()
     }
 
     closeMapModal() {
@@ -40,9 +49,10 @@ export class HomeComponent implements AfterViewInit, OnInit {
             alert("الموقع غير مدعوم في المتصفح!");
             return;
         }
-
+        
         navigator.geolocation.getCurrentPosition(position => {
             const userLocation: [number, number] = [position.coords.latitude, position.coords.longitude];
+            const destination: [number, number] = [30.045, 31.236]; // استبدلها بموقع الوجهة الفعلي
         
             // إنشاء الخريطة
             this.map = L.map('map').setView(userLocation as [number, number], 13);
@@ -52,18 +62,34 @@ export class HomeComponent implements AfterViewInit, OnInit {
                 attribution: '&copy; OpenStreetMap contributors'
             }).addTo(this.map);
         
-            // إضافة علامة للمستخدم
-            L.marker(userLocation as [number, number]).addTo(this.map)
+            // تعريف أيقونة مخصصة للموقع الحالي
+            const userIcon = L.icon({
+                iconUrl: '../../../assets/images/marker.png', // ضع المسار الصحيح للصورة
+                iconSize: [40, 40], // الحجم
+                iconAnchor: [20, 40], // مركز الأيقونة
+                popupAnchor: [0, -40] // الموقع الذي يظهر فيه البوب أب
+            });
+        
+            // إضافة ماركر للموقع الحالي باستخدام الأيقونة المخصصة
+            L.marker(userLocation as [number, number], { icon: userIcon }).addTo(this.map)
                 .bindPopup("موقعك الحالي")
                 .openPopup();
         
-            // إضافة علامة للوجهة
-            L.marker(this.destination as [number, number]).addTo(this.map)
+            // تعريف أيقونة مخصصة للوجهة
+            const destinationIcon = L.icon({
+                iconUrl: '../../../assets/images/mark.png', // ضع المسار الصحيح للصورة
+                iconSize: [40, 40], // الحجم
+                iconAnchor: [20, 40], // مركز الأيقونة
+                popupAnchor: [0, -40] // الموقع الذي يظهر فيه البوب أب
+            });
+        
+            // إضافة ماركر للوجهة باستخدام الأيقونة المخصصة
+            L.marker(destination as [number, number], { icon: destinationIcon }).addTo(this.map)
                 .bindPopup("الوجهة")
                 .openPopup();
         
-            // رسم الاتجاهات
-            this.getRoute(userLocation, this.destination);
+            // رسم الاتجاهات بين الموقع الحالي والوجهة
+            this.getRoute(userLocation, destination);
         });
     }
 
@@ -87,7 +113,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
             .catch(error => console.error('Error fetching route:', error));
     }
 
-    constructor(private variabletransfer: VariabletransferService) { }
+    constructor(private variabletransfer: VariabletransferService, private router: Router) { }
 
     ngOnInit(): void {
         console.log('hi');
@@ -98,6 +124,14 @@ export class HomeComponent implements AfterViewInit, OnInit {
             }
         })
 
+        setTimeout(() => {
+            this.ProductsLoading = false;
+        }, 5000);
+
+    }
+
+    OnReadMore() {
+        this.router.navigateByUrl('/Events');
     }
 
     ngAfterViewInit(): void {
@@ -163,6 +197,11 @@ export class HomeComponent implements AfterViewInit, OnInit {
             })
         }
 
+    }
+
+    SellCar()
+    {
+        this.router.navigateByUrl('/SellCar');
     }
 
 }
