@@ -1,0 +1,346 @@
+/* إعدادات الصفحة */
+body,html {
+    background-color: #121212;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.chatbot-container {
+    background-color: #121212;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 610px;
+    max-height: 100%;
+    width: 100%;
+    position: relative;
+    padding-bottom: 80px;
+    scroll-behavior: smooth; /* يجعل التمرير سلسًا */
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: #1e90ff #1e1e1e !important;
+    scrollbar-width: thin !important;
+    scrollbar-shadow-color: #1e90ff;
+}
+
+
+.response-container
+{
+    background-color: #121212;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 610px;
+    max-height: 100%;
+    width: 100%;
+    position: relative;
+    padding-bottom: 80px;
+    scroll-behavior: smooth; /* يجعل التمرير سلسًا */
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: #1e90ff #1e1e1e !important;
+    scrollbar-width: thin !important;
+    scrollbar-shadow-color: #1e90ff;
+    
+}
+
+
+/* الهيدر */
+.chatbot-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+}
+
+.chatbot-avatar {
+    display: flex;
+    align-items: center;
+}
+
+.chatbot-avatar img {
+    width: 60px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0, 170, 255, 0.7);
+}
+
+.chatbot-feeling-bubble {
+    background: #1e90ff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-left: 10px;
+    font-size: 20px;
+    font-family: cursive;
+}
+
+.background-letters {
+    position: fixed;
+    top: 0;
+    left: 0;    
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* الحروف المتحركة في الخلفية */
+.background-letters span {
+    position: absolute;
+    font-weight: bold;
+    font-size: 20px;
+    color: #f5f5f5; /* لون Off-White */
+    transition: transform 0.2s ease-in-out;
+}
+
+/* أنيميشن للحروف */
+@keyframes float {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100vh); }
+}
+
+/* رسائل البوت */
+.chatbot-message-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 80%;
+    margin: 10px 0;
+}
+
+.chatbot-avatar-message {
+    display: flex;
+    align-items: center;
+}
+
+.mini-avatar {
+    width: 50px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.message-bubble {
+    background: #1e1e1e;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+    max-width: 400px;
+    font-size: 20px;
+    font-family: cursive;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+/* رسائل المستخدم */
+.user-messages {
+    display: flex;
+    justify-content: flex-end;
+    width: 80%;
+    margin: 10px 0;
+}
+
+.user-message-container {
+    display: flex;
+    align-items: center;
+    animation: popUp 0.5s ease-in-out forwards;
+}
+/* أنيميشن للرسائل */
+@keyframes popUp {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.user-message {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+    max-width: 250px;
+    margin-right: 10px;
+    font-size: 20px;
+    font-family: cursive;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    animation: fadeInPop 0.5s ease-in-out forwards;
+}
+@keyframes fadeInPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* شريط الإدخال */
+.chatbot-input-container {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    width: 80%;
+    background: #1e1e1e;
+    border-radius: 50px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+    margin-bottom: 10px;
+}
+
+.chatbot-input {
+    flex-grow: 1;
+    border: none;
+    background: none;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    padding: 10px;
+}
+
+.send-button {
+    background: #1e90ff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.send-button span {
+    font-size: 20px;
+    color: white;
+}
+
+.typing-effect {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid rgba(255, 255, 255, 0.75);
+    animation: typing 2s steps(40, end) forwards, blinkCursor 0.7s infinite;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blinkCursor {
+    50% { border-color: transparent; }
+}
+/* الترتيب العام للرسائل */
+.messages-container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+}
+
+/* رسائل المستخدم */
+.user-message-wrapper {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-bubble {
+  background: #007bff;
+  color: white;
+  border-radius: 18px 18px 0 18px;
+}
+
+/* رسائل السائق */
+.chatbot-avatar-message {
+  align-self: flex-start;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.chatbot-bubble {
+  background: #1e1e1e;
+  color: white;
+  border-radius: 18px 18px 18px 0;
+}
+
+.chatbot-bubble.loading {
+  min-width: 50px;
+}
+
+.message-time {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 4px;
+  align-self: flex-end;
+}
+
+.chatbot-avatar-message .message-time {
+  align-self: flex-start;
+  margin-left: 60px; /* نفس عرض الأفاتار */
+}
+
+/* أنيميشن للرسائل الجديدة */
+.message-wrapper {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message.user {
+    text-align: right;
+    background-color: #d1e7dd;
+  }
+  
+  .message.driver {
+    text-align: left;
+    background-color: #f8d7da;
+  }
+  
+  .message {
+    margin: 8px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+  }

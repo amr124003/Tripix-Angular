@@ -258,9 +258,8 @@
   }
 
   .about {
-    background-color: oklch(0 0 0);
+    background-color: rgb(27, 26, 26);
     padding-inline: 1rem;
-
     display: grid;
     grid-template-rows: 1fr auto;
     justify-content: center;
@@ -363,36 +362,35 @@
   }
 
   .NavLink {
-    color: oklch(1 0 0);
-    font-size: 1.25rem;
+    color: #fff;
+    font-size: 1.3rem;
     font-weight: 500;
-    text-decoration-color: currentColor;
     text-decoration-thickness: 2px;
-    text-underline-offset: 0.5ex;
     text-decoration: none;
-    transition: color 200ms ease;
-
-    
-
-    &:hover {
-      color: red;
-    } 
-
-    
-
-    @media (width < 768px) {
-      font-size: 2rem;
-      padding-inline: 1.25rem;
-    }
+    transition: 340ms ease;
+    position: relative; /* ضروري لتحديد مكان الـ ::after */
   }
-  .NavLink:hover{
-    color: red;
+  .NavLink::after {
+    content: ''; /* محتوى فارغ لظهور الخط */
+    position: absolute;
+    bottom: 0; /* الخط تحت النص */
+    left: 0;
+    width: 0; /* عرض الخط في البداية صفر */
+    height: 3px; /* سمك الخط */
+    background-color: #007bff; /* لون الخط */
+    transition: width 0.4s ease; /* تأثير التغيير في العرض */
+}
+.NavLink:hover::after {
+  width: 100%; /* جعل عرض الخط 100% عند الـ hover */
+}
+  .NavLink:hover {
+    color: #007bff; /* تغيير اللون إلى الأزرق أثناء الـ hover */
+    
   }
 
   .Logo {
     font-family: 'Bebas Neue', sans-serif;
     font-weight: 900;
-
     font-size: 4.5rem;
     font-size: calc(3.5rem + 1rem);
   }
@@ -428,7 +426,7 @@
 
     .cards {
       animation: to-brand linear both;
-      animation-timeline: view();
+      animation-timeline: view();ممممنن
       animation-range-start: 4%;
       animation-range-end: 16%;
       h1{
@@ -440,7 +438,7 @@
     }
 
     .about {
-      background-color: hsl(349 100% 58%);
+      background-color: hsl(0, 2%, 10%);
       animation: to-black linear both;
       animation-timeline: view();
       animation-range-start: 4%;
@@ -454,8 +452,15 @@
     }
     /* Avoiding custom properties to ensure the animation remains on the compositor for optimal performance. */
     @keyframes to-brand {
+      from{
+        to {
+          opacity: .6;
+          background-image: url(../../../assets/images/v1016-b-09.jpg);
+        }
+      }
       to {
-        background-color: hsl(349 100% 58%);
+        opacity: 1;
+        background-image: url(../../../assets/images/v1016-b-09.jpg);
       }
     }
 
@@ -550,21 +555,6 @@
     .NavLink[href='#about'] {
       animation-timeline: --about;
     }
-
-    .NavLink {
-      animation: highlight linear both;
-    }
-
-    @keyframes highlight {
-      0%,
-      100% {
-        color: white;
-      }
-      30%,
-      70% {
-        color: hsl(349 100% 58%);
-      }
-    }
   }
 
   @layer animation.navbar.sm-screen {
@@ -594,10 +584,7 @@
   .schedule {
     background-color: white;
   }
-  .cards {
-    background-color: oklch(0.65 0.24 18.89);
-   
-  }
+  
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -610,7 +597,7 @@
   }
 
   .cards {
-    background-color: oklch(0.65 0.24 18.89);
+    
     
   }
 }

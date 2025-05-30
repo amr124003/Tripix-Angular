@@ -1,0 +1,564 @@
+
+.trip-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #121212;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    margin: -8px;
+    height: 705px;
+}
+
+.map-section {
+    height: 65%;
+    width: 90%;
+    margin: 20px auto 0;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 255, 128, 0.2);
+    position: relative;
+    animation: fadeInMap 1.2s ease-in-out forwards;
+    opacity: 0;
+}
+
+/* Gradient fade at bottom of map */
+.map-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #121212 100%);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.driver-info {
+    position: relative;
+    padding-bottom: 50px; /* لتوفير مساحة أسفل العنصر */
+    margin-top: -60px;
+    background-color: #1e1e1e;
+    padding: 25px 30px;
+    border-radius: 16px;
+    width: 90%;
+    height: 30%;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 6px 20px rgba(0, 255, 128, 0.2);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideFadeIn 1.5s ease 0.8s forwards;
+}
+
+
+.info-left h2 {
+    font-size: 36px;
+    margin: 0;
+    color: #76ff03;
+}
+
+.Price {
+    font-size: 32px;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    color: #76ff03;
+    margin-right: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #76ff03;
+    width: fit-content;
+  
+    animation: typing 3s steps(20, end) forwards, blink-caret 0.7s step-end infinite;
+  }
+  
+  /* أنيميشن الكتابة */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* أنيميشن المؤشر يومض */
+  @keyframes blink-caret {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: #76ff03; }
+  }
+    
+
+.info-left p {
+    font-size: 22px;
+    margin: 5px 0 0;
+    color: #ccc;
+}
+
+.info-right {
+    font-size: 20px;
+    color: #00e676;
+    font-weight: bold;
+}
+
+.cancel-btn {
+    background: #ff1744;
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    margin: 50px auto 0;
+    display: block;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 6px 15px rgba(255, 23, 68, 0.4);
+    transition: all 0.4s ease;
+}
+
+.cancel-btn:hover {
+    transform: scale(1.08);
+    background-color: #d50000;
+    box-shadow: 0 8px 22px rgba(255, 23, 68, 0.5);
+}
+
+.Arrive-btn{
+    background: #acc712;
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    margin: 30px auto 0;
+    display: block;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 6px 15px rgba(255, 23, 68, 0.4);
+    transition: all 0.4s ease;
+}
+
+.Arrive-btn:hover {
+    transform: scale(1.08);
+    background-color: #889d12;
+    box-shadow: 0 8px 22px rgba(135, 255, 23, 0.5);
+}
+
+
+@keyframes fadeInMap {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.locations {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* لتوسيط العناصر عموديًا */
+    width: 100%;
+    margin: 15px 0;
+    /* مسافة متساوية من فوق وتحت */
+    position: relative;
+    /* ممكن تستخدم gap لتحكم أفضل */
+}
+
+
+.current-location,
+.destination {
+    width: 27%;
+    /* تقليل العرض لترك مساحة للخط المنقط */
+    font-weight: 600;
+    text-align: center;
+    font-size: 22px;
+    padding: 8px 12px;
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dots-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    margin: 10px 0;
+}
+
+.distance-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+@keyframes fadeInOut {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.continuous-dots,
+.continuous-dots1,
+.continuous-dots2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    margin: 5px 0;
+}
+
+.moving-dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgb(136, 242, 61);
+    border-radius: 50%;
+    opacity: 0;
+    animation: dotBlink 1.5s linear infinite;
+}
+
+.moving-dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.moving-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.moving-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.moving-dot:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.moving-dot:nth-child(5) {
+    animation-delay: .8s;
+}
+
+.moving-dot:nth-child(6) {
+    animation-delay: 1s;
+}
+
+.moving-dot:nth-child(7) {
+    animation-delay: 1.2s;
+}
+
+.moving-dot:nth-child(8) {
+    animation-delay: 1.4s;
+}
+
+.moving-dot:nth-child(9) {
+    animation-delay: 1.6s;
+}
+
+.moving-dot:nth-child(10) {
+    animation-delay: 1.8s;
+}
+
+.moving-dot:nth-child(11) {
+    animation-delay: 2s;
+}
+
+.moving-dot:nth-child(12) {
+    animation-delay: 2.2s;
+}
+
+.moving-dot:nth-child(13) {
+    animation-delay: 2.4s;
+}
+
+.moving-dot:nth-child(14) {
+    animation-delay: 2.6s;
+}
+
+.moving-dot:nth-child(15) {
+    animation-delay: 2.8s;
+}
+
+.moving-dot:nth-child(16) {
+    animation-delay: 3.2s;
+}
+
+.moving-dot:nth-child(17) {
+    animation-delay: 3.4s;
+}
+
+.moving-dot:nth-child(18) {
+    animation-delay: 3.6s;
+}
+
+.moving-dot:nth-child(19) {
+    animation-delay: 3.8s;
+}
+
+.moving-dot:nth-child(20) {
+    animation-delay: 4s;
+}
+
+.moving-dot:nth-child(21) {
+    animation-delay: 4.2s;
+}
+
+.moving-dot:nth-child(22) {
+    animation-delay: 4.4s;
+}
+
+.moving-dot:nth-child(23) {
+    animation-delay: 4.6s;
+}
+
+
+
+
+@keyframes dotBlink {
+    0% {
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.distance-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.distance {
+    color: rgb(136, 242, 61);
+    font-size: 1.8rem;
+    font-weight: 700;
+
+    padding: 0 5px;
+    width: 207px;
+    background: linear-gradient(90deg,
+            rgba(136, 242, 61, 0.2),
+            rgba(136, 242, 61, 1),
+            rgba(136, 242, 61, 0.2));
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 1.2s linear infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+.info-middle {
+    background-color: #2a23fa;
+    text-align: center;
+    padding: 10px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    line-height: 1;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 633px;
+    
+    .chat-text {
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 22px;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .arrow-animation {
+        margin-top: 4px;
+    }
+
+    .arrow-down {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-right: 2px solid #ffffff;
+        border-bottom: 2px solid #ffffff;
+        transform: rotate(45deg);
+        animation: bounceDown 1.2s infinite;
+    }
+}
+.info-middle:hover {
+    cursor: pointer;
+    background-image: linear-gradient(45deg, #ff8c00, #ff007f, #8e44ad, #2a23fa, #1e90ff, #32cd32); /* تدرج لوني متحرك */
+    background-size: 400% 400%; /* تمديد التدرج عبر 4 اتجاهات */
+    animation: gradientAnimation 3s ease infinite; /* إضافة الحركة للتدرج */
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+@keyframes bounceDown {
+
+    0%,
+    100% {
+        transform: rotate(45deg) translateY(0);
+    }
+
+    50% {
+        transform: rotate(45deg) translateY(5px);
+    }
+}
+
+/* Chat Section */
+.chat-section {
+    margin-top: 30px;
+    animation: slideUp 0.5s ease-out;
+}
+
+.message-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-message {
+    justify-content: flex-start;
+}
+
+.driver-message {
+    justify-content: flex-end;
+}
+
+.message {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin: 0 10px;
+}
+
+.user-avatar, .driver-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.left-avatar {
+    margin-right: 10px;
+}
+
+.right-avatar {
+    margin-left: 10px;
+}
+
+.chat-input {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
+
+.chat-input:focus {
+    outline: none;
+    background-color: #444;
+}
+
+/* Animation for showing chat */
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.chat-section{
+    background-color: #121212;
+    margin: -8px;
+    animation: slideUpFadeIn 0.5s ease-out forwards;
+}
+
+@keyframes slideUpFadeIn {
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  /* تحسين أداء العلامات والمسارات */
+.leaflet-marker-icon {
+    transition: transform 0.5s ease-out;
+    will-change: transform;
+  }
+  
+  .leaflet-interactive {
+    transition: stroke-dashoffset 0.3s ease-out;
+    will-change: stroke-dashoffset;
+  }
+  
+  /* تحسين أداء الخريطة */
+  #map {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
+  }
+
+

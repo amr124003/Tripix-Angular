@@ -49,6 +49,7 @@ body {
   padding-top: 400px;
   align-items: flex-start;
   gap: 20px;
+  
   background-image:url(../../../assets/images/v1016-b-09.jpg);
   
 }
@@ -59,6 +60,7 @@ body {
   width: 100%;
   gap: 40px;
   backdrop-filter: blur(10px);
+  z-index: 2;
 }
 
 /* ✅ تصميم الفورم */
@@ -149,7 +151,7 @@ input:focus, select:focus {
 /* ✅ تصميم الخريطة */
 #map {
   width: 65%;
-  height: 680px;
+  height:590px;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(176, 176, 176, 0.4);
   animation: fadeIn 1s ease-in-out;
@@ -212,6 +214,7 @@ input:focus, select:focus {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
   backdrop-filter: blur(8px); /* تأثير الضبابية */
   z-index: 3000;
   animation: fadeIn 0.3s ease-in-out;
@@ -248,6 +251,7 @@ input:focus, select:focus {
 :host ::ng-deep .leaflet-routing-container {
   background: rgba(255, 255, 255, 0.1) !important;
   backdrop-filter: blur(7px);
+  width: 220px;
   color: rgb(181, 179, 179) !important;
   border-radius: 12px !important;
   padding: 15px !important;
@@ -314,5 +318,24 @@ input:focus, select:focus {
   50% { transform: translateX(3px); }
   75% { transform: translateX(-3px); }
 }
+
+/* styles.css أو component-specific CSS */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(16px); /* هنا بيجي الـ Blur */
+  background-color: rgba(0, 0, 0, 0.6); /* طبقة شفافة */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000; /* فوق كل حاجة */
+}
+
+
+
+
 
 

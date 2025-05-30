@@ -1,0 +1,48 @@
+<div class="background">
+    <div class="gradient-blob"></div>
+    <div class="gradient-blob"></div>
+    <div class="gradient-blob"></div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-logo">
+        <img src="../../../assets/images/tripix logo.png" alt="Logo" class="logo">
+    </div>
+    <div class="navbar-links">
+        <a href="#" class="navbar-link">Home</a>
+        <a href="#" class="navbar-link">About</a>
+        <a href="#" class="navbar-link">Services</a>
+        <a href="#" class="navbar-link">Contact</a>
+    </div>
+</nav>
+
+<main>
+    <h1>Favourites</h1>
+    <p class="subtitle">These are all the products that you liked in the last period.</p>
+
+    <div class="cards-container">
+        <div class="card" #card (mousemove)="handleMouseMove($event)" (mouseleave)="resetMousePosition()"
+            *ngFor="let card of cardsData">
+            <div class="card-content">
+                <!-- صورة الكارد -->
+                <img class="card-image" [src]="card.image" alt="Card Image">
+
+                <h2>{{ card.title }}</h2>
+                <p>{{ card.description }}</p>
+
+                <!-- Category and Price -->
+                <p class="category">Category: {{ card.category }}</p>
+                <p class="price">Price: ${{ card.price }}</p>
+
+                <!-- ID (Optional) -->
+                <p class="card-id">ID: {{ card.id }}</p>
+
+                <div class="card-footer">
+                    <button class="card-button" appRippleButton>Info CTA</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</main>

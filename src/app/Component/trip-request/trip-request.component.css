@@ -1,0 +1,374 @@
+ul {
+  list-style: none;
+  margin-left: -55px;
+}
+
+
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 20px;
+  transform: translate(-50%, -50%);
+  animation: fadeIn 0.4s ease;
+  z-index: 10000;
+  min-width: 540px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.driver-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blue(10px);
+  border-left: 5px solid greenyellow;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  direction: rtl;
+  font-family: "Segoe UI", sans-serif;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+  width: 500px;
+}
+
+
+.car-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.car-image {
+  width: 80px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.service-name {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.passenger-count {
+  font-size: 14px;
+  margin-right: 6px;
+}
+
+.status {
+  font-size: 14px;
+  color: #e6e5e5;
+}
+
+.description {
+  font-size: 14px;
+  color: #bbb9b9;
+}
+
+.price-info {
+  text-align: left;
+}
+
+.discount-label {
+  color: #0a5;
+  font-size: 16px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.current-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: greenyellow;
+}
+
+.old-price {
+  font-size: 14px;
+  color: #d69191;
+  text-decoration: line-through;
+}
+
+/* app.component.css - أضف */
+.map-wrapper {
+  position: relative;
+  margin-top: 20px;
+}
+
+.back-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #333;
+  color: white;
+  border-radius: 12px;
+  z-index: 1000;
+  border: 2px solid #007bff;
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+}
+.back-btn:hover {
+  background-color: #007bff;
+  color: #fff;
+  transform: scale(1.05);
+}
+.container-loading {
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid hsl(0, 0%, 93%);
+  backdrop-filter: blur(7px);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 20px;
+  direction: rtl;
+  font-family: "Segoe UI", sans-serif;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+  width: 500px;
+}
+
+.skeleton-category {
+  width: 100px;
+  height: 14px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 180px;
+  border-radius: 8px;
+}
+
+.skeleton-title {
+  width: 150px;
+  height: 20px;
+}
+
+.skeleton-rating {
+  width: 120px;
+  height: 16px;
+}
+
+.skeleton-price {
+  width: 80px;
+  height: 18px;
+}
+
+.shimmer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -150px;
+  /* هنا غيرنا من left لـ right */
+  height: 100%;
+  width: 150px;
+  background: linear-gradient(to left, transparent 0%, rgba(255, 255, 255, 0.5) 50%, transparent 100%);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    right: -150px;
+  }
+
+  100% {
+    right: 100%;
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+  }
+}
+
+.skeleton {
+  background: rgba(255, 255, 255, 0.3);
+  margin-bottom: 10px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(7px);
+  border-radius: 10px;
+  transition: .2s ease;
+}
+
+/* تأثيرات الزر "Request Trip" */
+.request-trip-btn {
+  margin-top: 10px;
+  width: 350px;
+  color: white;
+  font-size: 18px;
+  border-radius: 30px;
+  z-index: 1000;
+  background-color: #28a745;
+  border: none;
+  padding: 12px 24px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+}
+
+.request-trip-btn:hover {
+  background-color: #218838;
+  transform: translateY(-2px) scale(1.02);
+}
+
+.request-trip-btn:active {
+  transform: scale(0.95); /* زر بيتصغر شوية */
+}
+
+:host ::ng-deep .leaflet-routing-container {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(7px);
+  width: 220px;
+  color: rgb(181, 179, 179) !important;
+  border-radius: 12px !important;
+  padding: 15px !important;
+  max-width: 340px !important;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3) !important;
+  font-size: 14px !important;
+  overflow: auto;
+}
+
+:host ::ng-deep .leaflet-routing-container td {
+  padding: 8px !important;
+  font-size: 14px !important;
+}
+
+:host ::ng-deep .leaflet-routing-distance {
+  color: #00aaff !important;
+  font-weight: bold !important;
+}
+
+:host ::ng-deep .leaflet-routing-instruction {
+  font-weight: bold !important;
+}
+
+:host ::ng-deep .leaflet-routing-container table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+}
+
+:host ::ng-deep .leaflet-routing-container tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(16px);
+  /* هنا بيجي الـ Blur */
+  background-color: rgba(0, 0, 0, 0.6);
+  /* طبقة شفافة */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+  /* فوق كل حاجة */
+}
+
+.map-container {
+  height: 500px;
+  width: 900px;
+  border-radius: 15px;
+  margin-top: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(40, 167, 69, 0.4);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(40, 167, 69, 0.4);
+  }
+}
+
+/* الوضع الداكن */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+
+  .map-container {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  }
+
+  .back-btn {
+    color: #66b2ff;
+    border-color: #66b2ff;
+    box-shadow: 0 2px 5px rgba(102, 178, 255, 0.3);
+  }
+
+  .back-btn:hover {
+    background-color: #66b2ff;
+    color: #000;
+  }
+
+  .request-trip-btn {
+    background-color: #4caf50;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.4);
+  }
+
+  .request-trip-btn:hover {
+    background-color: #43a047;
+  }
+
+  .request-trip-btn:active {
+    transform: scale(0.95); /* زر بيتصغر شوية */
+  }
+}

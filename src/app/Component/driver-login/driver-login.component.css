@@ -1,0 +1,172 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+    background-color: white;
+    margin: -8px;
+    color: #000000;
+    height: 705px;
+    max-width: 1540px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    position: fixed;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: 100px;
+}
+
+.welcome-section {
+    width: 350px;
+}
+
+.welcome-section h1 {
+    font-size: 32px;
+    
+    color: #333;
+}
+
+.welcome-section p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.create-account {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.create-account:hover {
+    background-color: #e0e0e0;
+}
+
+
+svg,
+.form-container {
+    position: absolute;
+    width: 100%;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.form-container {
+    width: 335px;
+}
+
+svg {
+    top: 10px;
+    width: 1210px;
+    pointer-events: none;
+}
+
+.form-container .form-row {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    font-family: cursive;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.form-container .form-row input {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    padding: 7px;
+    outline: none;
+    border: 2px solid #dddddd;
+}
+
+.form-container .form-row input.valid {
+    border-color: #000000;
+}
+
+.form-container .form-row input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px 0 0;
+    padding: 0;
+    border: 2px solid #dddddd;
+}
+
+.form-container .form-row input[type="submit"] {
+    height: 40px;
+    cursor: pointer;
+    border: none;
+    background-color: #eeeeee;
+    /*pointer-events: none;*/
+}
+
+.form-container .form-row input[type="submit"].valid {
+    pointer-events: auto;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #dddddd;
+}
+
+.form-container label,
+.form-container input,
+.form-container input::placeholder {
+    font-size: 20px;
+    font-family: inherit;
+}
+
+svg {
+    stroke-width: 1.2px;
+    /*stroke: #222245;*/
+    stroke: #000000;
+    fill: none
+}
+
+.error {
+    color: #ff4d4d; /* لون أحمر جذاب */
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif; /* خط عصري */
+    margin-top: 7px;
+    transform: translateY(-5px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  
+  .error span {
+    display: inline-block;
+    background: rgba(255, 77, 77, 0.1); /* خلفية خفيفة */
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(255, 77, 77, 0.2);
+    animation: shake 0.3s ease-in-out;
+  }
+  
+  /* ظهور الخطأ بسلاسة */
+  .ng-invalid.ng-touched + .error,
+  .ng-invalid.ng-dirty + .error,
+  .error.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* أنيميشن اهتزاز خفيفة */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+  }
+  
+  

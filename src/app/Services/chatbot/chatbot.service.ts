@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ChatbotService {
-  private apiUrl = 'https://tripix.runasp.net/api/Chatbot/ask'; // تأكد من صحة الرابط
+  private apiUrl = 'https://tripix.runasp.net/api/Chatbot/ask'; 
 
   constructor(private http: HttpClient) {}
 

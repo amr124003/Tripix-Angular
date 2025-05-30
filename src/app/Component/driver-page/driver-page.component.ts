@@ -37,10 +37,10 @@ export class DriverPageComponent implements OnInit, AfterViewInit {
   public steps = [
     { name: 'Personal Information', completed: false },
     { name: 'FaceID', completed: false },
+    { name: 'Car Images', completed: false },
     { name: 'Driving license', completed: false },
     { name: 'Criminal record', completed: false },
     { name: 'Car license (Front and Back)', completed: false },
-    { name: 'Terms And Conditions', completed: false }
   ];
   
   selectedStep: any = null;
@@ -164,34 +164,37 @@ export class DriverPageComponent implements OnInit, AfterViewInit {
   selectStep(step: any) {
     this.showSteps = false;
     this.isLoading = true;
-    setTimeout(() => {
+    
       if(step.name == "Personal Information")
       {
-        this.router.navigateByUrl('/PersonalInfo');
+        this.router.navigateByUrl('/DriverInfo');
+      }
+      else if (step.name == "Car Images")
+      {
+        this.router.navigateByUrl("/CarImages")
       }
      else if(step.name == 'FaceID')
       {
-        this.header.nativeElement.innerText="Face your Face To The Camera";
+        
         this.router.navigateByUrl('/FaceID');
       }
       else if(step.name == 'Driving license')
       {
-        this.header.nativeElement.innerText="Drop Your Driving License";
-        this.router.navigateByUrl('/Driving_license');
+        
+        this.router.navigateByUrl('/DriverLicense');
       }
       else if(step.name == 'Criminal record')
       {
-        this.header.nativeElement.innerText="Drop Your Criminal Record";
-        this.router.navigateByUrl('/Criminalrecord')
+        
+        this.router.navigateByUrl('/CriminalRecord')
       }
       else if(step.name == 'Car license (Front and Back)')
       {
-        this.header.nativeElement.innerText="Enter Your Car License";
-        this.router.navigateByUrl('/CarLicense')
+        
+        this.router.navigateByUrl('/CarLicence')
       }
       this.isLoading = false;
       gsap.from('.step-details', { opacity: 0, y: 50, duration: 0.5 });
-    }, 1000);
   }
 
   closeDetails() {

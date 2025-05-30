@@ -22,11 +22,10 @@
           </button>
         </header>
 
-        <a href="" class="NavLink">Home</a>
-        <a href="" class="NavLink">About</a>
-        <a href="" class="NavLink">Other Services</a>
-        <a href="" class="NavLink">Pricing</a>
-        <a href="" class="NavLink">FAQ's</a>
+        <a routerLink="/Home" class="NavLink">Home</a>
+        <a routerLink="/About" class="NavLink">About</a>
+        <a routerLink="/Services" class="NavLink">Other Services</a>
+        <a routerLink="/FAQs" class="NavLink">FAQ's</a>
       </div>
 
       <button id="openMenuBtn" title="Open Menu" aria-label="Open Menu" class="NavButton">
@@ -63,14 +62,14 @@
 
     <section id="schedules" class="schedule">
       <div class="showcase">
-        <video autoplay loop muted poster="../../../assets/images/Car Rental Poster.png">
-          <source src="../../../assets/images/Car rental.mp4" type="video/mp4" />
+        <video autoplay muted loop playsinline preload="auto" >
+          <source [src]="vedioUrl"  />
         </video>
         <img src="../../../assets/images/tourix_image_resized.png" alt="Rhythm" />
       </div>
     </section>
 
-    <section id="plans" class="cards">
+    <section id="plans" class="cards" >
       <h1>Available Cars</h1>
       <div class="cardcontainer">
         <div *ngFor="let card of cards">

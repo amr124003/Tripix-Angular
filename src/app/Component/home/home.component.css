@@ -87,7 +87,8 @@ input::placeholder {
 }
 
 body {
-    background: hsl(0, 100%, 100%);;
+    background: hsl(0, 100%, 100%);
+    ;
     background-image: url('../../../assets/images/v1016-b-09.jpg');
     margin: -8px;
 }
@@ -146,7 +147,6 @@ body::-webkit-scrollbar-thumb:hover {
     text-transform: capitalize;
     padding-bottom: 10px;
     border-bottom: 1px solid rgb(114, 68, 68);
-    margin-bottom: 30px;
 }
 
 /*MAIN*/
@@ -228,7 +228,7 @@ body::-webkit-scrollbar-thumb:hover {
     margin: 20px;
     background: hsl(0, 100%, 0%);
     ;
-    border-radius: 10px;
+    border-radius: 20px;
     overflow: hidden;
     z-index: 2;
     animation: scaleUp .5s ease-in-out 5s forwards;
@@ -275,8 +275,10 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .newsletter-title {
-    color: hsl(0, 3%, 70%);;
-    font-size: 2rem;;
+    color: hsl(0, 3%, 70%);
+    ;
+    font-size: 2rem;
+    ;
     font-weight: 600;
     margin-bottom: 10px;
     font-family: cursive;
@@ -285,28 +287,34 @@ body::-webkit-scrollbar-thumb:hover {
 .newsletter-desc {
     color: hsl(0, 18%, 83%);
     text-align: center;
-    font-size: 1.10rem;;
+    font-size: 1.10rem;
+    ;
     line-height: 1.6;
 }
 
 .email-field {
-    font-size: .875rem;;
+    font-size: .875rem;
+    ;
     padding: 8px 16px;
     border-radius: 5px;
-    border: 1px solid hsl(0, 0%, 93%);;
+    border: 1px solid hsl(0, 0%, 93%);
+    ;
     margin-bottom: 16px;
 }
 
 .btn-newsletter {
     background: rgb(192, 136, 136);
-    color: hsl(0, 100%, 100%);;
-    font-size: .875rem;;
+    color: hsl(0, 100%, 100%);
+    ;
+    font-size: .875rem;
+    ;
     font-weight: 600;
     text-transform: uppercase;
     padding: 10px 15px;
     border-radius: 5px;
     margin: auto;
-    transition: .2s ease;;
+    transition: .2s ease;
+    ;
 }
 
 .btn-newsletter:hover {
@@ -494,13 +502,14 @@ body::-webkit-scrollbar-thumb:hover {
     /* علشان يبقوا في نفس الخط */
 }
 
-.action-btn ion-icon {
+.action-btn i {
     margin-right: 8px;
     /* مسافة بين الأيقونة والنص */
 }
 
 .action-btn span {
     font-size: 20px;
+
 }
 
 
@@ -1342,7 +1351,7 @@ body::-webkit-scrollbar-thumb:hover {
     display: grid;
     grid-template-columns: 1fr;
     gap: 25px;
-    
+
 }
 
 .product-grid .showcase {
@@ -1430,7 +1439,6 @@ body::-webkit-scrollbar-thumb:hover {
 
 .product-grid .showcase-badge.pink {
     background: hsl(353, 100%, 78%);
-    ;
 }
 
 .product-grid .showcase-actions {
@@ -1440,31 +1448,43 @@ body::-webkit-scrollbar-thumb:hover {
     font-size: 15px;
     transform: translateX(50px);
     transition: .2s ease;
-    ;
     z-index: 3;
 }
 
 .product-grid .btn-action {
-    background: hsl(0, 100%, 100%);
-    ;
-    color: hsl(0, 0%, 47%);
-    ;
+    background: rgba(255, 255, 255, .3);
+    backdrop-filter: blur(15px);
+    color: #ccc;
+    /* لون القلب الفارغ */
     margin-bottom: 5px;
     border: 1px solid hsl(0, 0%, 93%);
-    ;
     padding: 5px;
     border-radius: 5px;
     transition: .2s ease;
-    ;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
 }
 
+.btn-action i {
+    transition: color 0.5s ease;
+}
+
+.btn-action i.fa-heart {
+    color: red;
+    /* لون القلب الممتلئ */
+}
+
+.btn-action i.fa-heart-o {
+    color: #ccc;
+    /* لون القلب الفارغ */
+}
+
+
+
 .product-grid .btn-action:hover {
-    background: hsl(0, 63%, 41%);
-    ;
-    color: hsl(0, 100%, 100%);
-    ;
+    color: hsl(0, 0%, 19%);
     border-color: hsl(0, 0%, 13%);
-    ;
 }
 
 .product-grid .showcase-content {
@@ -1473,9 +1493,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .product-grid .showcase-category {
     color: hsl(353, 100%, 78%);
-    ;
     font-size: .75rem;
-    ;
     font-weight: 500;
     text-transform: uppercase;
     margin-bottom: 10px;
@@ -1495,8 +1513,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .product-grid .showcase-title:hover {
-    color: hsl(0, 0%, 13%);
-    ;
+    color: hsl(0, 1%, 90%);
 }
 
 .product-grid .showcase-rating {
@@ -2315,6 +2332,7 @@ footer {
         display: flex;
         align-items: center;
         gap: 15px;
+        position: relative;
     }
 
     .header-user-actions .action-btn {
@@ -2326,11 +2344,11 @@ footer {
 
     .header-user-actions .count {
         position: absolute;
-        top: -2px;
-        right: -3px;
+        top: -1px;
+        right: 6px;
         background: hsl(0, 100%, 70%);
         color: hsl(0, 100%, 100%);
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 500;
         line-height: 1;
         padding: 2px 4px;
@@ -2938,7 +2956,7 @@ footer {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    animation: 30s cubic-bezier(0, 0.1, 0.6, 1) sliding infinite;
+    transition: transform 1.2s ease-in-out;
 }
 
 .slide {
@@ -3126,14 +3144,13 @@ footer {
     transition: .2s ease;
 }
 
-.container-loading
-{
+.container-loading {
     margin-bottom: 10px;
     position: relative;
     overflow: hidden;
     border: 1px solid hsl(0, 0%, 93%);
     backdrop-filter: blur(7px);
-    border-radius: 10px;   
+    border-radius: 10px;
 }
 
 .skeleton-category {
@@ -3145,7 +3162,7 @@ footer {
     width: 100%;
     height: 180px;
     border-radius: 8px;
-  }
+}
 
 .skeleton-title {
     width: 150px;
@@ -3177,35 +3194,192 @@ footer {
 @keyframes shimmer {
     0% {
         right: -150px;
-      }
-      100% {
+    }
+
+    100% {
         right: 100%;
-      }
+    }
 }
 
 .fade-in {
     opacity: 0;
     animation: fadeInUp 1s ease-out forwards;
-  }
-  
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-    }
-  }
+}
 
-  .modal-hide {
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-hide {
     animation: fadeOut 0.7s forwards;
-  }
-  
-  @keyframes fadeOut {
+}
+
+@keyframes fadeOut {
     0% {
-      opacity: 1;
-      transform: scale(1);
+        opacity: 1;
+        transform: scale(1);
     }
+
     100% {
-      opacity: 0;
-      transform: scale(0.9);
+        opacity: 0;
+        transform: scale(0.9);
     }
-  }
-  
+}
+
+.logout-message {
+    background: rgb(27, 26, 26);
+    padding: 1rem;
+    border-left: orange 3px solid;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    margin-top: 10px;
+    right: 0;
+    top: 50px;
+    z-index: 4;
+    width: 260px;
+    text-align: center;
+}
+
+/* مثلث فوق الرسالة */
+.triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 12px solid rgb(27, 26, 26);
+    position: absolute;
+    top: -12px;
+    left: calc(50% - 12px);
+    /* المثلث في النص */
+}
+
+.logout-message p {
+    margin: 0 0 10px;
+    font-weight: bold;
+}
+
+.logout-message button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    text-align: center;
+    margin-left: 70px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.btn-logout {
+    background: linear-gradient(135deg, #28a745, #4cd137);
+    color: white;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-logout:hover {
+    background: orange;
+    color: black;
+}
+
+.arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 3;
+    color: orange;
+    transition: color 0.6s ease;
+}
+
+.arrow:hover {
+    backdrop-filter: blur(10px);
+    color: orangered;
+}
+
+.left {
+    left: 20px;
+}
+
+.right {
+    right: 20px;
+}
+
+.category-tabs {
+    display: inline-flex;
+    /* بدل flex */
+    gap: 1rem;
+    margin: 2rem 0;
+    /* auto للمنتصف أفقياً */
+    justify-content: center;
+    /* ممكن تضيف كمان */
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, .1);
+    backdrop-filter: blur(4px);
+    padding: 0.5rem 1rem;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+    border-bottom: 3px solid #007bff;
+    ;
+}
+
+
+.category-tab {
+    padding: 0.5rem 1.2rem;
+    background-color: rgba(255, 255, 255, .1);
+    backdrop-filter: blur(7px);
+    border-radius: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+}
+
+.category-tab:hover {
+    background-color: #2a8df7;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.category-tab.active {
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3);
+}
+
+.category-tab.selected {
+    background-color: #007bff;
+    /* لون الخلفية للتاب المختار */
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.6);
+}

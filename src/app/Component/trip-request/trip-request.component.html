@@ -1,0 +1,67 @@
+<!-- app.component.html -->
+
+
+
+    
+    <div class="modal" >
+        <!-- لو الخريطة مش ظهرة، عرض قائمة السواقين -->
+        <ng-container *ngIf="!showMap">
+            <h2>Choose Driver</h2>
+            <h3>25% Discount For New Trip </h3>
+            <ul>
+                <li *ngFor="let driver of (Drivers && Drivers.length > 0 ? Drivers : Loading); let i = index" (click)="selectDriver(driver)">
+                    <div class="container-loading" *ngIf="ProductsLoading">
+
+                        <!-- يمين: معلومات السعر -->
+                        <div class="price-info">
+                            <div class="skeleton skeleton-category shimmer"></div>
+                            <div class="skeleton skeleton-price shimmer"></div>
+                            <div class="skeleton skeleton-price shimmer"></div>
+                        </div>
+
+                        <!-- شمال: الصورة + بيانات -->
+                        <div class="car-info">
+                            <div class="details">
+                                <div class="skeleton skeleton-category shimmer"
+                                    style="width: 100px; height: 16px; margin-bottom: 6px;"></div>
+                                <div class="skeleton skeleton-title shimmer"
+                                    style="width: 120px; height: 14px; margin-bottom: 4px;"></div>
+                                <div class="skeleton skeleton-rating shimmer" style="width: 90px; height: 14px;"></div>
+                            </div>
+                            <div class="skeleton skeleton-image shimmer" style="width: 80px; height: 60px;"></div>
+                        </div>
+                    </div>
+                    <div class="driver-card" *ngIf="!ProductsLoading">
+                        <div class="price-info">
+                            <div class="discount-label">💎25% Discount for first Trip</div>
+                            <div class="current-price">EGP {{driver.price - driver.price * 0.25}} </div>
+                            <div class="old-price">EGP {{driver.price}} </div>
+                        </div>
+
+                        <!-- يمين الكارد - معلومات العربية -->
+                        <div class="car-info">
+                            <div class="details">
+                                <div class="service-name">
+                                    {{driver.driverName}}
+                                    <span class="passenger-count">👤 4</span>
+                                </div>
+                                <div class="status">{{driver.carName}}</div>
+                                <div class="description">daily Trips With Balanced Prices</div>
+                            </div>
+                            <img src="assets/cars/car1.jpg" alt="Car" class="car-image" />
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </ng-container>
+
+        <!-- لو الخريطة ظهرة -->
+        <ng-container *ngIf="showMap">
+            <button class="back-btn" (click)="goBack()">⏪ رجوع</button>
+            <div id="map" class="map-container"></div>
+            <!-- زر "Request Trip" -->
+            <div style="margin-left: 290px;">
+                <button class="request-trip-btn" (click)="requestTrip()">Confirm Driver</button>
+            </div>
+        </ng-container>
+    </div>

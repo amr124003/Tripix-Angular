@@ -40,7 +40,7 @@ export class FaceIDComponent implements OnInit, AfterViewInit {
     down: false
   };
 
-  constructor(private router : Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.initFaceMesh();
@@ -175,13 +175,31 @@ export class FaceIDComponent implements OnInit, AfterViewInit {
 
       // 🟢 تحويل الصورة إلى Base64 وتخزينها
       const imageData = canvas.toDataURL('image/png');
-      localStorage.setItem('userFaceImage', imageData);
+      const blob = this.dataURLtoBlob(imageData);
+
+      const formData = new FormData();
+      formData.append('FaceID' , blob, 'FaceId.png')
+      
+
 
       console.log("✅ تم التقاط وحفظ صورة المستخدم!");
       this.counter++;
     }
   }
 
+  dataURLtoBlob(dataUrl: string): Blob {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new Blob([u8arr], { type: mime });
+  }
 
 
   stopVideo() {

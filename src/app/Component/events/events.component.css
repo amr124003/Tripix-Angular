@@ -109,6 +109,7 @@ body {
 #section-1 {
 	height: 38em;
 	color: #fff;
+	margin-top: 70px;
 	background-color: #222;
 	
 	.content-slider {
@@ -136,7 +137,7 @@ body {
 				.banner-inner-wrapper {
 					height: 100%;
 					padding-top: 6em;
-					background-image: linear-gradient(rgba(243,129,129,.9), rgba(252,227,138,.9));
+					background-image: linear-gradient(rgba(245, 140, 140, 0.3), rgba(248, 226, 150, 0.3));
 					box-sizing: border-box;
 					h2 {
 						padding-bottom: 0.3em;
@@ -144,10 +145,15 @@ body {
 						font-weight: 400;
 						font-size: 2.5em;
 						text-transform: none;
+						
+						font-size: 3em;
 					}
 					h1 {
 						font-size: 5em;
 						line-height: 95%;
+						color: rgb(252, 252, 252);
+						backdrop-filter: blur(6px);
+						font-family: cursive;
 					}
 					.line {
 						display: block;
@@ -352,13 +358,13 @@ body {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	max-width: 1200px;
-	
+	max-width: 1400px;
   }
   
   .nav-links {
 	list-style: none;
 	display: flex;
+	
   }
   
   .nav-links li {
@@ -366,14 +372,34 @@ body {
   }
   
   .nav-links a {
+	font-family: cursive;
 	color: white;
 	text-decoration: none;
 	transition: color 0.3s;
 	font-size: 25px;
+	position: relative;
+	display: inline-block;
   }
   
   .nav-links a:hover {
-	color: #2b20a7;
+	color: #93eb10;
+  }
+
+  .nav-links a::after {
+	content: "";
+	position: absolute;
+	width: 0;
+	height: 3px;
+	border-radius: 5px;
+	left: 0;
+	bottom: -4px; /* المسافة بين الخط والكلمة */
+	background-color: #78d134;
+	transition: width 0.3s ease;
+  }
+  
+  /* عند الـ hover يبدأ الخط يظهر */
+  .nav-links a:hover::after {
+	width: 100%;
   }
   
   .theme-btn {
@@ -419,6 +445,7 @@ body {
 	transition: all 0.3s ease 0s;
 	cursor: pointer;
 	outline: none;
+	margin-right: 10px;
 	}
   
   .button:hover {

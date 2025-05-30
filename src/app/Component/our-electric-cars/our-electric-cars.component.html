@@ -108,112 +108,112 @@
         </div>
 
         <nav class="desktop-navigation-menu">
-            <div class="container" style="padding-bottom: 7px; padding-top: 5px;">
-                <ul class="desktop-menu-category-list">
+                <div class="container" style="padding-bottom: 7px; padding-top: 5px;">
+                        <ul class="desktop-menu-category-list">
 
-                    <li class="menu-category">
-                        <a href="#" class="menu-title" routerLink="/Home">Home</a>
-                    </li>
-
-                    <li class="menu-category">
-                        <a href="#" class="menu-title">Buy New Vehicles</a>
-
-                        <div class="dropdown-panel">
-                            <ul class="dropdown-panel-list">
-                                <li class="menu-title"><a href="#">Cars</a></li>
-                                <li class="panel-list-item"><a href="#" routerLink="/OurCars">SEDAN</a></li>
-                                <li class="panel-list-item"><a href="#">COUPE</a></li>
-                                <li class="panel-list-item"><a href="#">HATCHBACK</a></li>
-                                <li class="panel-list-item"><a href="#">SPORT-UTILITY VEHICLE (SUV)</a></li>
-                                <li class="panel-list-item">
-                                    <img src="../../../assets/images/campbell-3ZUsNJhi_Ik-unsplash.jpg" alt="image"
-                                         class="product-image">
+                                <li class="menu-category">
+                                        <a routerLink="/Home" class="menu-title">Home</a>
                                 </li>
-                            </ul>
 
-                            <ul class="dropdown-panel-list">
-                                <li class="menu-title"><a href="#">Motorcycles</a></li>
-                                <li class="panel-list-item"><a href="#">Standard</a></li>
-                                <li class="panel-list-item"><a href="#">Cruiser</a></li>
-                                <li class="panel-list-item"><a href="#">Sport</a></li>
-                                <li class="panel-list-item"><a href="#">Off-road</a></li>
-                                <li class="panel-list-item">
-                                    <img src="../../../assets/images/lucas-t-wb6dyvkqpyo-unsplash.jpg" alt="image"
-                                        width="100" height="100" class="product-image">
+                                <li class="menu-category">
+                                        <a  class="menu-title">Buy New Vehicles</a>
+
+                                        <div class="dropdown-panel">
+                                                <ul class="dropdown-panel-list">
+                                                        <li class="menu-title"><a routerLink="/OurCars">Cars</a></li>
+                                                        <li class="panel-list-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Sedan' }">SEDAN</a></li>
+                                                        <li class="panel-list-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Coupe' }">COUPE</a></li>
+                                                        <li class="panel-list-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Hatchback' }">HATCHBACK</a></li>
+                                                        <li class="panel-list-item"><a routerLink="/OurCars" [queryParams]="{ type: 'SUV' }">SPORT-UTILITY VEHICLE (SUV)</a></li>
+                                                        <li class="panel-list-item">
+                                                                <img src="../../../assets/images/campbell-3ZUsNJhi_Ik-unsplash.jpg" alt="image"
+                                                                          class="product-image">
+                                                        </li>
+                                                </ul>
+
+                                                <ul class="dropdown-panel-list">
+                                                        <li class="menu-title"><a routerLink="/OurMotorbikes">Motorcycles</a></li>
+                                                        <li class="panel-list-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Standard' }">Standard</a></li>
+                                                        <li class="panel-list-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Cruiser' }">Cruiser</a></li>
+                                                        <li class="panel-list-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Sport' }">Sport</a></li>
+                                                        <li class="panel-list-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Off-road' }">Off-road</a></li>
+                                                        <li class="panel-list-item">
+                                                                <img src="../../../assets/images/lucas-t-wb6dyvkqpyo-unsplash.jpg" alt="image"
+                                                                        width="100" height="100" class="product-image">
+                                                        </li>
+                                                </ul>
+
+                    
+                                                <ul class="dropdown-panel-list">
+                                                        <li class="menu-title"><a routerLink="/OurElectricCars">Electric Cars</a></li>
+                                                        <li class="panel-list-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'Sedan' }">SEDAN</a></li>
+                                                        <li class="panel-list-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'Coupe' }">COUPE</a></li>
+                                                        <li class="panel-list-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'Hatchback' }">HATCHBACK</a></li>
+                                                        <li class="panel-list-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'SUV' }">SPORT-UTILITY VEHICLE (SUV)</a></li>
+                                                        <li class="panel-list-item">
+                                                                <img src="../../../assets/images/michal-lauko-h7J4MLTXDsg-unsplash.jpg" alt="image"
+                                                                        width="100" height="100" class="product-image">
+                                                        </li>
+                                                </ul>
+                                        </div>
                                 </li>
-                            </ul>
 
-                            
-                            <ul class="dropdown-panel-list">
-                                <li class="menu-title"><a href="#">Electric Cars</a></li>
-                                <li class="panel-list-item"><a href="#">SEDAN</a></li>
-                                <li class="panel-list-item"><a href="#">COUPE</a></li>
-                                <li class="panel-list-item"><a href="#">HATCHBACK</a></li>
-                                <li class="panel-list-item"><a href="#">SPORT-UTILITY VEHICLE (SUV)</a></li>
-                                <li class="panel-list-item">
-                                    <img src="../../../assets/images/michal-lauko-h7J4MLTXDsg-unsplash.jpg" alt="image"
-                                        width="100" height="100" class="product-image">
+                                <li class="menu-category">
+                                        <a href="#" class="menu-title">BUY USED VEHICLES</a>
+
+                                        <ul class="dropdown-list">
+                                                <li class="dropdown-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Used' }">Cars</a></li>
+                                                <li class="dropdown-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'Used' }">Electric Cars</a></li>
+                                                <li class="dropdown-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Used' }">Motor Bikes</a></li>
+                    
+                                        </ul>
                                 </li>
-                            </ul>
-                        </div>
-                    </li>
 
-                    <li class="menu-category">
-                        <a href="#" class="menu-title">BUY USED VEHICLES</a>
 
-                        <ul class="dropdown-list">
-                            <li class="dropdown-item"><a routerLink="/CarWash">Cars</a></li>
-                            <li class="dropdown-item"><a routerLink="/CarWash">Electric Cars</a></li>
-                            <li class="dropdown-item"><a routerLink="/CarRepair">Motor Bikes</a></li>
-                            
+                                <li class="menu-category">
+                                        <a href="#" class="menu-title" routerLink="/Services">Services</a>
+
+                                        <ul class="dropdown-list">
+                                                <li class="dropdown-item"><a routerLink="/CarWash">Car Washing</a></li>
+                                                <li class="dropdown-item"><a routerLink="/CarRepair">Car Repair</a></li>
+                                                <li class="dropdown-item"><a routerLink="/Helpoo">Helpoo</a></li>
+                                        </ul>
+                                </li>
+
+                                <li class="menu-category">
+                                        <a  class="menu-title" routerLink="/CarRental">Car Rental</a>
+                                </li>
+
+                                <li class="menu-category">
+                                        <a  class="menu-title">Spare Parts</a>
+
+                                        <ul class="dropdown-list">
+                                                <li class="dropdown-item"><a routerLink="/SpareParts" [queryParams]="{ type: 'Cars' }">Cars</a></li>
+                                                <li class="dropdown-item"><a routerLink="/SpareParts" [queryParams]="{ type: 'ElectricCars' }">Electric Cars</a></li>
+                                                <li class="dropdown-item"><a routerLink="/SpareParts" [queryParams]="{ type: 'Motorbikes' }">Motorbikes</a></li>
+                                        </ul>
+                                </li>
+
+                                <li class="menu-category">
+                                        <a routerLink="/Events" class="menu-title">Events</a>
+                                </li>
+
+                                <li class="menu-category">
+                                        <a routerLink="/Blogs" class="menu-title">Blogs</a>
+                                </li>
+
+                                <li class="menu-category">
+                                        <a routerLink="/About" class="menu-title">About</a>
+                                </li>
+
+
+
+
+                                <li class="menu-category">
+                                        <button class="gradient-button" (click)="SellCar()">Sell My Car</button>
+                                </li>
                         </ul>
-                    </li>
-
-
-                    <li class="menu-category">
-                        <a href="#" class="menu-title">Services</a>
-
-                        <ul class="dropdown-list">
-                            <li class="dropdown-item"><a routerLink="/CarWash">Car Washing</a></li>
-                            <li class="dropdown-item"><a routerLink="/CarRepair">Car Repair</a></li>
-                            <li class="dropdown-item"><a href="#">Helpoo</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-category">
-                        <a href="#" class="menu-title">Car Rental</a>
-                    </li>
-
-                    <li class="menu-category">
-                        <a href="#" class="menu-title">Spare Parts</a>
-
-                        <ul class="dropdown-list">
-                            <li class="dropdown-item"><a href="#">Cars</a></li>
-                            <li class="dropdown-item"><a href="#">Electric Cars</a></li>
-                            <li class="dropdown-item"><a href="#">Motorbikes</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-category">
-                        <a href="#" class="menu-title">Events</a>
-                    </li>
-
-                    <li class="menu-category">
-                        <a href="#" class="menu-title">Blogs</a>
-                    </li>
-
-                    <li class="menu-category">
-                        <a href="#" class="menu-title">About</a>
-                    </li>
-
-
-
-
-                    <li class="menu-category">
-                        <button class="gradient-button">Sell My Car</button>
-                    </li>
-                </ul>
-            </div>
+                </div>
         </nav>
 
         <div class="mobile-bottom-navigation">
@@ -366,17 +366,6 @@
         <div class="product-container">
             <div class="container">
                 <div class="sidebar has-scrollbar " data-mobile-menu>
-                    <div class="filter-section">
-                        <input type="radio" name="filter" value="all" id="all" [(ngModel)]="filterType">
-                        <label for="all">All</label>
-                
-                        <input type="radio" name="filter" value="new" id="new" [(ngModel)]="filterType">
-                        <label for="new">New</label>
-                
-                        <input type="radio" name="filter" value="used" id="used" [(ngModel)]="filterType">
-                        <label for="used">Used</label>
-                    </div>
-                
                     <div class="price-range">
                         <label>Price</label>
                         <div class="slider-container2">
@@ -408,40 +397,23 @@
                     </div>  
 
                     <div class="fuel-type">
-                        <label>Fuel Type :</label>
+                        <label>Body Type :</label>
                         <div class="fuel-options">
-                          <div class="fuel-item-container" *ngFor="let type of fuelTypes">
+                          <div class="fuel-item-container" *ngFor="let type of bodyTypes">
                             <div class="fuel-item"
-                                 [ngClass]="{'selected': selectedFuelTypes[type]}"
+                                 [ngClass]="{'selected': selectedbodyTypes[type]}"
                                  (click)="toggleFuelSelection(type)">
                               {{ type }}
                             </div>
                           </div>
                         </div>
                       </div>
-                    
-                      
-                      <div class="fuel-type">
-                        <label>body Shape :</label>
-                        <div class="fuel-options">
-                          <div class="fuel-item-container" *ngFor="let type of bodyTypes">
-                            <div class="fuel-item"
-                                 [ngClass]="{'selected': selectedBodyTypes[type]}"
-                                 (click)="toggleBodytypeSelection(type)">
-                              {{ type }}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    
-                    
-                    
-                
                     <div class="brands-list">
                         <label>Brand</label>
                         
                         <!-- إضافة input للبحث في الماركات -->
-                        <input type="text" class="search-box" [(ngModel)]="searchQuery" (input)="filterBrands()"
+                        <input type="text" class="search-box" [(ngModel)]="searchQuery"
+                        (input)="filterBrands()" 
                             placeholder="Search For Brand">
                 
                         <!-- قائمة الماركات مع التمرير -->
@@ -449,12 +421,12 @@
                             <div *ngFor="let brand of filteredBrands ">
                                 <div class="brand-item" [class]="brand.animationClass"
                                     (click)="toggleBrandOptions(brand)">
-                                    <img [src]="brand.logo" alt="{{brand.name}}"> {{ brand.name }}
-                                    <span *ngIf="brand.options.length" class="arrow"
+                                    {{ brand.brandName }}
+                                    <span *ngIf="brand.models.length" class="arrow"
                                         [class.rotated]="brand.expanded">></span>
                                 </div>
                                 <div [class.active]="brand.expanded" class="brand-options">
-                                    <label *ngFor="let option of brand.options">
+                                    <label *ngFor="let option of brand.models">
                                         <input type="checkbox"> {{ option }}
                                     </label>
                                 </div>
@@ -475,14 +447,15 @@
                                 <div class="showcase-container">
                                     <div class="showcase">
                                         <a href="#" class="showcase-img-box">
-                                            <img src="https://i.postimg.cc/fyLNm09z/clothes-1.jpg"
-                                                alt="relaxed short full sleeve t-shirt" class="showcase-img" width="90">
+                                            <img src="../../../assets/images/car.webp"
+                                                alt="relaxed short full sleeve t-shirt" class="showcase-img" width="120">
                                         </a>
 
                                         <div class="showcase-content">
                                             <a href="#">
-                                                <h4 class="showcase-title">Relaxed Short full sleeve t-shirt</h4>
+                                                <h4 class="showcase-title">Rang Rover</h4>
                                             </a>
+                                            
 
                                             <div class="price-box">
                                                 <p class="price">$45.00</p>
@@ -504,14 +477,15 @@
                                 <div class="showcase-container">
                                     <div class="showcase">
                                         <a href="#" class="showcase-img-box">
-                                            <img src="https://i.postimg.cc/pLWhzrLm/sports-1.jpg"
-                                                alt="running & trekking shoes - white" class="showcase-img" width="90">
+                                            <img src="../../../assets/images/car2.webp"
+                                                alt="running & trekking shoes - white" class="showcase-img" width="120">
                                         </a>
 
                                         <div class="showcase-content">
                                             <a href="#">
-                                                <h4 class="showcase-title">Running & Trekking Shoes - White</h4>
+                                                <h4 class="showcase-title">Toyota</h4>
                                             </a>
+                                            
 
                                             <div class="price-box">
                                                 <p class="price">$49.00</p>
@@ -533,14 +507,15 @@
                                 <div class="showcase-container">
                                     <div class="showcase">
                                         <a href="#" class="showcase-img-box">
-                                            <img src="https://i.postimg.cc/jq84QT45/watch-3.jpg"
-                                                alt="pocket watch leather pouch" class="showcase-img" width="90">
+                                            <img src="../../../assets/images/car3.webp" alt="pocket watch leather pouch"
+                                                class="showcase-img" width="120">
                                         </a>
 
                                         <div class="showcase-content">
                                             <a href="#">
                                                 <h4 class="showcase-title">Pocket Watch Leather Pouch</h4>
                                             </a>
+                                            
 
                                             <div class="price-box">
                                                 <p class="price">$50.00</p>
@@ -557,57 +532,65 @@
                     </div>
 
                     <div class="product-main">
-                        <h2 class="title">Our Cars</h2>
+                        <h2 class="title">Our Electric-Cars</h2>
 
                         <div class="product-grid">
 
-                            <div class="container-loading" *ngIf="ProductsLoading">
-                                <div class="showcase-content loading-skeleton" >
-                                    <div class="skeleton skeleton-image shimmer"></div>
-                                    <div class="skeleton skeleton-category shimmer"></div>
-                                    <div class="skeleton skeleton-title shimmer"></div>
-                                    <div class="skeleton skeleton-rating shimmer"></div>
-                                    <div class="skeleton skeleton-price shimmer"></div>
-                                </div>
-                            </div>
-
-                            <div class="showcase fade-in" *ngIf="!ProductsLoading">
-                                <div class="showcase-banner">
-                                    <img src="https://i.postimg.cc/jdybNKWJ/jacket-3.jpg"
-                                        alt="Mens Winter Leathers Jackets" class="product-img default" width="300">
-                                    <img src="https://i.postimg.cc/pr9cj4HT/jacket-4.jpg"
-                                        alt="Mens Winter Leathers Jackets" class="product-img hover" width="350">
-
-                                    <p class="showcase-badge">15%</p>
-
-                                    <div class="showcase-actions">
-                                        <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
-                                        <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
-                                        <button class="btn-action"><ion-icon name="repeat-outline"></ion-icon></button>
-                                        <button class="btn-action"><ion-icon name="bag-add-outline"></ion-icon></button>
+                            <ng-container *ngFor="let car of OurCars">
+                                <div class="container-loading" *ngIf="ProductsLoading">
+                                    <div class="showcase-content loading-skeleton">
+                                        <div class="skeleton skeleton-image shimmer"></div>
+                                        <div class="skeleton skeleton-category shimmer"></div>
+                                        <div class="skeleton skeleton-title shimmer"></div>
+                                        <div class="skeleton skeleton-rating shimmer"></div>
+                                        <div class="skeleton skeleton-price shimmer"></div>
                                     </div>
                                 </div>
+                            </ng-container>
 
-                                <div class="showcase-content">
-                                    <a href="#" class="showcase-category">Jacket</a>
-                                    <a href="#">
-                                        <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
-                                    </a>
+                            <ng-container *ngFor="let car of OurCars">
+                                <div class="showcase fade-in" *ngIf="!ProductsLoading">
+                                    <div class="showcase-banner">
+                                        <img [src]="'https://localhost:7012/'+car.imagesUrls[0]"
+                                            alt="Mens Winter Leathers Jackets" class="product-img default" width="300">
+                                        <img [src]="'https://localhost:7012/'+car.imagesUrls[1]"
+                                            alt="Mens Winter Leathers Jackets" class="product-img hover" width="300">
 
-                                    <div class="showcase-rating">
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
+                                        <p class="showcase-badge">{{car.discount}}</p>
+
+                                        <div class="showcase-actions">
+                                            <button class="btn-action" (click)="toggleLike()"><i
+                                                    class="fa-solid fa-heart"
+                                                    [ngClass]="isLiked ? 'fa-heart' : 'fa-heart-o'"></i></button>
+                                            <button class="btn-action"><i class="fa-solid fa-eye"></i></button>
+                                            <button class="btn-action"><i
+                                                    class="fa-solid fa-cash-register"></i></button>
+                                            <button class="btn-action"><i class="fa-solid fa-share"></i></button>
+                                        </div>
                                     </div>
 
-                                    <div class="price-box">
-                                        <p class="price">48.00</p>
-                                        <del>$75.00</del>
+
+
+                                    <div class="showcase-content">
+                                        <a href="#" class="showcase-category">{{car.name}}</a>
+                                        <a href="#">
+                                            <h3 class="showcase-title">Electric Car</h3>
+                                        </a>
+
+                                        <div class="showcase-rating">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                        </div>
+                                        <div class="price-box">
+                                            <p class="price">{{ car.price | currency:'EGP':'symbol'}}</p>
+                                            <del *ngIf="car.discount">{{car.price - car.price * (car.discount / 100)}}</del>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </ng-container>
                         </div>
                     </div>
                 </div>

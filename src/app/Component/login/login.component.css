@@ -288,7 +288,7 @@ form{ width: 100%; }
 
 
 .error {
-    color: #ff4d4d; /* لون أحمر جذاب */
+    color: #ff3434; /* لون أحمر جذاب */
     font-size: 15px;
     font-weight: bold;
     font-family: 'Poppins', sans-serif; /* خط عصري */
@@ -300,7 +300,8 @@ form{ width: 100%; }
   
   .error span {
     display: inline-block;
-    background: rgba(255, 77, 77, 0.1); /* خلفية خفيفة */
+    background: rgba(255, 255, 255, 0.3); /* خلفية خفيفة */
+    backdrop-filter: blur(10px);
     padding: 5px 10px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(255, 77, 77, 0.2);
@@ -368,6 +369,12 @@ form{ width: 100%; }
     flex-direction: column;
     align-items: center;
   }
+
+  .modal-content h5{
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: orange;
+  }
   
   .close-icon {
     position: absolute;
@@ -380,6 +387,39 @@ form{ width: 100%; }
   
   .close-icon:hover {
     transform: scale(1.2);
+  }
+
+  .password-container{
+    text-align: center;
+  }
+
+  .password-container input {
+    margin-bottom: 10px;
+    width: 260px;
+    font-size: 16px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 8px;
+    border: 2px solid orange;
+    background: #333;
+    color: white;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .password-container input:focus {
+    outline: none;
+    border-color: white;
+    box-shadow: 0 0 8px rgba(255, 165, 0, 0.8);
+  }
+  
+  .animated {
+    animation: bounce 0.3s ease-in-out;
+  }
+  
+  @keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
   }
   
   .otp-container {
@@ -445,7 +485,6 @@ form{ width: 100%; }
   .btn-resend {
     background: linear-gradient(135deg, #28a745, #4cd137);
     color: white;
-    
     box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
   }
   
@@ -498,7 +537,7 @@ form{ width: 100%; }
     background-color: rgba(255, 255, 255, .1);
     padding: 5px;
     border-radius: 10px;
-    border-bottom: 1px solid greenyellow;
+    border-bottom: 2px solid orange;
     text-align: center;
   }
 
@@ -616,5 +655,49 @@ form{ width: 100%; }
       transform: scale(1);
     }
   }
+
+  .loading-bars {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+  }
+  
+  .loading-bars .bar {
+    width: 4px;
+    height: 100%;
+    background-color: white;
+    margin: 0 2px;
+    border-radius: 2px;
+    animation: wave 1s infinite ease-in-out;
+  }
+  
+  @keyframes wave {
+    0%, 100% {
+      height: 20%;
+    }
+    50% {
+      height: 100%;
+    }
+  }
+
+  .google-icon-button {
+    background: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+  }
+  .google-icon-button:hover {
+    transform: scale(1.05);
+  }
+  .google-icon-button img {
+    width: 24px;
+    height: 24px;
+  }
+    
+  
   
  

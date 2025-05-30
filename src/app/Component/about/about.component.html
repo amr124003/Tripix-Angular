@@ -7,14 +7,15 @@
     <title>Portfolio Landing Page</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/magnific-popup.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 </head>
 
 <body>
     <nav class="navbar1">
-        <img class="logo" src="../../../assets/images/ripix.png">
+        
+            <img class="logo" src="../../../assets/images/tripix logo.png">
+        
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
             <li><a href="#">Services</a></li>
@@ -177,7 +178,8 @@
                             <i class="fa-solid fa-car"></i>
                         </div>
                         <h3>Car Rental</h3>
-                        <p>It is a service provided by Tripix to give the user the ability to rent cars for a specific period of time, with a maximum of 3 days and a minimum of 3 hours.</p>
+                        <p>It is a service provided by Tripix to give the user the ability to rent cars for a specific
+                            period of time, with a maximum of 3 days and a minimum of 3 hours.</p>
                     </div>
                 </div>
 
@@ -187,7 +189,8 @@
                             <i class="fa-solid fa-car-on"></i>
                         </div>
                         <h3>Car Washing</h3>
-                        <p>A service provided by tripix. Car wash service is provided at different prices and additional features are added with each increase in the level of service.</p>
+                        <p>A service provided by tripix. Car wash service is provided at different prices and additional
+                            features are added with each increase in the level of service.</p>
                     </div>
                 </div>
 
@@ -197,7 +200,8 @@
                             <i class="fa-solid fa-truck-front"></i>
                         </div>
                         <h3>Helpoo</h3>
-                        <p>A service provided by tripix. The service of transporting broken down or new cars is provided by communicating via telephones or through the website.</p>
+                        <p>A service provided by tripix. The service of transporting broken down or new cars is provided
+                            by communicating via telephones or through the website.</p>
                     </div>
                 </div>
 
@@ -207,7 +211,8 @@
                             <i class="fa-solid fa-screwdriver-wrench"></i>
                         </div>
                         <h3>Car Repair</h3>
-                        <p>A service provided by tripix that provides car repair services and is available with every maintenance location, fuel provider and rest </p>
+                        <p>A service provided by tripix that provides car repair services and is available with every
+                            maintenance location, fuel provider and rest </p>
                     </div>
                 </div>
             </div>
@@ -224,7 +229,7 @@
                             available services, and also the services added to the basic services are the best
                             experience.</p>
                         <ul>
-                            <li><a class="btn btn-1" (click)="showForm()">Show Our Main Location</a></li>
+                            <li><a class="btn btn-1" (click)="openMapModal()">Show Our Main Location</a></li>
                         </ul>
                     </div>
                 </div>
@@ -234,37 +239,13 @@
 
     <div class="overlay" *ngIf="isFormVisible" (click)="closeForm()"></div>
 
-    <!-- Form Container with animation -->
-    <div class="form-container" *ngIf="isFormVisible">
-        <div class="form-content" *ngIf="!isSubmitted">
-            <h2 style="margin-left: 180px;">Book Your Car</h2>
-            <form (ngSubmit)="submitForm()">
-                <div class="input-container" *ngFor="let field of fields; let i = index">
-                    <label [for]="field.id">{{ field.label }}</label>
-                    <input [id]="field.id" [type]="field.type" [placeholder]="field.placeholder"
-                        [style.animationDelay]="(i * 0.2) + 's'">
-                </div>
-                <label>Car Type</label>
-                <select>
-                    <option>Electric Car</option>
-                    <option>fuel Powered Car</option>
-                </select>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-
-        <!-- Success Message with Animation -->
-        <div *ngIf="isSubmitted" class="success-message">
-            <ion-icon name="checkmark-circle"></ion-icon> Car Is Booked!
-        </div>
-
-    </div>
-
+    
     <h2 class="team-title1">TRIPIX TEAM</h2>
-    <h2 class="team-title2">Our team is divided into 3 teams: <span>Back-end</span> development team,<br> <span>Front-end</span> development team, and <span>Mobile Application</span> development team.</h2>
-     
+    <h2 class="team-title2">Our team is divided into 3 teams: <span>Back-end</span> development team,<br>
+        <span>Front-end</span> development team, and <span>Mobile Application</span> development team.</h2>
+
     <section class="profiles">
-        
+
         <div class="avatar" style="--bg-img:url(https://picsum.photos/id/112/300/200)">
             <div class="avatar-img">
                 <img
@@ -273,7 +254,7 @@
             <br>
             <br>
             <p>Sandra <span>frontend developer</span></p>
-            
+
         </div>
 
         <div class="avatar" style="--bg-img:url(https://picsum.photos/id/112/300/200)">
@@ -284,7 +265,7 @@
             <br>
             <br>
             <p>Sandra <span>frontend developer</span></p>
-            
+
         </div>
 
         <div class="avatar" style="--bg-img:url(https://picsum.photos/id/112/300/200)">
@@ -295,7 +276,7 @@
             <br>
             <br>
             <p>Sandra <span>frontend developer</span></p>
-            
+
         </div>
 
         <div class="avatar" style="--bg-img:url(https://picsum.photos/id/112/300/200)">
@@ -306,7 +287,7 @@
             <br>
             <br>
             <p>Sandra <span>frontend developer</span></p>
-            
+
         </div>
 
 
@@ -354,71 +335,54 @@
                         <div class="contact-info-item">
                             <i class="fa-solid fa-location-arrow"></i>
                             <h4>Company Location</h4>
-                            <p>199 xyz Clermont, Florida</p>
+                            <p>1 Al Ansary Street, Ouseem, 12961, Egypt</p>
                         </div>
 
                         <div class="contact-info-item">
                             <i class="fa-solid fa-envelope"></i>
                             <h4>Write to us at</h4>
-                            <p>Parker&#64;gmail.com</p>
+                            <p>tripixv911&#64;gmail.com</p>
                         </div>
 
                         <div class="contact-info-item">
                             <i class="fa-solid fa-location-arrow"></i>
                             <h4>Call us on</h4>
-                            <p>+1 678 7890</p>
+                            <p>+20 127 007 74186</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-8 col-md-7">
                     <div class="contact-form">
-                        <form action="">
+                        <form (ngSubmit)="sendMessage()" #f="ngForm" method="post">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="text" placeholder="Your Name" class="form-control">
+                                        <input type="text" name="name" [(ngModel)]="name" placeholder="Your Name" class="form-control">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="email" placeholder="Your Email" class="form-control">
+                                        <input type="email" name="email" [(ngModel)]="email" placeholder="Your Email" class="form-control">
                                     </div>
                                 </div>
 
                             </div>
-
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <input type="text" placeholder="Your Phone" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input type="date" class="form-control">
+                                        <textarea name="message" [(ngModel)]="message" placeholder="Your Message" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <select style="width: 730px;">
-                                            <option>Electric Car</option>
-                                            <option>Fuel Powered Car</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="row">
                                 <div class="col-lg-12" style="text-align: center;">
-                                    <button class="btn-2">Book Now</button>
+                                    <button class="btn-2" [disabled]="!f.valid">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -438,6 +402,16 @@
         </div>
     </footer>
 
+    <div class="modal-overlay" *ngIf="isMapOpen">
+        <!-- النافذة المنبثقة -->
+        <div class="map-modal" *ngIf="isMapOpen">
+            <div class="map-container">
+                <span class="close-btn" (click)="closeMapModal()">&#10006;</span>
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
@@ -446,6 +420,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/jquery.magnific-popup.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
 </body>
 
 </html>

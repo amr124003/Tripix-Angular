@@ -16,18 +16,19 @@
     <header class="header-area">
         <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container">
-                <a href="#index.html" class="navbar-brand"><img src="../../../assets/images/1.png" style="width: 130px;"></a>
+                <a href="#index.html" class="navbar-brand"><img src="../../../assets/images/1.png"
+                        style="width: 130px;"></a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"><i
                         class="fa-solid fa-bars"></i></button>
 
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="0">home</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="1">about</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="2">Other services</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="6">contact</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="6">FAQ's</a></li>
+                        <li class="nav-item"><a routerLink="/Home" class="nav-link" data-scroll-nav="0">home</a></li>
+                        <li class="nav-item"><a routerLink="/About" class="nav-link" data-scroll-nav="1">about</a></li>
+                        <li class="nav-item"><a routerLink="Services" class="nav-link" data-scroll-nav="2">Other
+                                services</a></li>
+                        <li class="nav-item"><a routerLink="/FAQs" class="nav-link" data-scroll-nav="6">FAQ's</a></li>
                     </ul>
                 </div>
             </div>
@@ -229,20 +230,20 @@
 
     <!-- Form Container with animation -->
     <div class="form-container" *ngIf="ismodalVisible">
-        
-            <div class="modal-content">
-                <div *ngFor="let item of menu">
-                    <h3>{{ item.title }}</h3>
-                    <ul>
-                        <li *ngFor="let subItem of item.subItems">{{ subItem }}</li>
-                    </ul>
-                </div>
+
+        <div class="modal-content">
+            <div *ngFor="let item of menu">
+                <h3>{{ item.title }}</h3>
+                <ul>
+                    <li *ngFor="let subItem of item.subItems">{{ subItem }}</li>
+                </ul>
             </div>
-        
-            <div class="modal-footer">
-                <button (click)="closeModal()" class="close-modal-btn">Close</button>
-            </div>
-        
+        </div>
+
+        <div class="modal-footer">
+            <button (click)="closeModal()" class="close-modal-btn">Close</button>
+        </div>
+
     </div>
 
 
@@ -265,7 +266,8 @@
                             <i class="fa-solid fa-hot-tub-person"></i>
                         </div>
                         <h3>Car troubleshooting</h3>
-                        <p>Before attempting to move the car, a team specializing in detecting faults inspects the car so that the car can be directed to the correct location to avoid any errors.</p>
+                        <p>Before attempting to move the car, a team specializing in detecting faults inspects the car
+                            so that the car can be directed to the correct location to avoid any errors.</p>
                     </div>
                 </div>
 
@@ -275,7 +277,8 @@
                             <i class="fa-solid fa-truck-front"></i>
                         </div>
                         <h3>Car Carry</h3>
-                        <p>After the team has detected the fault, the car will be directed to the nearest maintenance branch specializing in this fault by contacting them and reserving your turn.</p>
+                        <p>After the team has detected the fault, the car will be directed to the nearest maintenance
+                            branch specializing in this fault by contacting them and reserving your turn.</p>
                     </div>
                 </div>
 
@@ -285,7 +288,8 @@
                             <i class="fa-solid fa-gas-pump"></i>
                         </div>
                         <h3>Fuel supplier</h3>
-                        <p>Each tow truck is equipped with fuel for the cars. In case the fuel runs out, the car is supplied with enough fuel to take it to the nearest gas station.</p>
+                        <p>Each tow truck is equipped with fuel for the cars. In case the fuel runs out, the car is
+                            supplied with enough fuel to take it to the nearest gas station.</p>
                     </div>
                 </div>
             </div>
@@ -332,8 +336,8 @@
                     <option>fuel Powered Car</option>
                 </select>
                 <div style="text-align: center;">
-                <button type="submit">Submit</button>
-            </div>
+                    <button type="submit">Submit</button>
+                </div>
             </form>
         </div>
 
@@ -343,6 +347,39 @@
         </div>
 
     </div>
+   <div class="overlay" *ngIf="showMap" (click)="closeMap()"></div>
+    <div class="form-container" *ngIf="showMap" tabindex="-1" id="mapModal" [ngClass]="{ 'show d-block': showMap }">
+        <div class="form-content" >
+            <div class="modal-header">
+                    <h5 class="modal-title">Select Location</h5>
+                    <button type="button" class="btn-close" (click)="closeMap()"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="map" style="height: 500px;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" (click)="confirmLocation()">Confirm</button>
+                </div>
+        </div>
+    </div>
+
+    <!-- Modal
+    <div class="modal" tabindex="-1" id="mapModal" [ngClass]="{ 'show d-block': showMap }">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select Location</h5>
+                    <button type="button" class="btn-close" (click)="closeMap()"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="map" style="height: 400px;"></div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" (click)="confirmLocation()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
 
 
     <section class="pricing section-padding" id="pricing" data-scroll-index="5"
@@ -488,8 +525,19 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <input type="text" placeholder="Your Location" [value]="location" class="form-control">
+                                    <div class="form-group position-relative">
+                                        <div class="position-relative">
+                                            <input type="text" class="form-control pe-5" placeholder="Your Location"
+                                                [value]="location" readonly />
+                                            <i class="fa-solid fa-location-dot text-danger pulse-icon"
+                                                (click)="openMap()" style="
+                                                     position: absolute;
+                                                     top: 50%;
+                                                     right: 15px;
+                                                     transform: translateY(-50%);
+                                                     cursor: pointer;
+                                                   "></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

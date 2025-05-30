@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, AfterViewInit, ElementRef, ViewChild, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import gsap from 'gsap';
+import { MotorbikesService } from '../../Services/Motorbikes/motorbikes.service';
+import { ElctricCarsService } from '../../Services/ElectricCars/elctric-cars.service';
 
 @Component({
   selector: 'app-our-electric-cars',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule , RouterLink , RouterLinkActive],
   templateUrl: './our-electric-cars.component.html',
   styleUrl: './our-electric-cars.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -22,9 +24,9 @@ export class OurElectricCarsComponent implements AfterViewInit, OnInit {
   nextElementSibling: any;
   classList: any;
   toastpoen = true;
-  
 
-  constructor(private router: ActivatedRoute) { }
+
+  constructor(private router1: ActivatedRoute, private router2: Router, private elctricCarRepo: ElctricCarsService) { }
 
   //////////////////////////////////////////////////////////////////////////////
   filterType = 'all';
@@ -36,55 +38,64 @@ export class OurElectricCarsComponent implements AfterViewInit, OnInit {
   animatedMinPrice: number = this.minLimit;
   animatedMaxPrice: number = 10000000;
   priceChanging = false;
+  OurCars: any[] = [];
   searchQuery: string = '';
-  filteredBrands: any[] = [];
+  filteredBrands : { brandName: string; models: string[]; expanded: boolean , animationClass : string}[] = [];
   step: number = 1000; // مقدار الزيادة عند الضغط على + و -
   ProductsLoading = true;
   currentPage: number = 1;
-  totalPages: number = 5; // غير الرقم حسب عدد الصفحات الحقيقي
-  fuelTypes: string[] = ['Benzine', 'Diesel', 'Electric', 'Hybrid'];  // Types of fuel
-  bodyTypes: string[] = ['Sedan', 'Coupe', 'Hatchback', 'SUV'];  // Types of fuel
-  selectedFuelTypes: { [key: string]: boolean } = {
+  totalPages: number = 0; // غير الرقم حسب عدد الصفحات الحقيقي
+  bodyTypes: string[] = ['Standard', 'Cruiser', 'Sport', 'Off-Road'];  // Types of fuel
+  selectedbodyTypes: { [key: string]: boolean } = {
     'Benzine': false,
     'Diesel': false,
     'Electric': false,
     'Hybrid': false
   };
-  selectedBodyTypes: { [key: string]: boolean } = {
-    'Sedan': false,
-    'Coupe': false,
-    'Hatchback': false,
-    'SUV': false
-  };
-  
-  
+  selectedbodytype!: string;
+  selectedPrand!: string;
+  selectedmodel!: string;
+  isLiked: boolean = false;
 
-  brands = [
-    { name: 'كل الماركات', logo: '', options: [], expanded: false },
-    { name: 'آفاتر', logo: 'assets/avatar.png', options: ['موديل 1', 'موديل 2'], expanded: false },
-    { name: 'ألبينا', logo: 'assets/alpina.png', options: ['موديل 1', 'موديل 2'], expanded: false },
-    { name: 'ألفاروميو', logo: 'assets/alfa.png', options: ['موديل 1', 'موديل 2'], expanded: false },
-    { name: 'أودي', logo: 'assets/audi.png', options: ['موديل 1', 'موديل 2'], expanded: false },
-    { name: 'إكس بينج', logo: 'assets/xpeng.png', options: ['موديل 1', 'موديل 2'], expanded: false }
-  ];
+
+
+  brands : { brandName: string; models: string[]; expanded: boolean , animationClass : string}[] = [];
 
   ngOnInit(): void {
-    this.filteredBrands = [...this.brands]; // تخزين كل البيانات الأصلية
+    
 
     setTimeout(() => {
       this.ProductsLoading = false;
     }, 5000);
 
-    this.router.queryParams.subscribe((params) => {
-      console.log(params['type']);
-    });
+    this.GetData();
+    
+    this.Getbrands();
 
+    
+  }
+   Getbrands()
+  {
+    this.elctricCarRepo.GetBrands().subscribe(
+      {
+        next:(Response) => 
+        {
+          this.brands = Response;
+          this.filteredBrands = Response;
+          console.log(this.brands);
+        },
+        error:() => 
+        {
+          console
+        }
+      }
+    )
   }
 
   get totalPagesArray(): number[] {
     return Array(this.totalPages).fill(0);
   }
-  
+
   goToPage(page: number): void {
     this.currentPage = page;
     // نادِ دالة تجيب الداتا على حسب الصفحة المختارة
@@ -92,62 +103,77 @@ export class OurElectricCarsComponent implements AfterViewInit, OnInit {
 
   filterCarsByFuel() {
     // هنا يمكن إضافة الكود اللازم لتصفية السيارات حسب الوقود
-    console.log('Selected Fuel Types:', this.selectedFuelTypes);
+    console.log('Selected Fuel Types:', this.selectedbodyTypes);
   }
 
-  filterCarsByBodyType() {
-    // هنا يمكن إضافة الكود اللازم لتصفية السيارات حسب الوقود
-    console.log('Selected Fuel Types:', this.selectedBodyTypes);
-  }
 
   toggleFuelSelection(fuel: string): void {
-    this.selectedFuelTypes[fuel] = !this.selectedFuelTypes[fuel];
-    this.filterCarsByFuel(); // لو عندك فلترة بناء على نوع الوقود
+     
+    const isAlreadySelected = this.selectedbodyTypes[fuel];
+    for (let key in this.selectedbodyTypes) {
+      this.selectedbodyTypes[key] = false;
+    }
+    if (!isAlreadySelected) {
+      this.selectedbodyTypes[fuel] = true;
+      this.selectedbodytype = fuel;
+    } else {
+      this.selectedbodytype = '';
+    }
+    this.GetData();
   }
 
-  toggleBodytypeSelection(type: string): void {
-    this.selectedBodyTypes[type] = !this.selectedBodyTypes[type];
-    this.filterCarsByBodyType(); // لو عندك فلترة بناء على نوع الوقود
+
+  toggleLike() {
+    this.isLiked = !this.isLiked;
+
+    if (this.isLiked) {
+      this.onLike();  // وظيفة لما يكون مفعل
+    } else {
+      this.onDislike();  // وظيفة لما يكون غير مفعل
+    }
   }
 
-  getSelectedBodyTypes(): string[] {
-    return Object.entries(this.selectedBodyTypes)
-      .filter(([key, value]) => value)
-      .map(([key]) => key);
+  // دالة لما الزر مفعل (مثلًا إضافة الإعجاب)
+  onLike() {
+    console.log("Liked");
+    // هنا ممكن تضيف أي وظائف إضافية مثل إرسال بيانات أو تحديث شيء في التطبيق
   }
 
-  filterBrands() {
-    const query = this.searchQuery.toLowerCase();
-
-    const newFilteredBrands = this.brands
-      .map(brand => {
-        const matchingOptions = brand.options.filter(option => option.toLowerCase().includes(query));
-        const matchesBrandName = brand.name.toLowerCase().includes(query);
-
-        if (matchesBrandName) {
-          return { ...brand, expanded: false, options: brand.options }; // عرض الماركة بدون تغيير
-        } else if (matchingOptions.length > 0) {
-          return { ...brand, expanded: true, options: matchingOptions }; // فتح الماركة وعرض الخيارات المطابقة فقط
-        }
-        return null; // إخفاء الماركات غير المطابقة
-      })
-      .filter(brand => brand !== null);
-
-    // إضافة كلاس الاختفاء قبل التحديث
-    this.filteredBrands.forEach(brand => {
-      if (!newFilteredBrands.some(b => b.name === brand.name)) {
-        brand.animationClass = 'disappear';
-      }
-    });
-
-    // تطبيق التأخير قبل التحديث النهائي
-    setTimeout(() => {
-      this.filteredBrands = newFilteredBrands.map(brand => ({
-        ...brand,
-        animationClass: 'appear'
-      }));
-    }, 200);
+  // دالة لما الزر غير مفعل (مثلًا إزالة الإعجاب)
+  onDislike() {
+    console.log("Disliked");
+    // هنا ممكن تضيف وظائف إضافية أيضًا
   }
+
+
+   filterBrands() {
+     const query = this.searchQuery.toLowerCase()
+     const newFilteredBrands = this.brands
+       .map(brand => {
+         const matchingOptions = brand.models.filter(model => model.toLowerCase().includes(query));
+         const matchesBrandName = brand.brandName.toLowerCase().includes(query)
+         if (matchesBrandName) {
+           return { ...brand, expanded: false, options: brand.models }; // عرض الماركة بدون تغيير
+         } else if (matchingOptions.length > 0) {
+           return { ...brand, expanded: true, options: matchingOptions }; // فتح الماركة وعرض الخيارات المطابقة فقط
+         }
+         return null; // إخفاء الماركات غير المطابقة
+       })
+       .filter(brand => brand !== null)
+     // إضافة كلاس الاختفاء قبل التحديث
+     this.filteredBrands.forEach(brand => {
+       if (!newFilteredBrands.some(b => b.brandName === brand.brandName)) {
+         brand.animationClass = 'disappear';
+       }
+     })
+     // تطبيق التأخير قبل التحديث النهائي
+     setTimeout(() => {
+       this.filteredBrands = newFilteredBrands.map(brand => ({
+         ...brand,
+         animationClass: 'appear'
+       }));
+     }, 200);
+   }
 
   resetFilters() {
     this.filterType = 'all';
@@ -158,19 +184,60 @@ export class OurElectricCarsComponent implements AfterViewInit, OnInit {
     this.filteredBrands = [...this.brands];
   }
 
+  SellCar() {
+    this.router2.navigateByUrl("/SellCar");
+  }
+
   toggleBrandOptions(selectedBrand: any) {
+    this.selectedPrand = selectedBrand;
     this.brands.forEach(brand => {
       if (brand !== selectedBrand && brand.expanded) {
         brand.expanded = false;
       }
     });
-
     selectedBrand.expanded = !selectedBrand.expanded;
+    this.GetData();
+  }
+
+  GetData() {
+    this.router1.queryParams.subscribe((params) => {
+      console.log(params);
+      const Requestfilter = {
+        "pageNumber": 1,
+        "pageSize": 10,
+        "searchValues": {
+           "CarType": this.selectedbodytype || params['type'],
+           "Prand": this.selectedPrand,
+           "Model": this.selectedmodel
+
+        }
+      }
+
+      this.elctricCarRepo.GetElectricCars(Requestfilter).subscribe({
+        next:(Response) => {
+          this.OurCars = Response.items;
+          console.log(this.OurCars);
+          if (Response.totalPages <= 1) { return; }
+          else {
+            this.totalPages = Response.totalPages;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+
+    });
+
   }
 
   updateTrack() {
     this.updatePrice('min', this.minPrice);
     this.updatePrice('max', this.maxPrice);
+
+
+    console.log(this.minPrice);
+    console.log(this.maxPrice);
 
     const minVal = this.minPrice;
     const maxVal = this.maxPrice;

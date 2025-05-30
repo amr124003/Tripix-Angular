@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as signalR from '@microsoft/signalr';
+import signalR, { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -8,35 +8,31 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class RideTrackingService {
 
-  private HubConnection: signalR.HubConnection | undefined;
-  private APIUrl: string = "https://localhost:7012/api/Ride/Update-location";
-  private driverlocation = new BehaviorSubject<{lat : number, lng : number} | null>(null);
+  private hubConnection: HubConnection;
+  private tripSubject = new BehaviorSubject<any>(null);
+  public trip$ = this.tripSubject.asObservable();
 
-  constructor(private http : HttpClient) 
-  {
-    this.initSignalRConnection();
-  }
-
-  // 🏎 السائق يرسل موقعه للـ API
-  sendDriverLocation(rideID: string, latitude: number, longitude: number) {
-    return this.http.post(this.APIUrl, { rideID, latitude, longitude }).subscribe();
-  }
-
-  // 📡 الراكب يستقبل تحديثات الموقع من الـ SignalR
-  private initSignalRConnection() {
-    this.HubConnection = new signalR.HubConnectionBuilder()
-      .withUrl("https://localhost:7012/ridehub")
+  constructor() {
+    this.hubConnection = new HubConnectionBuilder()
+      .withUrl('https://localhost:5001/RideHub', {
+        withCredentials: true
+      })
       .build();
 
-    this.HubConnection.on("ReceiveDriverLocation", (latitude, longitude) => {
-      this.driverlocation.next({ lat: latitude, lng: longitude });
-    });
-
-    this.HubConnection.start().catch(err => console.error("SignalR Error:", err));
+    this.startConnection();
   }
 
-  // ✅ عشان أي Component يقدر يحصل على الموقع المحدث
-  getDriverLocation() {
-    return this.driverlocation.asObservable();
-  }  
+  private startConnection() {
+    this.hubConnection.start()
+      .then(() => console.log('SignalR connection established'))
+      .catch(err => console.log('Error while establishing connection: ' + err));
+  }
+
+  private registerListeners() {
+    this.hubConnection.on('ReceiveTrip', (tripData) => {
+      console.log('Trip received:', tripData);
+      // هنا ممكن تبعت البيانات للـ component
+      this.tripSubject.next(tripData);
+    });
+  }
 }

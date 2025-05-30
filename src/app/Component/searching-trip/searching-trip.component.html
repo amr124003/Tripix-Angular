@@ -1,0 +1,95 @@
+<div class="container">
+  <div *ngIf="isLoading" class="pulse-wrapper">
+    <div class="pulse-circle"></div>
+    <div class="pulse-wave wave1"></div>
+    <div class="pulse-wave wave2"></div>
+    <div class="pulse-wave wave3"></div>
+    <div class="pulse-wave wave4"></div>
+  </div>
+
+  <ul *ngIf="!isLoading" class="trip-list animate-list">
+    <li *ngFor="let trip of trips; let i = index" [@slideOut]>
+
+      <div id="map-{{ i }}" class="map-container"></div>
+
+      <div class="trip-details" *ngIf="!isMapZoomed">
+        <div class="locations">
+          <div class="destination">
+            <span>{{trip.destinationLocation}}</span>
+          </div>
+        
+          <!-- الحالة الأولى: بدون Driverdistances -->
+          <div class="dot-line continuous-dots" *ngIf="!Driverdistances[i]">
+            <span class="moving-dot" *ngFor="let dot of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]"></span>
+          </div>
+        
+          <!-- الحالة الثانية: مع Driverdistances -->
+          <div class="distance-container" *ngIf="Driverdistances[i]">
+            <div class="dot-line continuous-dots1">
+              <span class="moving-dot" *ngFor="let dot of [1,2,3,4,5,6]"></span>
+            </div>
+            
+            <div class="distance">
+              <span>{{ Driverdistances[i].driverdistance }}</span>
+            </div>
+            
+            <div class="dot-line continuous-dots2">
+              <span class="moving-dot" *ngFor="let dot of [6,7,8,9,10]"></span>
+            </div>
+          </div>
+        
+          <div class="current-location">
+            <span>{{trip.pickupLocation}}</span>
+          </div>
+        </div>
+
+        <!-- Added confirmation button -->
+        <div class="confirm-container" *ngIf="selectedPrice[i] || prices[i]">
+          <button class="confirm-btn" *ngIf="!selectedPrice[i]" [class.pop-animation]="priceInputState === 'pop'"
+            (click)="confirmTrip(trip,i)">
+            Confirm with {{prices[i] + ' EGP'}}
+          </button>
+
+          <button class="confirm-btn" *ngIf="selectedPrice[i]" [class.pop-animation]="priceInputState === 'pop'"
+            (click)="confirmTrip(trip,i)">
+            Confirm with {{selectedPrice[i] + ' EGP'}}
+          </button>
+
+          <button class="Reject-btn" (click)="rejectTrip(i)">
+            Reject This Trip Now
+          </button>
+        </div>
+
+
+        <!-- Added price suggestions scroll -->
+        <div class="suggestions-container" *ngIf="suggestedPrices[i]?.values">
+          <button class="scroll-arrow left-arrow" (click)="scrollLeft(i)" [disabled]="isLeftArrowDisabled">‹</button>
+
+          <div class="suggestions-scroll" #suggestionsScroll (scroll)="checkScrollPosition(i)"
+            (mousedown)="startDrag($event, i)" (mousemove)="onDrag($event)" (mouseup)="endDrag()"
+            (mouseleave)="endDrag()" (touchstart)="startDrag($event, i)" (touchmove)="onDrag($event)"
+            (touchend)="endDrag()">
+            <span *ngFor="let suggestion of suggestedPrices[i]?.values || []" class="price-suggestion"
+              [class.selected]="selectedSuggestion === suggestion" (click)="selectSuggestion(suggestion, $event , i)">
+              {{ suggestion }} EGP
+            </span>
+          </div>
+
+          <button class="scroll-arrow right-arrow" (click)="scrollRight(i)" [disabled]="isRightArrowDisabled">›</button>
+        </div>
+      </div>
+
+      <div class="price-container">
+        <input type="number" [(ngModel)]="selectedPrice[i]" [min]="minPrices[i]" [max]="maxPrices[i]"
+          (change)="validatePrice(i)" (keyup.enter)="validatePrice(i)" (input)="checkPriceWhileTyping($event, i)"
+          placeholder="Enter Price" [class.pop-animation]="priceInputState === 'pop'" class="price-input" />
+
+        <div *ngIf="showWarning" class="warning-message">
+          <i class="warning-icon">⚠️</i>
+          {{ warningMessage }}
+        </div>
+      </div>
+
+    </li>
+  </ul>
+</div>

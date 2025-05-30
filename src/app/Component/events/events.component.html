@@ -5,14 +5,15 @@
         <nav class="navbar">
           <div class="container">
             <!-- Logo -->
-            <img src="../../../assets/images/BackgroundEraser_20250128_224827729.png" width="60px" height="60px">
-            <div class="logo" style="margin-right: 700px;">Tripix</div>
+            <img src="../../../assets/images/tripix logo.png" width="170">
             <!-- Navigation Links -->
             <ul class="nav-links">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a hre routerLink="/Home">Home</a></li>
+              <li><a routerLink="/About">About</a></li>
+              <li><a routerLink="/Services">Services</a></li>
+              <li><a routerLink="/Blogs">Blogs</a></li>
+              <li><a routerLink="/FAQs">FAQs</a></li>
+              
             </ul>
           </div>
         </nav>
@@ -33,7 +34,7 @@
               <div class="learn-more-button"><a href="#section-2">Learn More</a></div>
             </div>
           </div>
-          <div id="top-banner-2" class="banner" style="background: url('../../../assets/images/The\ Peninsula\ Shanghai.jpg') no-repeat center center; background-size: cover;">
+          <div id="top-banner-2" class="banner" style="background-image: url('../../../assets/images/The\ Peninsula\ Shanghai.jpg') no-repeat center center; background-size: cover;">
             <div class="banner-inner-wrapper">
               <h2>Tripix Provide To You</h2>
               <h1>Nearby<br>Hotels</h1>
@@ -41,7 +42,7 @@
               <div class="learn-more-button"><a href="#section-4">Learn More</a></div>
             </div>
           </div>
-          <div id="top-banner-3" class="banner" style="background: url('../../../assets/images/download.jpg') no-repeat center center; background-size: cover;">
+          <div id="top-banner-3" class="banner" style="background-image: url('../../../assets/images/download.jpg') no-repeat center center; background-size: cover;">
             <div class="banner-inner-wrapper">
               <h2>You Can Get</h2>
               <h1>Our Amazing<br>Gifts</h1>
@@ -49,7 +50,7 @@
               <div class="learn-more-button"><a href="#section-6">Learn More</a></div>
             </div>
           </div>
-          <div id="top-banner-4" class="banner" style="background: url('../../../assets/images/Toyota\ at\ the\ Los\ Angeles\ Auto\ Show.jpg') no-repeat center center; background-size: cover;">
+          <div id="top-banner-4" class="banner" style="background-image: url('../../../assets/images/nazar-sharafutdinov-3oxi5aEiSls-unsplash.jpg') no-repeat center center; background-size: cover;">
             <div class="banner-inner-wrapper">
               <h2>Or You Can Enter Into</h2>
               <h1>Car<br>Withdrawal</h1>
@@ -69,7 +70,7 @@
       </div>
     </section>
 
-    <div id="parallax-world-of-ugg">
+    <div id="parallax-world-of-ugg" style="background: url(../../../assets/images/v1016-b-09.jpg);">
   
       <section>
         <div class="title">
@@ -86,7 +87,7 @@
             <br>
             <br>
             <div class="wrap">
-              <button class="button">book Ticket Now</button>
+              <button class="button" (click)="GotoEvent()">book Ticket Now</button>
             </div>
           </div>
       </section>
@@ -105,7 +106,7 @@
           <br>
           <br>
           <div class="wrap">
-            <button class="button">book Ticket Now</button>
+            <button class="button" (click)="GotoEvent()">book Ticket Now</button>
           </div>
         </div>
       </section>
@@ -124,7 +125,7 @@
           <br>
           <br>
           <div class="wrap">
-            <button class="button">book Ticket Now</button>
+            <button class="button" (click)="GotoEvent()">book Ticket Now</button>
           </div>
         </div>
       </section>

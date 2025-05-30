@@ -13,15 +13,16 @@
     <div class="overlay" data-overlay></div>
 
     <div #modalRef class="modal" data-modal>
-        <div class="modal-close-overlay"  (click)="CloseModal(modalRef)"></div>
+        <div class="modal-close-overlay" (click)="CloseModal(modalRef)"></div>
 
         <div class="modal-content">
-            <button class="modal-close-btn"  (click)="CloseModal(modalRef)">
+            <button class="modal-close-btn" (click)="CloseModal(modalRef)">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
             <div class="newsletter-img">
-                <img src="../../../assets/images/Picsart_25-01-29_01-51-17-273.jpg" alt="image" width="400" height="400">
+                <img src="../../../assets/images/Picsart_25-01-29_01-51-17-273.jpg" alt="image" width="400"
+                    height="400">
             </div>
 
             <div class="newsletter">
@@ -29,14 +30,15 @@
                     <div class="newsletter-header">
                         <h3 class="newsletter-title"><span style="color:brown">Tripix</span> Car Events</h3>
 
-                        <p class="newsletter-desc">Check For New Events Now Sponsored by<b style="color: brown;"> Tripix </b> And Get Your Ticket</p>
+                        <p class="newsletter-desc">Check For New Events Now Sponsored by<b style="color: brown;"> Tripix
+                            </b> And Get Your Ticket</p>
                     </div>
 
                     <button type="submit" class="btn-newsletter" (click)="OnReadMore()">Read More</button>
                 </form>
             </div>
         </div>
-    </div>  
+    </div>
 
     <div class="notification-toast" data-toast>
         <button class="toast-close-btn" data-toast-close>
@@ -91,10 +93,26 @@
                 </div>
 
                 <div class="header-user-actions">
-                    <button class="action-btn" routerLink="/Sign In"><i class="fa-regular fa-user"></i>
-                        <span>Sign In</span></button>
+                    <button class="action-btn" routerLink="/Sign In" *ngIf="!isLoggedIn"><i
+                            class="fa-regular fa-user"></i>
+                        <span> Sign In</span></button>
 
-                    <button class="action-btn">
+                    <!-- الزر -->
+                    <button class="action-btn" (click)="showLogoutMessage()" #logoutBtn *ngIf="isLoggedIn">
+                        <i class="fa-solid fa-person-walking-arrow-right fa-flip-horizontal fa-lg"></i>
+                        <span>Log Out</span>
+                    </button>
+
+                    <!-- الرسالة -->
+                    <div *ngIf="showMessage" @fadeInOut class="logout-message">
+                        <div class="triangle-up"></div>
+                        <p>Are You Sure For Logout</p>
+                        <button class="btn btn-logout" (click)="confirmLogout()">Log Out</button>
+                    </div>
+
+
+
+                    <button class="action-btn" routerLink="/Washlets">
                         <i class="fa-regular fa-heart"></i>
                         <span class="count">0</span>
                     </button>
@@ -112,40 +130,52 @@
                     </li>
 
                     <li class="menu-category">
-                        <a  class="menu-title">Buy New Vehicles</a>
+                        <a class="menu-title">Buy New Vehicles</a>
 
                         <div class="dropdown-panel">
                             <ul class="dropdown-panel-list">
-                                <li class="menu-title"><a href="#">Cars</a></li>
-                                <li class="panel-list-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Sedan' }">SEDAN</a></li>
-                                <li class="panel-list-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Coupe' }">COUPE</a></li>
-                                <li class="panel-list-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Hatchback' }">HATCHBACK</a></li>
-                                <li class="panel-list-item"><a routerLink="/OurCars" [queryParams]="{ type: 'SUV' }">SPORT-UTILITY VEHICLE (SUV)</a></li>
+                                <li class="menu-title"><a routerLink="/OurCars">Cars</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurCars"
+                                        [queryParams]="{ type: 'Sedan' }">SEDAN</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurCars"
+                                        [queryParams]="{ type: 'Coupe' }">COUPE</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurCars"
+                                        [queryParams]="{ type: 'Hatchback' }">HATCHBACK</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurCars"
+                                        [queryParams]="{ type: 'SUV' }">SPORT-UTILITY VEHICLE (SUV)</a></li>
                                 <li class="panel-list-item">
                                     <img src="../../../assets/images/campbell-3ZUsNJhi_Ik-unsplash.jpg" alt="image"
-                                         class="product-image">
+                                        class="product-image">
                                 </li>
                             </ul>
 
                             <ul class="dropdown-panel-list">
-                                <li class="menu-title"><a href="#">Motorcycles</a></li>
-                                <li class="panel-list-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Standard' }">Standard</a></li>
-                                <li class="panel-list-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Cruiser' }">Cruiser</a></li>
-                                <li class="panel-list-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Sport' }">Sport</a></li>
-                                <li class="panel-list-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Off-road' }">Off-road</a></li>
+                                <li class="menu-title"><a routerLink="/OurMotorbikes">Motorcycles</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurMotorbikes"
+                                        [queryParams]="{ type: 'Standard' }">Standard</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurMotorbikes"
+                                        [queryParams]="{ type: 'Cruiser' }">Cruiser</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurMotorbikes"
+                                        [queryParams]="{ type: 'Sport' }">Sport</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurMotorbikes"
+                                        [queryParams]="{ type: 'Off-road' }">Off-road</a></li>
                                 <li class="panel-list-item">
                                     <img src="../../../assets/images/lucas-t-wb6dyvkqpyo-unsplash.jpg" alt="image"
                                         width="100" height="100" class="product-image">
                                 </li>
                             </ul>
 
-                            
+
                             <ul class="dropdown-panel-list">
-                                <li class="menu-title"><a href="#">Electric Cars</a></li>
-                                <li class="panel-list-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'Sedan' }">SEDAN</a></li>
-                                <li class="panel-list-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'Coupe' }">COUPE</a></li>
-                                <li class="panel-list-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'Hatchback' }">HATCHBACK</a></li>
-                                <li class="panel-list-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'SUV' }">SPORT-UTILITY VEHICLE (SUV)</a></li>
+                                <li class="menu-title"><a routerLink="/OurElectricCars">Electric Cars</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurElectricCars"
+                                        [queryParams]="{ type: 'Sedan' }">SEDAN</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurElectricCars"
+                                        [queryParams]="{ type: 'Coupe' }">COUPE</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurElectricCars"
+                                        [queryParams]="{ type: 'Hatchback' }">HATCHBACK</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurElectricCars"
+                                        [queryParams]="{ type: 'SUV' }">SPORT-UTILITY VEHICLE (SUV)</a></li>
                                 <li class="panel-list-item">
                                     <img src="../../../assets/images/michal-lauko-h7J4MLTXDsg-unsplash.jpg" alt="image"
                                         width="100" height="100" class="product-image">
@@ -158,10 +188,13 @@
                         <a href="#" class="menu-title">BUY USED VEHICLES</a>
 
                         <ul class="dropdown-list">
-                            <li class="dropdown-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Used' }">Cars</a></li>
-                            <li class="dropdown-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'Used' }">Electric Cars</a></li>
-                            <li class="dropdown-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Used' }">Motor Bikes</a></li>
-                            
+                            <li class="dropdown-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Used' }">Cars</a>
+                            </li>
+                            <li class="dropdown-item"><a routerLink="/OurElectricCars"
+                                    [queryParams]="{ type: 'Used' }">Electric Cars</a></li>
+                            <li class="dropdown-item"><a routerLink="/OurMotorbikes"
+                                    [queryParams]="{ type: 'Used' }">Motor Bikes</a></li>
+
                         </ul>
                     </li>
 
@@ -177,16 +210,19 @@
                     </li>
 
                     <li class="menu-category">
-                        <a  class="menu-title" routerLink="/CarRental">Car Rental</a>
+                        <a class="menu-title" routerLink="/CarRental">Car Rental</a>
                     </li>
 
                     <li class="menu-category">
-                        <a  class="menu-title">Spare Parts</a>
+                        <a class="menu-title">Spare Parts</a>
 
                         <ul class="dropdown-list">
-                            <li class="dropdown-item"><a routerLink="/SpareParts" [queryParams]="{ type: 'Cars' }">Cars</a></li>
-                            <li class="dropdown-item"><a routerLink="/SpareParts" [queryParams]="{ type: 'ElectricCars' }">Electric Cars</a></li>
-                            <li class="dropdown-item"><a routerLink="/SpareParts" [queryParams]="{ type: 'Motorbikes' }">Motorbikes</a></li>
+                            <li class="dropdown-item"><a routerLink="/SpareParts"
+                                    [queryParams]="{ type: 'Cars' }">Cars</a></li>
+                            <li class="dropdown-item"><a routerLink="/SpareParts"
+                                    [queryParams]="{ type: 'ElectricCars' }">Electric Cars</a></li>
+                            <li class="dropdown-item"><a routerLink="/SpareParts"
+                                    [queryParams]="{ type: 'Motorbikes' }">Motorbikes</a></li>
                         </ul>
                     </li>
 
@@ -243,7 +279,7 @@
             <ul class="mobile-menu-category-list">
                 <li class="menu-category"><a href="#" class="menu-title">Home</a></li>
 
-                
+
 
                 <li class="menu-category">
                     <button class="accordion-menu" data-accordion-btn>
@@ -278,7 +314,7 @@
                 </li>
 
                 <li class="menu-category">
-                    
+
                     <ul class="submenu-category-list" data-accordion>
                         <li class="submenu-category"><a href="#" class="submenu-title">Cars</a></li>
                         <li class="submenu-category"><a href="#" class="submenu-title">Motorbikes</a></li>
@@ -329,15 +365,17 @@
     </header>
 
     <main>
-        <section class="slider_container">
+        <section class="slider_container" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+            <div class="arrow left" (click)="moveSlide('left')"><i class="fa-solid fa-chevron-left fa-lg"></i></div>
             <section class="slider">
                 <div class="slide one">
                     <img src="../../../assets/images/1738329591726.jpg" class="banner-img" alt="" />
                     <div class="banner-content">
                         <p class="banner-subtitle">Order Your Trip Now</p>
-                        <h2 class="banner-title">You can finish your trip via <span style="color: rosybrown;">TRIPIX</span></h2>
+                        <h2 class="banner-title">You can finish your trip via <span
+                                style="color: rosybrown;">TRIPIX</span></h2>
                         <p class="banner-text">Startting at &dollar; <b>20</b>.00</p>
-                        <a href="#" class="banner-btn">Order Now</a>
+                        <a href="#" class="banner-btn" routerLink="/TripixPage">Order Now</a>
                     </div>
                 </div>
                 <div class="slide two">
@@ -362,10 +400,8 @@
                             Now</a>
                     </div>
                 </div>
-                <div class="slide five">
-                    <img src="../../../assets/images/1738329591726.jpg" alt="" />
-                </div>
             </section>
+            <div class="arrow right" (click)="moveSlide('right')"><i class="fa-solid fa-chevron-right fa-lg"></i></div>
         </section>
         <div class="category">
             <div class="container">
@@ -412,7 +448,7 @@
                         </div>
                     </div>
 
-                    
+
 
                     <div class="category-item">
                         <div class="category-img-box">
@@ -449,7 +485,7 @@
                                 <button class="sidebar-accordion-menu" data-accordion-btn>
                                     <div class="menu-title-flex">
                                         <img src="../../../assets/images/avinz5yjj.png" alt="clothes"
-                                            class="menu-title-img" width="40" >
+                                            class="menu-title-img" width="40">
                                         <p class="menu-title">Cars</p>
                                     </div>
 
@@ -489,13 +525,13 @@
                                 </ul>
                             </li>
 
-                            
+
 
                             <li class="sidebar-menu-category">
                                 <button class="sidebar-accordion-menu" data-accordion-btn>
                                     <div class="menu-title-flex">
                                         <img src="../../../assets/images/images.png" alt="jewelyr"
-                                            class="menu-title-img" width="40" >
+                                            class="menu-title-img" width="40">
                                         <p class="menu-title">Motorbikes</p>
                                     </div>
 
@@ -533,7 +569,7 @@
                                 <button class="sidebar-accordion-menu" data-accordion-btn>
                                     <div class="menu-title-flex">
                                         <img src="../../../assets/images/The-Electric-Vehicles-in-Australia.png"
-                                            alt="perfume" class="menu-title-img" width="40" >
+                                            alt="perfume" class="menu-title-img" width="40">
                                         <p class="menu-title">Electric Cars</p>
                                     </div>
 
@@ -576,7 +612,7 @@
                                 <div class="showcase">
                                     <a href="#" class="showcase-img-box">
                                         <img src="../../../assets/images/car.webp" alt="baby fabric shoes"
-                                            class="showcase-img" width="100" >
+                                            class="showcase-img" width="100">
                                     </a>
 
                                     <div class="showcase-content">
@@ -613,14 +649,15 @@
                                     <div class="showcase">
                                         <a href="#" class="showcase-img-box">
                                             <img src="../../../assets/images/car.webp"
-                                                alt="relaxed short full sleeve t-shirt" class="showcase-img" width="120">
+                                                alt="relaxed short full sleeve t-shirt" class="showcase-img"
+                                                width="120">
                                         </a>
 
                                         <div class="showcase-content">
                                             <a href="#">
                                                 <h4 class="showcase-title">Rang Rover</h4>
                                             </a>
-                                            
+
 
                                             <div class="price-box">
                                                 <p class="price">$45.00</p>
@@ -650,7 +687,7 @@
                                             <a href="#">
                                                 <h4 class="showcase-title">Toyota</h4>
                                             </a>
-                                            
+
 
                                             <div class="price-box">
                                                 <p class="price">$49.00</p>
@@ -680,7 +717,7 @@
                                             <a href="#">
                                                 <h4 class="showcase-title">Pocket Watch Leather Pouch</h4>
                                             </a>
-                                            
+
 
                                             <div class="price-box">
                                                 <p class="price">$50.00</p>
@@ -699,56 +736,73 @@
                     <div class="product-main">
                         <h2 class="title">Our Cars</h2>
 
-                        <div class="product-grid">
-
-                             <div class="container-loading" *ngIf="ProductsLoading">
-                                 <div class="showcase-content loading-skeleton" >
-                                     <div class="skeleton skeleton-image shimmer"></div>
-                                     <div class="skeleton skeleton-category shimmer"></div>
-                                     <div class="skeleton skeleton-title shimmer"></div>
-                                     <div class="skeleton skeleton-rating shimmer"></div>
-                                     <div class="skeleton skeleton-price shimmer"></div>
-                                 </div>
-                             </div>
-
-                            <div class="showcase fade-in" *ngIf="!ProductsLoading">
-                                <div class="showcase-banner">
-                                    <img src="../../../assets/images/frontcar.jpeg" alt="Mens Winter Leathers Jackets"
-                                        class="product-img default" width="300">
-                                    <img src="../../../assets/images/backcar.webp" alt="Mens Winter Leathers Jackets"
-                                        class="product-img hover" width="300">
-
-                                    <p class="showcase-badge">15%</p>
-
-                                    <div class="showcase-actions">
-                                        <button class="btn-action"><i class="fa-solid fa-heart"></i></button>
-                                        <button class="btn-action"><i class="fa-solid fa-eye"></i></button>
-                                        <button class="btn-action"><i class="fa-solid fa-cash-register"></i></button>
-                                        <button class="btn-action"><i class="fa-solid fa-share"></i></button>
-                                    </div>
-                                </div>
-
-                                
-
-                                <div class="showcase-content" >
-                                    <a href="#" class="showcase-category">VolksWagen</a>
-                                    <a href="#">
-                                        <h3 class="showcase-title">Electric Car</h3>
-                                    </a>
-
-                                    <div class="showcase-rating">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                        <i class="fa-regular fa-star"></i>
-                                    </div>
-                                    <div class="price-box">
-                                        <p class="price">48.00</p>
-                                        <del>$75.00</del>
-                                    </div>
+                        <div style="text-align: center;">
+                            <div class="category-tabs">
+                                <div *ngFor="let cat of categories" class="category-tab"
+                                    [ngClass]="{ active: selectedCategory === cat.key }"
+                                    (click)="selectCategory(cat.key)">
+                                    {{ cat.label }}
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="product-grid">
+
+                            <ng-container *ngFor="let car of OurCars">
+                                <div class="container-loading" *ngIf="ProductsLoading">
+                                    <div class="showcase-content loading-skeleton">
+                                        <div class="skeleton skeleton-image shimmer"></div>
+                                        <div class="skeleton skeleton-category shimmer"></div>
+                                        <div class="skeleton skeleton-title shimmer"></div>
+                                        <div class="skeleton skeleton-rating shimmer"></div>
+                                        <div class="skeleton skeleton-price shimmer"></div>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngFor="let car of OurCars">
+                                <div class="showcase fade-in" *ngIf="!ProductsLoading">
+                                    <div class="showcase-banner">
+                                        <img [src]="'https://localhost:7012/'+car.imagesUrls[0]"
+                                            alt="Mens Winter Leathers Jackets" class="product-img default" width="300">
+                                        <img [src]="'https://localhost:7012/'+car.imagesUrls[1]"
+                                            alt="Mens Winter Leathers Jackets" class="product-img hover" width="300">
+
+                                        <p class="showcase-badge">{{car.discount}}</p>
+
+                                        <div class="showcase-actions">
+                                            <button class="btn-action" (click)="toggleLike()"><i
+                                                    class="fa-solid fa-heart"
+                                                    [ngClass]="isLiked ? 'fa-heart' : 'fa-heart-o'"></i></button>
+                                            <button class="btn-action"><i class="fa-solid fa-eye"></i></button>
+                                            <button class="btn-action"><i
+                                                    class="fa-solid fa-cash-register"></i></button>
+                                            <button class="btn-action"><i class="fa-solid fa-share"></i></button>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="showcase-content">
+                                        <a href="#" class="showcase-category">{{car.name}}</a>
+                                        <a href="#">
+                                            <h3 class="showcase-title">Electric Car</h3>
+                                        </a>
+
+                                        <div class="showcase-rating">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                        </div>
+                                        <div class="price-box">
+                                            <p class="price">{{car.price}}</p>
+                                            <del>$75.00</del>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
@@ -888,7 +942,7 @@
                                 <h3 class="blog-title">Engine care is based on several factors, such as the type of oil,
                                     gasoline, and periodic maintenance.</h3>
                             </a>
-                            
+
                         </div>
                     </div>
 
@@ -905,7 +959,7 @@
                                 <h3 class="blog-title">One of the most important habits used currently to ensure that
                                     the breakdown is not sudden</h3>
                             </a>
-                           
+
                         </div>
                     </div>
 
@@ -922,7 +976,7 @@
                                 <h3 class="blog-title">The tires are the most important part of the car. The tire
                                     numbers determine the maximum speed.</h3>
                             </a>
-                          
+
                         </div>
                     </div>
                 </div>
@@ -952,7 +1006,7 @@
                     <a href="#" class="footer-category-link">Off-Road</a>
                 </div>
 
-                
+
 
                 <div class="footer-category-box">
                     <h3 class="category-box-title">Electric Cars :</h3>
@@ -973,7 +1027,7 @@
                     </li>
 
                     <li class="footer-nav-item"><a href="#" class="footer-nav-link">Cars</a></li>
-                    
+
                     <li class="footer-nav-item"><a href="#" class="footer-nav-link">Motorbikes</a></li>
                     <li class="footer-nav-item"><a href="#" class="footer-nav-link">electric Cars</a></li>
                 </ul>
@@ -989,7 +1043,7 @@
                     <li class="footer-nav-item"><a href="#" class="footer-nav-link">Hatchback</a></li>
                 </ul>
 
-                
+
                 <ul class="footer-nav-list">
                     <li class="footer-nav-item">
                         <h2 class="nav-title">Services</h2>

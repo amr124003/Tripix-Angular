@@ -18,6 +18,9 @@ export class SellCarComponent {
   images: { url: string, name: string, size: number }[] = [];
   carDetails = { name: '', model: '', condition: '', description: '', type: 'Auto' };
 
+  // تعيين الحد الأقصى للصور
+  readonly MAX_IMAGES = 6;
+
   onDragOver(event: DragEvent) {
     event.preventDefault();
     this.isDragging = true;
@@ -40,13 +43,22 @@ export class SellCarComponent {
   handleFiles(files: FileList | null) {
     if (!files) return;
     this.loading = true;
+
+    // التحقق من عدد الصور الحالي
+    const availableSpace = this.MAX_IMAGES - this.images.length;
+
     setTimeout(() => {
       for (let file of Array.from(files)) {
-        this.images.push({
-          url: URL.createObjectURL(file),
-          name: file.name,
-          size: Math.round(file.size / 1024)
-        });
+        if (this.images.length < this.MAX_IMAGES) {
+          this.images.push({
+            url: URL.createObjectURL(file),
+            name: file.name,
+            size: Math.round(file.size / 1024)
+          });
+        } else {
+          alert(`You can only upload up to ${this.MAX_IMAGES} images.`);
+          break;
+        }
       }
       this.loading = false;
     }, 1000);
@@ -72,5 +84,14 @@ export class SellCarComponent {
 
   finish() {
     alert('Form submitted successfully!');
+  }
+
+  // دالة لحذف الصورة بناءً على الـ index
+  deleteImage(index: number) {
+    this.images.splice(index, 1);  // حذف الصورة من المصفوفة
+  }
+
+  trackByIndex(index: number, item: any) {
+    return index;  // تعيين الـ index كـ key لتتبع العنصر بشكل صحيح
   }
 }

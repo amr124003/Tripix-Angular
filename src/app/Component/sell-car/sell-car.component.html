@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
 </head>
-<body>
+
+<body style="background: url('../../../assets/images/backgraound.jpg') no-repeat center center ;">
     <div class="form-container">
         <div class="form-content">
             <h1 class="head">Sell Your Car</h1>
@@ -16,20 +17,29 @@
                     (drop)="onDrop($event)" [class.dragging]="isDragging">
                     <p *ngIf="!images.length">Drag & Drop Car Images here or click to upload</p>
                     <div *ngIf="loading" class="loader"></div>
-                    <div *ngFor="let image of images" class="image-preview">
+                    <!-- تكرار الصورة مع سلة المهملات -->
+                    <div *ngFor="let image of images; let i = index" class="image-preview">
                         <img [src]="image.url" [alt]="image.name" />
                         <div class="image-details">
                             <p>{{ image.name }}</p>
                             <p>{{ image.size }} KB</p>
+                            <!-- سلة المهملات الخاصة بكل صورة -->
                         </div>
+                        <button class="delete-btn" (click)="deleteImage(i)">
+                            <i class="fa fa-trash"></i> <!-- أيقونة سلة المهملات -->
+                        </button>
                     </div>
                 </div>
                 <input type="file" #fileInput class="hidden-file-input" multiple (change)="onFileSelect($event)" />
                 <button class="upload-btn" (click)="fileInput.click()">Upload</button>
                 <div class="buttons">
-                    <button (click)="nextStep()">Next</button>
                     <button (click)="cancel()">Cancel</button>
+                    <button (click)="nextStep()">Next</button>
                 </div>
+                <p *ngIf="images.length >= MAX_IMAGES" class="max-images-warning">
+                    You've reached the maximum number of images ({{ MAX_IMAGES }}).
+                    You cannot upload more images.
+                </p>
             </div>
 
             <!-- Step 2: Car Details -->

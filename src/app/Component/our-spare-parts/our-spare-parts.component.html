@@ -112,19 +112,19 @@
                 <ul class="desktop-menu-category-list">
 
                     <li class="menu-category">
-                        <a href="#" class="menu-title" routerLink="/Home">Home</a>
+                        <a href="#" class="menu-title"></a>
                     </li>
 
                     <li class="menu-category">
-                        <a href="#" class="menu-title">Buy New Vehicles</a>
+                        <a  class="menu-title">Buy New Vehicles</a>
 
                         <div class="dropdown-panel">
                             <ul class="dropdown-panel-list">
                                 <li class="menu-title"><a href="#">Cars</a></li>
-                                <li class="panel-list-item"><a href="#" routerLink="/OurCars">SEDAN</a></li>
-                                <li class="panel-list-item"><a href="#">COUPE</a></li>
-                                <li class="panel-list-item"><a href="#">HATCHBACK</a></li>
-                                <li class="panel-list-item"><a href="#">SPORT-UTILITY VEHICLE (SUV)</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Sedan' }">SEDAN</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Coupe' }">COUPE</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Hatchback' }">HATCHBACK</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurCars" [queryParams]="{ type: 'SUV' }">SPORT-UTILITY VEHICLE (SUV)</a></li>
                                 <li class="panel-list-item">
                                     <img src="../../../assets/images/campbell-3ZUsNJhi_Ik-unsplash.jpg" alt="image"
                                          class="product-image">
@@ -133,10 +133,10 @@
 
                             <ul class="dropdown-panel-list">
                                 <li class="menu-title"><a href="#">Motorcycles</a></li>
-                                <li class="panel-list-item"><a href="#">Standard</a></li>
-                                <li class="panel-list-item"><a href="#">Cruiser</a></li>
-                                <li class="panel-list-item"><a href="#">Sport</a></li>
-                                <li class="panel-list-item"><a href="#">Off-road</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Standard' }">Standard</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Cruiser' }">Cruiser</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Sport' }">Sport</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Off-road' }">Off-road</a></li>
                                 <li class="panel-list-item">
                                     <img src="../../../assets/images/lucas-t-wb6dyvkqpyo-unsplash.jpg" alt="image"
                                         width="100" height="100" class="product-image">
@@ -146,10 +146,10 @@
                             
                             <ul class="dropdown-panel-list">
                                 <li class="menu-title"><a href="#">Electric Cars</a></li>
-                                <li class="panel-list-item"><a href="#">SEDAN</a></li>
-                                <li class="panel-list-item"><a href="#">COUPE</a></li>
-                                <li class="panel-list-item"><a href="#">HATCHBACK</a></li>
-                                <li class="panel-list-item"><a href="#">SPORT-UTILITY VEHICLE (SUV)</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'Sedan' }">SEDAN</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'Coupe' }">COUPE</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'Hatchback' }">HATCHBACK</a></li>
+                                <li class="panel-list-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'SUV' }">SPORT-UTILITY VEHICLE (SUV)</a></li>
                                 <li class="panel-list-item">
                                     <img src="../../../assets/images/michal-lauko-h7J4MLTXDsg-unsplash.jpg" alt="image"
                                         width="100" height="100" class="product-image">
@@ -162,59 +162,60 @@
                         <a href="#" class="menu-title">BUY USED VEHICLES</a>
 
                         <ul class="dropdown-list">
-                            <li class="dropdown-item"><a routerLink="/CarWash">Cars</a></li>
-                            <li class="dropdown-item"><a routerLink="/CarWash">Electric Cars</a></li>
-                            <li class="dropdown-item"><a routerLink="/CarRepair">Motor Bikes</a></li>
+                            <li class="dropdown-item"><a routerLink="/OurCars" [queryParams]="{ type: 'Used' }">Cars</a></li>
+                            <li class="dropdown-item"><a routerLink="/OurElectricCars" [queryParams]="{ type: 'Used' }">Electric Cars</a></li>
+                            <li class="dropdown-item"><a routerLink="/OurMotorbikes" [queryParams]="{ type: 'Used' }">Motor Bikes</a></li>
                             
                         </ul>
                     </li>
 
 
                     <li class="menu-category">
-                        <a href="#" class="menu-title">Services</a>
+                        <a href="#" class="menu-title" routerLink="/Services">Services</a>
 
                         <ul class="dropdown-list">
                             <li class="dropdown-item"><a routerLink="/CarWash">Car Washing</a></li>
                             <li class="dropdown-item"><a routerLink="/CarRepair">Car Repair</a></li>
-                            <li class="dropdown-item"><a href="#">Helpoo</a></li>
+                            <li class="dropdown-item"><a routerLink="/Helpoo">Helpoo</a></li>
                         </ul>
                     </li>
 
                     <li class="menu-category">
-                        <a href="#" class="menu-title">Car Rental</a>
+                        <a  class="menu-title" routerLink="/CarRental">Car Rental</a>
                     </li>
 
                     <li class="menu-category">
-                        <a href="#" class="menu-title">Spare Parts</a>
+                        <a  class="menu-title">Spare Parts</a>
 
                         <ul class="dropdown-list">
-                            <li class="dropdown-item"><a href="#">Cars</a></li>
-                            <li class="dropdown-item"><a href="#">Electric Cars</a></li>
-                            <li class="dropdown-item"><a href="#">Motorbikes</a></li>
+                            <li class="dropdown-item"><a routerLink="/SpareParts" [queryParams]="{ type: 'Cars' }">Cars</a></li>
+                            <li class="dropdown-item"><a routerLink="/SpareParts" [queryParams]="{ type: 'ElectricCars' }">Electric Cars</a></li>
+                            <li class="dropdown-item"><a routerLink="/SpareParts" [queryParams]="{ type: 'Motorbikes' }">Motorbikes</a></li>
                         </ul>
                     </li>
 
                     <li class="menu-category">
-                        <a href="#" class="menu-title">Events</a>
+                        <a routerLink="/Events" class="menu-title">Events</a>
                     </li>
 
                     <li class="menu-category">
-                        <a href="#" class="menu-title">Blogs</a>
+                        <a routerLink="/Blogs" class="menu-title">Blogs</a>
                     </li>
 
                     <li class="menu-category">
-                        <a href="#" class="menu-title">About</a>
+                        <a routerLink="/About" class="menu-title">About</a>
                     </li>
 
 
 
 
                     <li class="menu-category">
-                        <button class="gradient-button">Sell My Car</button>
+                        <button class="gradient-button" (click)="SellCar()">Sell My Car</button>
                     </li>
                 </ul>
             </div>
         </nav>
+
 
         <div class="mobile-bottom-navigation">
             <button class="action-btn" data-mobile-menu-open-btn>
@@ -461,14 +462,15 @@
                                 <div class="showcase-container">
                                     <div class="showcase">
                                         <a href="#" class="showcase-img-box">
-                                            <img src="https://i.postimg.cc/fyLNm09z/clothes-1.jpg"
-                                                alt="relaxed short full sleeve t-shirt" class="showcase-img" width="90">
+                                            <img src="../../../assets/images/car.webp"
+                                                alt="relaxed short full sleeve t-shirt" class="showcase-img" width="120">
                                         </a>
 
                                         <div class="showcase-content">
                                             <a href="#">
-                                                <h4 class="showcase-title">Relaxed Short full sleeve t-shirt</h4>
+                                                <h4 class="showcase-title">Rang Rover</h4>
                                             </a>
+                                            
 
                                             <div class="price-box">
                                                 <p class="price">$45.00</p>
@@ -490,14 +492,15 @@
                                 <div class="showcase-container">
                                     <div class="showcase">
                                         <a href="#" class="showcase-img-box">
-                                            <img src="https://i.postimg.cc/pLWhzrLm/sports-1.jpg"
-                                                alt="running & trekking shoes - white" class="showcase-img" width="90">
+                                            <img src="../../../assets/images/car2.webp"
+                                                alt="running & trekking shoes - white" class="showcase-img" width="120">
                                         </a>
 
                                         <div class="showcase-content">
                                             <a href="#">
-                                                <h4 class="showcase-title">Running & Trekking Shoes - White</h4>
+                                                <h4 class="showcase-title">Toyota</h4>
                                             </a>
+                                            
 
                                             <div class="price-box">
                                                 <p class="price">$49.00</p>
@@ -519,14 +522,15 @@
                                 <div class="showcase-container">
                                     <div class="showcase">
                                         <a href="#" class="showcase-img-box">
-                                            <img src="https://i.postimg.cc/jq84QT45/watch-3.jpg"
-                                                alt="pocket watch leather pouch" class="showcase-img" width="90">
+                                            <img src="../../../assets/images/car3.webp" alt="pocket watch leather pouch"
+                                                class="showcase-img" width="120">
                                         </a>
 
                                         <div class="showcase-content">
                                             <a href="#">
                                                 <h4 class="showcase-title">Pocket Watch Leather Pouch</h4>
                                             </a>
+                                            
 
                                             <div class="price-box">
                                                 <p class="price">$50.00</p>
@@ -547,47 +551,48 @@
 
                         <div class="product-grid">
 
-                            <div class="container-loading" *ngIf="ProductsLoading">
-                                <div class="showcase-content loading-skeleton" >
-                                    <div class="skeleton skeleton-image shimmer"></div>
-                                    <div class="skeleton skeleton-category shimmer"></div>
-                                    <div class="skeleton skeleton-title shimmer"></div>
-                                    <div class="skeleton skeleton-rating shimmer"></div>
-                                    <div class="skeleton skeleton-price shimmer"></div>
-                                </div>
-                            </div>
+                             <div class="container-loading" *ngIf="ProductsLoading">
+                                 <div class="showcase-content loading-skeleton" >
+                                     <div class="skeleton skeleton-image shimmer"></div>
+                                     <div class="skeleton skeleton-category shimmer"></div>
+                                     <div class="skeleton skeleton-title shimmer"></div>
+                                     <div class="skeleton skeleton-rating shimmer"></div>
+                                     <div class="skeleton skeleton-price shimmer"></div>
+                                 </div>
+                             </div>
 
                             <div class="showcase fade-in" *ngIf="!ProductsLoading">
                                 <div class="showcase-banner">
-                                    <img src="https://i.postimg.cc/jdybNKWJ/jacket-3.jpg"
-                                        alt="Mens Winter Leathers Jackets" class="product-img default" width="300">
-                                    <img src="https://i.postimg.cc/pr9cj4HT/jacket-4.jpg"
-                                        alt="Mens Winter Leathers Jackets" class="product-img hover" width="350">
+                                    <img src="../../../assets/images/frontcar.jpeg" alt="Mens Winter Leathers Jackets"
+                                        class="product-img default" width="300">
+                                    <img src="../../../assets/images/backcar.webp" alt="Mens Winter Leathers Jackets"
+                                        class="product-img hover" width="300">
 
                                     <p class="showcase-badge">15%</p>
 
                                     <div class="showcase-actions">
-                                        <button class="btn-action"><ion-icon name="heart-outline"></ion-icon></button>
-                                        <button class="btn-action"><ion-icon name="eye-outline"></ion-icon></button>
-                                        <button class="btn-action"><ion-icon name="repeat-outline"></ion-icon></button>
-                                        <button class="btn-action"><ion-icon name="bag-add-outline"></ion-icon></button>
+                                        <button class="btn-action"><i class="fa-solid fa-heart"></i></button>
+                                        <button class="btn-action"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="btn-action"><i class="fa-solid fa-cash-register"></i></button>
+                                        <button class="btn-action"><i class="fa-solid fa-share"></i></button>
                                     </div>
                                 </div>
 
-                                <div class="showcase-content">
-                                    <a href="#" class="showcase-category">Jacket</a>
+                                
+
+                                <div class="showcase-content" >
+                                    <a href="#" class="showcase-category">VolksWagen</a>
                                     <a href="#">
-                                        <h3 class="showcase-title">Mens Winter Leathers Jackets</h3>
+                                        <h3 class="showcase-title">Electric Car</h3>
                                     </a>
 
                                     <div class="showcase-rating">
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
-                                        <ion-icon name="star-outline"></ion-icon>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
+                                        <i class="fa-regular fa-star"></i>
                                     </div>
-
                                     <div class="price-box">
                                         <p class="price">48.00</p>
                                         <del>$75.00</del>

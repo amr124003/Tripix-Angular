@@ -6,6 +6,9 @@ import * as L from 'leaflet';
 import { HttpClientModule } from '@angular/common/http'; // ✅ استيراد HttpClientModule
 import 'leaflet-routing-machine';
 import { log } from 'console';
+import { TripRequestComponent } from "../trip-request/trip-request.component";
+import { OrderTripService } from '../../Services/OrderTrip/order-trip.service';
+import { ConnectUserService } from '../../Services/ConnectUser/connect-user.service';
 
 
 
@@ -13,7 +16,7 @@ import { log } from 'console';
 
 @Component({
   selector: 'app-tripbook',
-  imports: [FormsModule, CommonModule, HttpClientModule,ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, HttpClientModule, ReactiveFormsModule, TripRequestComponent],
   templateUrl: './tripbook.component.html',
   styleUrl: './tripbook.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -52,6 +55,12 @@ export class TripbookComponent implements AfterViewInit, OnInit {
   minDate! : string
   lat : any 
   lng : any
+  TripModalOpen = false;
+  pickupLatitude: any = 0; 
+  pickupLongitude: any = 0; 
+  destinationLatitude: any = 0;
+  destinationLongitude: any = 0;
+  Tripconuter = 0;
   
   
 
@@ -59,7 +68,7 @@ export class TripbookComponent implements AfterViewInit, OnInit {
   private endMarker!: L.Marker;
   
 
-  constructor(private http: HttpClient , private fb: FormBuilder) {
+  constructor(private http: HttpClient , private fb: FormBuilder , private triporder : OrderTripService , private connectuserservice : ConnectUserService) {
     this.rideForm = this.fb.group({
       passengerType: ['me', Validators.required],
       firstName: [''],
@@ -68,11 +77,18 @@ export class TripbookComponent implements AfterViewInit, OnInit {
     });
   }
 
+  closeModal()
+  {
+    this.TripModalOpen = false;
+    this.isDialogOpen = false;
+  }
+
   TripOrder = {
-    pickupLocation: '',
-    destinationLocation: '',
+    pickupLatitude: '',
+    pickupLongitude: '',
+    destinationLatitude: '',
+    destinationLongitude: '',
     dateTime: '',
-    passengerType: '',
     firstName: '',
     lastName: '',
     phone: ''
@@ -87,16 +103,42 @@ export class TripbookComponent implements AfterViewInit, OnInit {
       this.rideForm.get('phone')?.markAsTouched();
     }
 
+    
+
 
   
     if (this.isForSomeoneElse && this.rideForm.invalid) {
       return; // مش هيكمل التنفيذ وهيظهر الأخطاء
     }
 
+    this.TripOrder = {
+      pickupLatitude: this.pickupLatitude,
+      pickupLongitude: this.pickupLongitude,
+      destinationLatitude: this.destinationLatitude,
+      destinationLongitude: this.destinationLongitude,
+      dateTime: this.selectedDateTime,
+      firstName: this.rideForm.get('firstName')?.value,
+      lastName: this.rideForm.get('lastName')?.value,
+      phone: this.rideForm.get('phone')?.value
+    }
+
+    if(this.Tripconuter != 0) {this.TripModalOpen = true; return;}
+
     
-    if (this.rideForm.valid) {
-      // عند إرسال النموذج
-      console.log(this.rideForm.value);
+    if (this.rideForm.valid && this.startLocation && this.destination && this.Tripconuter == 0) {
+
+      console.log(this.TripOrder);
+      this.triporder.OrderTrip(this.TripOrder).subscribe({
+        next: (response) => {
+          console.log('تم إرسال الطلب بنجاح:', response);
+          this.TripModalOpen = true;
+          this.Tripconuter++;
+        },
+        error: (error) => {
+          console.error('حدث خطأ أثناء إرسال الطلب:', error);
+        }
+      })
+      
     }
   }
 
@@ -137,6 +179,9 @@ export class TripbookComponent implements AfterViewInit, OnInit {
   useCurrentLocation(): void {
     const { lat, lng } = this.userMarker.getLatLng(); // استخراج الإحداثيات بشكل صحيح
       navigator.geolocation.getCurrentPosition((position) => {
+
+        this.pickupLatitude = lat;
+        this.pickupLongitude = lng;
 
         const apiKey = "pk.6039c4e6dd18b636bd0c695199dae151";  // استبدل بمفتاحك
         const url = `https://us1.locationiq.com/v1/reverse.php?key=${apiKey}&lat=${lat}&lon=${lng}&format=json`;
@@ -327,9 +372,13 @@ export class TripbookComponent implements AfterViewInit, OnInit {
 
         if (this.selectedType === 'start') {
             this.startLocation = address;
+            this.pickupLatitude = latlng.lat;
+            this.pickupLongitude = latlng.lng; 
             this.showStartSuggestions = false;
         } else if (this.selectedType === 'destination') {
             this.destination = address;
+            this.destinationLatitude = latlng.lat;
+            this.destinationLongitude = latlng.lng;
             this.showDestinationSuggestions = false;
         }
 
@@ -396,6 +445,10 @@ export class TripbookComponent implements AfterViewInit, OnInit {
       this.rideForm.get('lastName')?.updateValueAndValidity();
       this.rideForm.get('phone')?.updateValueAndValidity();
     });
+
+   
+
+    
   }
 
   getSuggestions(type: string): void {
@@ -523,7 +576,7 @@ export class TripbookComponent implements AfterViewInit, OnInit {
       if (coords) {
         this.destinationLocation = coords;
         this.selectedMarker!.setLatLng(coords);
-        console.log('hi');
+      
         this.map.setView(coords, 14);
         this.drawRoute1(this.userMarker.getLatLng(),this.selectedMarker!.getLatLng());
         this.calculateRoute();
@@ -628,6 +681,12 @@ export class TripbookComponent implements AfterViewInit, OnInit {
       this.selectedMarker2 = null;
     }
   }
+
+
+  /*------------------------------------------------------------------------------------*/
+
+   
+      
 }
 
   

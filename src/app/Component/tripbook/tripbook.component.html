@@ -9,7 +9,31 @@
 </head>
 
 <body>
+  
   <div class="container" style="background-color: black;">
+    <div class="overlay" *ngIf="TripModalOpen || isDialogOpen" (click)="closeModal()"></div>
+    <div *ngIf="TripModalOpen">
+      <app-trip-request></app-trip-request>
+    </div>
+
+    <div class="modal" *ngIf="isDialogOpen">
+      <div class="modal-content">
+        <h3>Select Date And Time</h3>
+
+        <label for="date">Date :</label>
+        <input type="date" min="{{minDate}}" id="date" [(ngModel)]="selectedDate" (change)="filterHours()">
+
+        <label for="time">Time :</label>
+        <select id="time" [(ngModel)]="selectedTime">
+          <option *ngFor="let hour of availableHours" [value]="hour">{{ hour }}</option>
+        </select>
+
+        <div class="modal-buttons">
+          <button (click)="confirmDateTime()">Okay</button>
+          <button (click)="closeDialog()">Close</button>
+        </div>
+      </div>
+    </div>
 
     <div class="content">
       <!-- ✅ نموذج إدخال بيانات الرحلة -->
@@ -49,31 +73,8 @@
             placeholder="Enter Date Of Trip">
 
           <!-- النافذة المنبثقة -->
-          <div class="modal" *ngIf="isDialogOpen">
-            <div class="modal-content">
-              <h3>Select Date And Time</h3>
-
-              <label for="date">Date :</label>
-              <input type="date" min="{{minDate}}" id="date" [(ngModel)]="selectedDate" (change)="filterHours()">
-
-              <label for="time">Time :</label>
-              <select id="time" [(ngModel)]="selectedTime">
-                <option *ngFor="let hour of availableHours" [value]="hour">{{ hour }}</option>
-              </select>
-
-              <div class="modal-buttons">
-                <button (click)="confirmDateTime()">Okay</button>
-                <button (click)="closeDialog()">Close</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- تأثير التعتيم عند فتح النافذة -->
-          <div class="overlay" *ngIf="isDialogOpen"></div>
+          
         </div>
-
-
-
 
         <!-- الحقول الإضافية تظهر مع الأنيميشن -->
         <form [formGroup]="rideForm" (ngSubmit)="onSubmit()">
@@ -108,11 +109,13 @@
               </div>
             </div>
           </div>
-          <button class="request-btn" type="submit" (click)="onSubmit()" > Search ATrip</button>
+          <button class="request-btn" type="submit" (click)="onSubmit()" > Search A Trip</button>
         </form>
       </div>
+      
       <!-- ✅ الخريطة -->
       <div id="map"></div>
+    
     </div>
   </div>
 </body>

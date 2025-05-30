@@ -18,7 +18,7 @@ declare var FB: any;
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements AfterViewInit{
+export class LoginComponent implements AfterViewInit , OnInit {
   loginForm: FormGroup;
   RegisterForm: FormGroup;
   forgetOTPForm: FormGroup;
@@ -32,38 +32,48 @@ export class LoginComponent implements AfterViewInit{
   invalidOtp: boolean = false;
   otpRequired: boolean = false;
   modalcounter: number = 0;
-  registermodalcounter : number = 0;
+  registermodalcounter: number = 0;
   minutes: number = 1;
   seconds: number = 30;
   showMessage: boolean = false;
+  RegisterEmailServeError: string = '';
+  RegisterUserNameServeError: string = '';
+  RegisterPhoneNumberServeError: string = '';
+  PasswordChanged: boolean = false;
+  LoginisLoading = false;
+  RegisterisLoading = false;
+  bars = Array(5); // عدد الشرايط
 
-  Loginerrormessage! : string 
-  Loginerrormessageshow : boolean = false 
-  Registererrormessage! : string 
-  Registererrormessageshow : boolean = false
-  googlemodalopened : boolean = false;
-  
 
-  constructor(private fb: FormBuilder, private http: HttpClient,private _AuthServices : AuthService,private _otpservice:OtpService , private router : Router) {
+
+  Loginerrormessage: string = ''
+  Registererrormessage!: string
+  Registererrormessageshow: boolean = false
+  googlemodalopened: boolean = false;
+
+
+  constructor(private fb: FormBuilder, private http: HttpClient, private _AuthServices: AuthService, private _otpservice: OtpService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email, this.customEmailValidator]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25), this.passwordValidator ]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25), this.passwordValidator]],
       rememberMe: [false] // ✅ افتراضيًا مغلق
     });
 
     this.RegisterForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20) , Validators.pattern('^(?=.*[0-9]).+$')]],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20), Validators.pattern('^(?=.*[0-9]).+$')]],
       email: ['', [Validators.required, Validators.email, this.customEmailValidator]],
       phone: ['', [Validators.required, Validators.pattern('^(?=.*[0-9]).+$')]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25) , this.passwordValidator]] ,
-      confirmpassword: ['', [Validators.required, this.matchPasswordValidator.bind(this)]]
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25), this.passwordValidator]],
+      confirmpassword: ['', [Validators.required, this.matchPasswordValidator1.bind(this)]]
     });
 
     this.forgetOTPForm = this.fb.group({
       otp0: ['', [Validators.required]],
       otp1: ['', [Validators.required]],
       otp2: ['', [Validators.required]],
-      otp3: ['', [Validators.required]]
+      otp3: ['', [Validators.required]],
+      NewPassword: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(25), this.passwordValidator]],
+      ConfirmNewPassword: ['', [Validators.required, this.matchPasswordValidator2.bind(this)]]
     });
 
     this.registerOTPForm = this.fb.group({
@@ -73,48 +83,50 @@ export class LoginComponent implements AfterViewInit{
       otp3: ['', [Validators.required]]
     });
   }
+  ngOnInit(): void {
+    this.initGoogleLogin();
+  }
+  
   ngAfterViewInit(): void {
     this.initGoogleLogin();
   }
 
-  initGoogleLogin()
-  {
-      // تأكيد تحميل مكتبة Google Identity Services
-      if (typeof google !== 'undefined') {
-        google.accounts.id.initialize({
-          client_id: "1043954645475-7nninb1a3ddm67tb23k5v50hodrgjpai.apps.googleusercontent.com",
-          callback: this.handleCredentialResponse.bind(this)
-        });
-  
-  
-        google.accounts.id.renderButton(
-          document.getElementById('googleSignInButton'),
-          {  
-            theme:"filled_blue",
-            size: "large", // حجم كبير
-            shape: "pill", // زرار بحواف دائرية (بيضاوي)
-            text: "signin_with", // يظهر "Sign in with Google"
-            width: 250 // عرض الزرار 250px
-            }
-        );
-      }
+  initGoogleLogin() {
+    // تأكيد تحميل مكتبة Google Identity Services
+    if (typeof google !== 'undefined') {
+      google.accounts.id.initialize({
+        client_id: "1043954645475-7nninb1a3ddm67tb23k5v50hodrgjpai.apps.googleusercontent.com",
+        callback: this.handleCredentialResponse.bind(this)
+      });
+
+
+      google.accounts.id.renderButton(
+        document.getElementById('googleSignInButton'),
+        {
+          theme: "filled_blue",
+          size: "large", // حجم كبير
+          shape: "pill", // زرار بحواف دائرية (بيضاوي)
+          text: "", 
+          width: 260 // عرض الزرار 250px
+        }
+      );
+    }
   }
-  
+
   Googletoken = {
-    tokenID : ''
+    TokenID: ''
   }
 
   handleCredentialResponse(Data: any) {
     this.Googletoken = {
-      tokenID : Data.credential
+      TokenID: Data.credential
     }
 
     this._AuthServices.googleLogin(this.Googletoken).subscribe({
-      next:(response) => 
-      {
+      next: (response) => {
         localStorage.clear();
-         
-        localStorage.setItem('googletoken' , response.token);
+        localStorage.setItem('googletoken', response.token);
+        this.router.navigateByUrl("/Home");
       }
     })
   }
@@ -134,13 +146,30 @@ export class LoginComponent implements AfterViewInit{
     }, 1000);
   }
 
+  ResendconfirmCred = {
+    Email: ''
+  }
+  ResendconfirmOTP() {
+    this.ResendconfirmCred = {
+      Email: this.loginForm.get('email')?.value
+    };
 
-  ResendOTP()
-  {
+    this._AuthServices.ResendconfirmOTP(this.ResendconfirmCred).subscribe({
+      next: (Response) => {
+        console.log(Response);
+      },
+      error: (Response) => {
+        console.log(Response.error.errors[1]);
+      }
+    })
+
     this.showMessage = true;
     this.startCountdown();
     this.modalcounter = 0;
-    this.sendForgetOtp();
+  }
+
+  ResendForgetOTP() {
+
   }
 
 
@@ -148,8 +177,8 @@ export class LoginComponent implements AfterViewInit{
     event.preventDefault();
     const clipboardData = event.clipboardData?.getData('text') || '';
 
-    
-  
+
+
     if (clipboardData.length === this.forgetotp.length) {
       // ✅ لو النص المنسوخ طوله يساوي عدد الحقول، يتم توزيعه على الحقول
       this.forgetotp = clipboardData.split('');
@@ -162,8 +191,8 @@ export class LoginComponent implements AfterViewInit{
     event.preventDefault();
     const clipboardData = event.clipboardData?.getData('text') || '';
 
-    
-  
+
+
     if (clipboardData.length === this.registerotp.length) {
       // ✅ لو النص المنسوخ طوله يساوي عدد الحقول، يتم توزيعه على الحقول
       this.registerotp = clipboardData.split('');
@@ -171,119 +200,165 @@ export class LoginComponent implements AfterViewInit{
       return; // تجاهل اللصق لو النص المنسوخ مش مساوي لعدد الخانات
     }
   }
-  
+
   Logincredentials = {
-    Email : '',
-    Password : '',
-    RememberMe : false
+    Email: '',
+    Password: '',
+    RememberMe: false
   }
 
-  
-  
+
+
   onLoginSubmit() {
     if (this.loginForm.invalid) {
       return;
     }
 
-    
+
 
     this.Logincredentials = {
-      Email : this.loginForm.get("email")?.value,
-      Password : this.loginForm.get("password")?.value,
-      RememberMe : this.loginForm.get("rememberMe")?.value
+      Email: this.loginForm.get("email")?.value,
+      Password: this.loginForm.get("password")?.value,
+      RememberMe: this.loginForm.get("rememberMe")?.value
     }
-   
+
+    this.LoginisLoading = true;
+
     this._AuthServices.Login(this.Logincredentials).subscribe({
-      next:(response) => 
-      {
-        console.log(response.token);
-        console.log(response.role);
-        if(response.role == "User")
-        {
-          console.log('hi');
+      next: (response) => {
+        console.log(response);
+        if (response.roles.includes("User")) {
           this.router.navigateByUrl("/Home");
-          
-          if(this.Logincredentials.RememberMe == true)
-          {
-            localStorage.clear();
-            localStorage.setItem('token',response.token);
-            localStorage.setItem('role',response.role);
+          console.log(response);
+          if (this.Logincredentials.RememberMe == true) {
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('role', 'User');
           }
-          else if(this.Logincredentials.RememberMe == false)
-          {
+          else if (this.Logincredentials.RememberMe == false) {
             sessionStorage.clear();
-            sessionStorage.setItem('token',response.token);
-            sessionStorage.setItem('role',response.role);
+            sessionStorage.setItem('token', response.token);
+            sessionStorage.setItem('role', 'User');
           }
         }
 
-        else if(response.role == "Admin")
-        {
-          
-          if(this.Logincredentials.RememberMe == true)
-            {
-              localStorage.clear();
-              localStorage.setItem('token',response.token);
-              localStorage.setItem('role',response.role);
-            }
-            else if(this.Logincredentials.RememberMe == false)
-            {
-              sessionStorage.clear();
-              sessionStorage.setItem('token',response.token);
-              sessionStorage.setItem('role',response.role);
-            }
+        else if (response.roles.includes("Driver")) {
+          this.router.navigateByUrl("/StartEngine");
+          if (this.Logincredentials.RememberMe == true) {
+            localStorage.clear();
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('role', 'Driver');
+          }
+          else if (this.Logincredentials.RememberMe == false) {
+            sessionStorage.clear();
+            sessionStorage.setItem('token', response.token);
+            sessionStorage.setItem('role', 'Driver');
+          }
         }
 
-        else if(response.role == "SuperAdmin")
-        {
-        
-          if(this.Logincredentials.RememberMe == true)
-            {
-              localStorage.clear();
-              localStorage.setItem('token',response.token);
-              localStorage.setItem('role',response.role);
-            }
-            else if(this.Logincredentials.RememberMe == false)
-            {
-              sessionStorage.clear();
-              sessionStorage.setItem('token',response.token);
-              sessionStorage.setItem('role',response.role);
-            }
+        else if (response.roles.includes("Admin")) {
+          this.router.navigateByUrl("/Dashboard");
+          if (this.Logincredentials.RememberMe == true) {
+            localStorage.clear();
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('role', 'Admin');
+          }
+          else if (this.Logincredentials.RememberMe == false) {
+            sessionStorage.clear();
+            sessionStorage.setItem('token', response.token);
+            sessionStorage.setItem('role', 'Admin');
+          }
+        }
+
+        else if (response.roles.includes("SuperAdmin")) {
+          this.router.navigateByUrl("/Dashboard");
+          if (this.Logincredentials.RememberMe == true) {
+            localStorage.clear();
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('role', 'SuperAdmin');
+
+          }
+          else if (this.Logincredentials.RememberMe == false) {
+            sessionStorage.clear();
+            sessionStorage.setItem('token', response.token);
+            sessionStorage.setItem('role', 'SuperAdmin');
+
+          }
         }
       },
 
-      error:(response) =>
-      {
-        this.Loginerrormessage = response.error.message;
-        this.Loginerrormessageshow = true;
-        console.log(response.error.message);
+      error: (response) => {
+        console.log(response);
+        this.Loginerrormessage = response.error.errors[1];
+        this.LoginisLoading = false;
       }
     })
   }
 
-  Registercredentials = {
-    Username : '',
-    Email : '',
-    phone : '',
-    Password : '',
-    confirmpassword : ''
+  changeCred() {
+    this.Loginerrormessage = '';
   }
 
-  onRegisterSubmit()
-  {
-    this.Registercredentials = {
-      Username : this.RegisterForm.get("username")?.value,
-      Email : this.RegisterForm.get("email")?.value,
-      phone : this.RegisterForm.get("phone")?.value,
-      Password : this.RegisterForm.get("password")?.value,
-      confirmpassword : this.RegisterForm.get("confirmpassword")?.value
+  changephone() {
+    this.RegisterPhoneNumberServeError = '';
+  }
+
+  changeemail() {
+    this.RegisterEmailServeError = '';
+  }
+
+  changeUsername() {
+    this.RegisterUserNameServeError = '';
+  }
+
+  Registercredentials = {
+    Username: '',
+    Email: '',
+    phone: '',
+    Password: '',
+    confirmpassword: ''
+  }
+
+  onRegisterSubmit() {
+    if (this.registermodalcounter == 0) {
+      this.Registercredentials = {
+        Username: this.RegisterForm.get("username")?.value,
+        Email: this.RegisterForm.get("email")?.value,
+        phone: this.RegisterForm.get("phone")?.value,
+        Password: this.RegisterForm.get("password")?.value,
+        confirmpassword: this.RegisterForm.get("confirmpassword")?.value
+      }
+
+      this._AuthServices.Register(this.Registercredentials).subscribe({
+        next: (Response) => {
+          console.log(Response);
+          this.RegisterisLoading = true
+          this.isRegisterOtpModalOpen = true;
+          this.registermodalcounter++;
+        },
+        error: (Response) => {
+          console.log(Response);
+          if (Response.error.errors[1] == 'This Email Is Already Used') {
+            this.RegisterEmailServeError = Response.error.errors[1];
+            this.RegisterisLoading = false;
+          }
+          else if (Response.error.errors[1] == 'This Phone Number Is Already Used') {
+            this.RegisterPhoneNumberServeError = Response.error.errors[1];
+            this.RegisterisLoading = false;
+          }
+          else {
+            this.RegisterUserNameServeError = Response.error.errors[1];
+            this.RegisterisLoading = false;
+          }
+        }
+      })
     }
 
-    this.isRegisterOtpModalOpen = true;
-    this.sendRegisterOtp();
+
   }
 
-  
+  forgetPasswordCred = {
+    Email: ''
+  }
 
   forgetPassword(event: Event) {
     event.preventDefault(); // تمنع التنقل لصفحة جديدة
@@ -291,16 +366,31 @@ export class LoginComponent implements AfterViewInit{
     if (!this.loginForm.get('email')?.value || this.loginForm.get('email')?.invalid) {
       return;
     }
-
     this.isOtpModalOpen = true;
-    this.sendForgetOtp();
+
+    this.forgetPasswordCred = {
+      Email: this.loginForm.get('email')?.value
+    }
+
+    if (this.modalcounter == 0) {
+
+      this._AuthServices.ForgetPassword(this.forgetPasswordCred).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.modalcounter++;
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      })
+    }
   }
 
   closeforgetModal() {
     const modal = document.querySelector('.modal');
     if (modal) {
       modal.classList.add('hidden'); // ✅ اضف كلاس الـ Animation
-        this.isOtpModalOpen = false; // ✅ اخفِ المودال بعد انتهاء الـ Animation
+      this.isOtpModalOpen = false; // ✅ اخفِ المودال بعد انتهاء الـ Animation
     }
   }
 
@@ -312,24 +402,10 @@ export class LoginComponent implements AfterViewInit{
     }
   }
 
-  sendForgetOtp() {
-    if (this.modalcounter == 0 ) {
-      const email = this.loginForm.get("email")?.value;
-      this._otpservice.SendOTP(email).subscribe({
-        next: (response: any) => {
-          this.forgetserverOTP = response.otp;
-          console.log(this.forgetserverOTP);
-        },
-        error: (error) => {
-          console.error(error);
-        }
-      });
-      this.modalcounter++;
-    }
-  }
+
 
   sendRegisterOtp() {
-    if (this.registermodalcounter == 0 ) {
+    if (this.registermodalcounter == 0) {
       const email = this.RegisterForm.get("email")?.value;
       this._otpservice.SendOTP(email).subscribe({
         next: (response: any) => {
@@ -400,57 +476,91 @@ export class LoginComponent implements AfterViewInit{
     this.otpRequired = false;
   }
 
+  forgetOTPCred = {
+    Email: '',
+    OTP: '',
+    NewPassword: '',
+    ConfirmNewPassword: ''
+  }
+
   forgetverifyOtp() {
     if (this.forgetOTPForm.valid) {
-      const fullOtp = Object.values(this.forgetOTPForm.value).join('');
-      console.log(fullOtp == this.forgetserverOTP);
-      if (fullOtp == this.forgetserverOTP) {
-        this.invalidOtp = false;
-        this.otpRequired = false;
+      const fullOtp = [this.forgetOTPForm.value.otp0, this.forgetOTPForm.value.otp1, this.forgetOTPForm.value.otp2, this.forgetOTPForm.value.otp3].join('');
+
+      this.forgetOTPCred = {
+        Email: this.loginForm.get("email")?.value,
+        OTP: fullOtp,
+        NewPassword: this.forgetOTPForm.get("NewPassword")?.value,
+        ConfirmNewPassword: this.forgetOTPForm.get("ConfirmNewPassword")?.value
       }
 
-      else{
-        this.invalidOtp = true;
-      }
+      this._AuthServices.ResetPassword(this.forgetOTPCred).subscribe({
+        next: (response) => {
+          if (response.isSuccess) {
+            this.PasswordChanged = true;
+            setTimeout(() => {
+              this.isOtpModalOpen = false;
+            }, 2000);
+          }
+        },
+        error: (error) => {
+          console.log(error);
+          this.invalidOtp = true;
+        }
+      })
     }
+  }
+
+  confirmationCredentials = {
+    Email: '',
+    OTP: ''
   }
 
   registerverifyOtp() {
+
     if (this.registerOTPForm.valid) {
       const fullOtp = Object.values(this.registerOTPForm.value).join('');
-      console.log(fullOtp == this.registerserverOTP);
-      if (fullOtp == this.registerserverOTP) {
-        this.invalidOtp = false;
-        this.otpRequired = false;
 
-        this._AuthServices.Register(this.Registercredentials).subscribe({
-          next:(response) => 
-          {
-            if(response.token)
-            {
-              localStorage.setItem("token",response.token);
-            }
-          },
-          error:(error) => 
-          {
-            console.log(error);
+      this.confirmationCredentials = {
+        Email: this.RegisterForm.get("email")?.value,
+        OTP: fullOtp
+      }
+      console.log(this.confirmationCredentials);
+      this._AuthServices.confirmEmail(this.confirmationCredentials).subscribe({
+        next: (response) => {
+          if (response.roles.includes("User")) {
+            this.router.navigateByUrl("/Home");
+            localStorage.setItem("token", response.token);
+            localStorage.setItem("role", "User");
           }
-        });
-      }
 
-      else{
-        this.invalidOtp = true;
-      }
+          if (response.roles.includes("Admin")) {
+            this.router.navigateByUrl("/Dashboard");
+            localStorage.setItem("token", response.token);
+            localStorage.setItem("role", "Admin");
+          }
+
+          if (response.roles.includes("SuperAdmin")) {
+            this.router.navigateByUrl("/Dashboard");
+            localStorage.setItem("token", response.token);
+            localStorage.setItem("role", "SuperAdmin");
+          }
+        },
+        error: (error) => {
+          console.log(error);
+          this.invalidOtp = true;
+        }
+      });
     }
   }
-  
+
   forgetonInputFocus(): void {
     const isEmpty = this.forgetotp.some(value => value === ''); // التحقق إذا كانت هناك خانات فارغة
     this.otpRequired = isEmpty;
     this.invalidOtp = false;
   }
 
-   registeronInputFocus(): void {
+  registeronInputFocus(): void {
     const isEmpty = this.registerotp.some(value => value === ''); // التحقق إذا كانت هناك خانات فارغة
     this.otpRequired = isEmpty;
     this.invalidOtp = false;
@@ -484,14 +594,22 @@ export class LoginComponent implements AfterViewInit{
     return null;
   }
 
-  matchPasswordValidator(control: AbstractControl): ValidationErrors | null {
+  matchPasswordValidator1(control: AbstractControl): ValidationErrors | null {
     if (!this.RegisterForm) return null; // عشان نتأكد إن الفورم متعرف
     const password = this.RegisterForm.get('password')?.value;
     const confirmPassword = control.value;
-    
+
     return password === confirmPassword ? null : { passwordsNotMatch: true };
   }
-  
+
+  matchPasswordValidator2(control: AbstractControl): ValidationErrors | null {
+    if (!this.forgetOTPForm) return null; // عشان نتأكد إن الفورم متعرف
+    const password = this.forgetOTPForm.get('NewPassword')?.value;
+    const confirmPassword = control.value;
+
+    return password === confirmPassword ? null : { passwordsNotMatch: true };
+  }
+
 
   passwordValidator(control: AbstractControl): ValidationErrors | null {
     const password: string = control.value;
@@ -526,26 +644,26 @@ export class LoginComponent implements AfterViewInit{
 
 
   onRegisterClick(): void {
-    
+
     this.container.nativeElement.classList.add('active');
     setTimeout(() => {
       this.register = true;
-    }, 1000); 
+    }, 1000);
 
     setTimeout(() => {
       this.initGoogleLogin();
-    }, 1000); 
+    }, 1000);
   }
 
   onLoginClick(): void {
-    
+
     this.container.nativeElement.classList.remove('active');
     setTimeout(() => {
       this.register = false;
-    }, 1000); 
+    }, 1000);
 
     setTimeout(() => {
       this.initGoogleLogin();
-    }, 1000); 
+    }, 1000);
   }
 }

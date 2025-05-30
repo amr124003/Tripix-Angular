@@ -64,12 +64,40 @@ body { background: hsl(0, 100%, 1%); width: 1520px; margin-left: -7px;}
     padding: 10px 34px;
     border: 1px solid hsl(0, 0%, 80%);
     border-radius: 4px;
+    animation: pulse 2s infinite;
 }
 
-.btn-primary { background: hsl(205, 100%, 50%); color: hsl(0, 0%, 100%); border-color: hsl(205, 100%, 50%); }
-    .btn-primary:is(:hover, :focus) { --dodger-blue: hsl(205, 100%, 55%); }
+@keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+    }
+    70% {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 10px rgba(0, 123, 255, 0);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+    }
+  }
 
-.h1, .h2, .h3, .h4 { color: hsl(0, 43%, 53%); font-weight: 500; }
+  .btn-primary:hover {
+    animation: shake 0.3s;
+  }
+  
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(0); }
+  }
+
+.btn-primary { background: hsl(205, 96%, 55%); color: hsl(0, 0%, 100%); border-color: hsl(205, 100%, 50%); }
+    .btn-primary:is(:hover, :focus) { --dodger-blue: hsl(205, 98%, 50%); }
+
+.h1, .h2, .h3, .h4 { color: rosybrown; font-weight: 500; }
     .h1 { font-size: 28px; }
     .h2 { font-size: 26px; }
     .h3 { font-size: 24px; }
@@ -85,6 +113,28 @@ body { background: hsl(0, 100%, 1%); width: 1520px; margin-left: -7px;}
     margin-bottom: 25px;
     text-align: center; 
 }
+
+.gradient-text {
+    background: linear-gradient(90deg, #78d134, #ff9800, #2196f3);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 3s linear infinite;
+  font-weight: bold;
+  font-size: 1.2em;
+  text-align: center;
+  margin-bottom: 10px;
+  }
+
+  @keyframes gradientMove {
+    0% {
+      background-position: 0% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+  
 
 /*HEADER*/
 
@@ -108,6 +158,7 @@ header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 50px;
     }
 
 .nav-open-btn, .nav-close-btn { font-size: 35px; padding: 5px; color: hsl(0, 0%, 66%); }
@@ -125,6 +176,7 @@ header {
     visibility: hidden;
     transition: 0.25s ease-in-out;
     box-shadow: -2px 0 4px hsla(0, 0%, 0%, .1);
+    
 }
 
     .navbar.active { right: 0; visibility: visible; }
@@ -159,25 +211,16 @@ header {
 
 .hero-content { text-align: center; margin-bottom: 40px; width: 500px;}
 .hero-title { margin-bottom: 20px; }
-.hero-form { margin-bottom: 25px; }
+.hero-form { margin-bottom: 10px; }
 
-.input-field {
-    background: rgba(255, 255, 255, .1);
-    backdrop-filter: blur(10px);
-    color: hsl(0, 4%, 86%);
-    font-weight: 300;
-    padding: 14px 18px;
-    border: 1px solid rosybrown;
-    border-radius: 4px;
-    margin-bottom: 25px;
-}
 
-    .input-field:focus { border-color: hsl(157, 100%, 36%);; outline: none; }
+
+    
 
 .hero-text { color: hsl(208, 7%, 46%); font-size: 15px; }
     .hero-text span:not(:last-child) { margin-bottom: 10px; }
 
-.hero-banner  { width: 134%; }
+.hero-banner  { border-radius: 20px; width: 134%;  }
 
 /*SERVICE*/
 
@@ -262,8 +305,8 @@ header {
 .footer-link-box { display: grid; gap: 40px; justify-content: center; text-align: center; }
 .footer-list li:not(:last-child) { margin-bottom: 10px; }
 .footer-list li:first-child { margin-bottom: 15px; }
-.footer-link { color: hsl(208, 7%, 46%); max-width: 150px; }
-    .footer-link:is(:hover, :focus) { text-decoration: underline; }
+.footer-link { color: hsl(208, 7%, 46%); max-width: 150px; transition: .5s;}
+    .footer-link:is(:hover, :focus) { color: rosybrown; font-size: 20px;}
 .divider { border: none; height: 1px; background: linear-gradient(90deg, transparent, hsl(0, 0%, 88%) 25% 75%, transparent); }
 .footer-bottom { padding: 30px 0; background: black; text-align: center; }
 .copyright { color: hsl(208, 7%, 46%); line-height: 1.5; margin-bottom: 15px; }
@@ -288,8 +331,8 @@ header {
             background: hsl(208, 7%, 46%);
         }
 
-.social-link { color: hsl(208, 7%, 46%);  }
-.social-link:is(:hover, :focus) { text-decoration: underline; }
+.social-link { color: hsl(208, 7%, 46%);  transition: .2s;}
+.social-link:is(:hover, :focus) { text-decoration: underline; font-size: 30px;}
 
 .go-top-btn {
     position: fixed;
@@ -419,24 +462,50 @@ header {
         box-shadow: none;
         background: none;
         display: flex;
-        justify-content: center;
-        align-items: center;
     }
 
         .navbar .btn-primary {  --fs-7:16px; width: auto; padding: 10px 23px; border-radius: 4px; }
 
     .navbar-list {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        margin-right: 20px;
+        justify-content: right;
+        align-items: right;
+        gap: 20px;
     }
 
     .navbar-item:not(:last-child) { border-bottom: none; }
-    .navbar-link { --fs-5: 16px; color: hsl(0, 34%, 50%); padding: 0 10px; }
+    .navbar-link {
+        position: relative;
+        text-decoration: none;
+        color: #000;
+        padding: 5px 0;
+        transition: color 0.3s ease;
+        font-size: 23px;
+        font-family: cursive;
+        color: white;
+        display: inline-block; /* مهم علشان الـ width بتاع ::after يشتغل مظبوط */
+    }
         .navbar-link:is(:hover, :focus) { background: none; }
     
+
+        .navbar-link::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background-color: #9af92e; /* اللون اللي تحبه للخط */
+            transition: width 0.3s ease;
+          }
+
+          .navbar-link:hover {
+            color: rgb(62, 235, 62);
+          }
+          
+          .navbar-link:hover::after {
+            width: 100%;
+          }
 
     .hero::before { left: 50%; }
     .input-field { font-size: 19px; }
@@ -483,13 +552,13 @@ header {
 
     .container { max-width: 1100px; }
 
-    header .container { max-width: 1100px; }
+    header .container { max-width: 1450px; }
     .navbar-list { margin-right: 30px; }
-    .navbar-link { --fs-7: 17px; padding: 0 15px; }
+    .navbar-link { --fs-7: 17px; padding: 0 7px; }
 
     .hero { padding-top: 120px; }
         .hero .btn-primary { margin-top: 40px; }
-    .hero-form { margin-bottom: 40px; }
+    .hero-form { margin-bottom: 15px; }
 
     .service .section-text { --fs-6: 20px; max-width: 700px; margin-bottom: 70px; }
     .service .card-icon, .features .card-icon { font-size: 70px; }
@@ -536,6 +605,86 @@ header {
   }
 
   /*-----------------------------------------------*/
+  .input-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-right: 3px solid #83f92e  ;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, .1);
+  }
+  
+  .input-field::placeholder {
+    color: #aaa;
+    transition: all 0.3s ease;
+  }
+  
+  .input-field:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(120, 209, 52, 0.6); /* Shadow */
+    border-color: #78d134;
+  }
+  
+  .input-field:focus::placeholder {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
 
+  .error {
+    color: #ff4d4d; /* لون أحمر جذاب */
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif; /* خط عصري */
+    margin-top: 5px;
+    transform: translateY(-5px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  
+  .error span {
+    display: inline-block;
+    background: rgba(255, 77, 77, 0.1); /* خلفية خفيفة */
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(255, 77, 77, 0.2);
+    animation: shake 0.3s ease-in-out;
+  }
+  
+  /* ظهور الخطأ بسلاسة */
+  .ng-invalid.ng-touched + .error,
+  .ng-invalid.ng-dirty + .error,
+  .error.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* أنيميشن اهتزاز خفيفة */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+  }
 
+  .fancy-image {
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(41, 242, 51, 0.2);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    object-fit: cover;
+  }
+  
+  /* لما المستخدم يعمل hover */
+  .fancy-image:hover {
+    transform: scale(1.03);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+  
+  
   

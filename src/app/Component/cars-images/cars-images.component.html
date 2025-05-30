@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body style="background: url('../../../assets/images/backgraound.jpg') no-repeat center center ;">
+    <div class="form-container">
+        <div class="form-content">
+            <h1 class="head">Add Your Car Photos</h1>
+            <!-- Step 1: Image Upload -->
+            <div *ngIf="step === 1" class="upload-step fade-in" [ngClass]="{ 'blur': +step === 2 }">
+                <div class="drop-zone" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
+                    (drop)="onDrop($event)" [class.dragging]="isDragging">
+                    <p *ngIf="!images.length">Drag & Drop Car Images here or click to upload</p>
+                    <div *ngIf="loading" class="loader"></div>
+                    <!-- تكرار الصورة مع سلة المهملات -->
+                    <div *ngFor="let image of images; let i = index" class="image-preview">
+                        <img [src]="image.url" [alt]="image.name" />
+                        <div class="image-details">
+                            <p>{{ image.name }}</p>
+                            <p>{{ image.size }} KB</p>
+                            <!-- سلة المهملات الخاصة بكل صورة -->
+                        </div>
+                        <button class="delete-btn" (click)="deleteImage(i)">
+                            <i class="fa fa-trash"></i> <!-- أيقونة سلة المهملات -->
+                        </button>
+                    </div>
+                </div>
+                <input type="file" #fileInput class="hidden-file-input" multiple (change)="onFileSelect($event)" />
+                <button class="upload-btn" (click)="fileInput.click()">Upload</button>
+                <div class="buttons">
+                    <button (click)="cancel()">Cancel</button>
+                    <button (click)="uploadImages()">Done</button>
+                </div>
+                <p *ngIf="images.length >= MAX_IMAGES" class="max-images-warning">
+                    You've reached the maximum number of images ({{ MAX_IMAGES }}).
+                    You cannot upload more images.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

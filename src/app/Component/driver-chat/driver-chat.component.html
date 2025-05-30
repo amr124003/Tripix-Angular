@@ -1,0 +1,35 @@
+<div class="chatbot-container" >
+    <div class="response-container" #chatContainer>
+        <!-- رسالة الترحيب -->
+        <div *ngFor="let msg of messages"
+            [ngClass]="{'user-messages': msg.sender === 'user', 'chatbot-message-container': msg.sender === 'driver'}"
+            @messageAnimation>
+
+            <div class="user-message-container" *ngIf="msg.sender === 'user'">
+                <div class="user-message">{{ msg.text }}</div>
+                <img src="../../../assets/images/Avatar.jpg" alt="User" class="user-avatar" />
+            </div>
+
+            <div class="chatbot-avatar-message" *ngIf="msg.sender === 'driver'">
+                <img src="../../../assets/images/logo.png" alt="Chatbot" class="mini-avatar" />
+                <div class="message-bubble chatbot-bubble">
+                    <ng-container *ngIf="msg.sender === 'driver'; else loading">
+                        {{ msg.text }}
+                    </ng-container>
+                    <ng-template #loading>
+                        <span class="loading-dots">...</span>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط الإدخال الثابت في أسفل الصفحة -->
+    <div class="chatbot-input-container">
+        <input type="text" placeholder="Type a message..." class="chatbot-input" [(ngModel)]="userInput"
+            (keyup.enter)="sendMessage()" />
+        <button class="send-button" (click)="sendMessage()">
+            <span>&#10148;</span>
+        </button>
+    </div>
+</div>

@@ -6,7 +6,7 @@ import gsap from 'gsap';
 
 @Component({
   selector: 'app-our-spare-parts',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,RouterLink,RouterLinkActive],
   templateUrl: './our-spare-parts.component.html',
   styleUrl: './our-spare-parts.component.css',
   schemas : [CUSTOM_ELEMENTS_SCHEMA]
@@ -29,7 +29,7 @@ export class OurSparePartsComponent implements AfterViewInit, OnInit {
     Hatchback: false
   };
 
-  constructor(private router: ActivatedRoute) { }
+  constructor(private router: ActivatedRoute , private router2 : Router) { }
 
   //////////////////////////////////////////////////////////////////////////////
   filterType = 'all';
@@ -54,6 +54,8 @@ export class OurSparePartsComponent implements AfterViewInit, OnInit {
     'Electric': false,
     'Hybrid': false
   };
+
+  
   
   
 
@@ -328,6 +330,11 @@ export class OurSparePartsComponent implements AfterViewInit, OnInit {
   stopDragging(container: HTMLElement, itemWidth: number) {
     this.isDragging = false;
     this.startAutoScroll(itemWidth); // 🔄 استئناف التمرير التلقائي بعد السحب
+  }
+
+  SellCar()
+  {
+    this.router2.navigateByUrl("/SellCar");
   }
 
   startAutoScroll(itemWidth: number) {

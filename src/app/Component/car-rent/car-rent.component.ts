@@ -1,28 +1,32 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Inject } from '@angular/core';
+import { Component, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-car-rent',
-  imports: [CommonModule,FormsModule,ReactiveFormsModule],
+  imports: [CommonModule,FormsModule,ReactiveFormsModule,RouterLink,RouterLinkActive],
   templateUrl: './car-rent.component.html',
   styleUrl: './car-rent.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA] 
 })
-export class CarRentComponent implements AfterViewInit {
+export class CarRentComponent implements AfterViewInit  {
 
 
   isFormVisible = false;
    isSubmitted = false;
    bookingForm: FormGroup;
+   vedioUrl = ''
 
    constructor(private fb: FormBuilder,@Inject(DOCUMENT) private document: Document) {
+    this.vedioUrl = '../../../assets/images/Car rental.mp4';
        this.bookingForm = this.fb.group({
          name: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(20),Validators.pattern(/^[A-Za-z\s]+$/)]],
          phone: ['', [Validators.required, Validators.pattern(/^01\d{8,13}$/)]],
          date: ['', [Validators.required]]
        });
      }
+  
   
      onSubmit() {
       if (this.bookingForm.valid) {
@@ -163,7 +167,7 @@ export class CarRentComponent implements AfterViewInit {
           wordIndex = (wordIndex + 1) % this.words.length;
           targetElement.textContent = this.words[wordIndex];
           targetElement.style.opacity = '1'; // Fade in
-        }, 50);
+        }, 10);
       }
     };
 

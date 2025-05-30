@@ -25,11 +25,25 @@ import { EventComponent } from './Component/event/event.component';
 import { BlogsComponent } from './Component/blogs/blogs.component';
 import { SellCarComponent } from './Component/sell-car/sell-car.component';
 import { OurSparePartsComponent } from './Component/our-spare-parts/our-spare-parts.component';
+import { EventsComponent } from './Component/events/events.component';
+import { FAQComponent } from './Component/faq/faq.component';
+import { TripixComponent } from './Component/tripix/tripix.component';
+import { PaymentComponent } from './Component/payment/payment.component';
+import { DriverLoginComponent } from './Component/driver-login/driver-login.component';
+import { SearchingTripComponent } from './Component/searching-trip/searching-trip.component';
+import { StartEngineComponent } from './Component/start-engine/start-engine.component';
+import { DashboardComponent } from './Component/dashboard/dashboard.component';
+import { WashletsComponent } from './Component/washlets/washlets.component';
+import { UserfinaltripComponent } from './Component/userfinaltrip/userfinaltrip.component';
+import { DriverChatComponent } from './Component/driver-chat/driver-chat.component';
+import { DriverfinaltripComponent } from './Component/driverfinaltrip/driverfinaltrip.component';
+import { CarsImagesComponent } from './Component/cars-images/cars-images.component';
 
 
 export const routes: Routes = 
 [
-    {path:'',component:IntroComponent},
+    {path:'',loadComponent: () => import('./Component/intro/intro.component').then(m => m.IntroComponent),data: { animation: 'HomePage' }},
+    {path:'Home',loadComponent: () => import('./Component/home/home.component').then(m => m.HomeComponent),data: { animation: 'AboutPage' }},
     {path:'CarWash',component:CarWashComponent},
     {path:'CarRepair',component:CarMaintenanceComponent},
     {path:'CarRental',component:CarRentComponent},
@@ -40,7 +54,6 @@ export const routes: Routes =
     {path:'PersonalInfo',component:DriverInfoComponent},
     {path:'EditData',component:EditAccountComponent},
     {path:'DriverPage',component:DriverPageComponent},
-    {path:'Home',component:HomeComponent},
     {path:'ChatBot',component:ChatBotComponent},
     {path:'About',component:AboutComponent},
     {path:'Sign In',component:LoginComponent},
@@ -50,8 +63,26 @@ export const routes: Routes =
     {path:"Services",component:ServicesComponent},
     {path:"Helpoo",component:HelpooComponent},
     {path:"SpareParts",component:OurSparePartsComponent},
-    {path:"Events",component:EventComponent},
+    {path:"Events",component:EventsComponent},
     {path:"Blogs",component:BlogsComponent},
     {path:"About",component:AboutComponent},
-    {path:"SellCar",component:SellCarComponent}
+    {path:"SellCar",component:SellCarComponent},
+    {path:"Event",component:EventComponent},
+    {path:"FAQs",component:FAQComponent},
+    {path:"DriverPage",component:DriverPageComponent},
+    {path:"DriverInfo",component:DriverInfoComponent},
+    {path:"FaceID",component:FaceIDComponent},
+    {path:"CriminalRecord",component:CriminalrecordComponent},
+    {path:"CarLicence",component:CarLicenseComponent},
+    {path:"DriverLicense",component:LicenseCardComponent},
+    {path:"TripixPage",component:TripixComponent},
+    {path:"Payment",component:PaymentComponent},
+    {path:"DriverLogin",component:DriverLoginComponent},
+    {path:'SearchinForTrip',component:SearchingTripComponent},
+    {path:'StartEngine',component:StartEngineComponent},
+    {path:'Dashboard',component:DashboardComponent},
+    {path:'Washlets',component:WashletsComponent},
+    {path:'UserFinalTrip',component:UserfinaltripComponent},
+    {path:'DriverFinalTrip',component:DriverfinaltripComponent},
+    {path:'CarImages' , component:CarsImagesComponent}
 ];

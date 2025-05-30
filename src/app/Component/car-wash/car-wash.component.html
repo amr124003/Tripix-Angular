@@ -16,18 +16,18 @@
     <header class="header-area">
         <nav class="navbar navbar-expand-lg fixed-top">
             <div class="container">
-                <a href="#index.html" class="navbar-brand">Shinix</a>
+                <img src="../../../assets/images/tripix logo.png" width="180">
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"><i
                         class="fa-solid fa-bars"></i></button>
 
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="0">home</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="1">about</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="2">Other services</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="6">contact</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link" data-scroll-nav="6">FAQ's</a></li>
+                        <li class="nav-item"><a routerLink="/Home" class="nav-link" data-scroll-nav="0">home</a></li>
+                        <li class="nav-item"><a routerLink="/About" class="nav-link" data-scroll-nav="1">about</a></li>
+                        <li class="nav-item"><a routerLink="/Services" class="nav-link" data-scroll-nav="2">Other
+                                services</a></li>
+                        <li class="nav-item"><a routerLink="/FAQs" class="nav-link" data-scroll-nav="6">FAQ's</a></li>
                     </ul>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                                 <p>Used by more than a million people in Egypt</p>
 
                                 <div class="home-btn">
-                                    <a href="#" class="btn-1">View my Work</a>
+                                    <a (click)="GotoWork()" class="btn-1">View my Work</a>
                                 </div>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
                                         <i class="fa-solid fa-clock"></i>
                                     </div>
                                     <div class="info-text">
-                                        <p><span>Available Time:</span> 10:00 Am - 11:00 Pm</p>
+                                        <p><span>Available Time:</span> 10:00 Am - 12:00 Pm</p>
                                     </div>
                                 </div>
                             </li>
@@ -211,7 +211,11 @@
                                         <i class="fa-solid fa-shop"></i>
                                     </div>
                                     <div class="info-text">
-                                        <p><span style="color: yellowgreen">Open Now</span></p>
+                                        <p><span style="color: yellowgreen;font-size: 20px;" *ngIf="!Closed">Open
+                                                Now</span></p>
+                                    </div>
+                                    <div class="info-text">
+                                        <p><span style="color: red;font-size: 20px;" *ngIf="Closed">Closed</span></p>
                                     </div>
                                 </div>
                             </li>
@@ -224,10 +228,29 @@
         </div>
     </section>
 
-    <!-- Button to open the modal -->
-    openModal
 
-    <section class="services section-padding" id="services" data-scroll-index="2"
+    <div class="overlay" *ngIf="ismodalVisible" (click)="closeModal()"></div>
+
+
+    <div class="form-container" *ngIf="ismodalVisible">
+
+        <div class="modal-content">
+            <div *ngFor="let item of menu">
+                <h3>{{ item.title }}</h3>
+                <ul>
+                    <li *ngFor="let subItem of item.subItems">{{ subItem }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button (click)="closeModal()" class="close-modal-btn">Close</button>
+        </div>
+
+    </div>
+
+
+    <section class="services section-padding" id="work" data-scroll-index="2"
         style="background-color: black; border-bottom: 1px solid rosybrown;">
         <div class="container">
             <div class="row justify-content-center">
@@ -276,7 +299,8 @@
         </div>
     </section>
 
-    <section class="call-to-action section-padding" style="background-image: url('../../../assets/images/Premium\ Photo\ _\ Process\ of\ professional\ car\ wash\ with\ chemical\ detergent\ and\ high\ pressure\ washer.jpg');">
+    <section class="call-to-action section-padding"
+        style="background-image: url('../../../assets/images/Premium\ Photo\ _\ Process\ of\ professional\ car\ wash\ with\ chemical\ detergent\ and\ high\ pressure\ washer.jpg');">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-9">
@@ -293,12 +317,50 @@
         </div>
     </section>
 
+    <!-- Overlay -->
     <div class="overlay" *ngIf="isFormVisible" (click)="closeForm()"></div>
 
-    <!-- Form Container with animation -->
-    <div class="form-container" *ngIf="isFormVisible">
-        <div class="form-content" *ngIf="!isSubmitted">
-            <h2 style="margin-left: 180px;">Book Your Car</h2>
+    <!-- Modal/Form Container -->
+    <div class="form-container" *ngIf="isFormVisible" [@fadeInOut]>
+
+        <!-- Step 1: Turn Question -->
+        <div class="form-content" *ngIf="currentStep === 'question'" [@slideIn]>
+            <h2 class="modal-question">Who is booking this role for?</h2>
+            <div class="button-group">
+                <button class="turn-btn" (click)="selectTurn(true)">For Me</button>
+                <button class="turn-btn secondary" (click)="selectTurn(false)">For Another One</button>
+            </div>
+        </div>
+
+        <div class="form-content" *ngIf="currentStep === 'form1' && !isSubmitted" [@slideIn]>
+             <h2 style="margin-left: 180px;">Book Your Turn</h2>
+            <form (ngSubmit)="onSubmit3()" [formGroup]="bookingForm3">
+                <div class="input-container" >
+                    <label for="date">Date</label>
+                    <input id="date" type="date" formControlName="date">
+                    <div *ngIf="bookingForm3.get('date')?.invalid && bookingForm3.get('date')?.touched" class="error">
+                        <span *ngIf="bookingForm3.get('date')?.errors?.['required']">Date is required.</span>
+                        <span *ngIf="bookingForm3.get('date')?.errors?.['min']">Invalid Date</span>
+                    </div>
+                </div>
+                <label>Car Type</label>
+                <select formControlName="carType">
+                    <option value="">Select Car Type</option>
+                    <option value="electric">Electric Car</option>
+                    <option value="fuel">Fuel Powered Car</option>
+                </select>
+                <div *ngIf="bookingForm3.get('carType')?.invalid && bookingForm3.get('carType')?.touched" class="error">
+                    <span *ngIf="bookingForm3.get('carType')?.errors?.['required']"> Car Type is required.</span>
+                </div>
+                <div style="text-align: center;">
+                <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Step 2: Form -->
+        <div class="form-content" *ngIf="currentStep === 'form2' && !isSubmitted" [@slideIn]>
+             <h2 style="margin-left: 180px;">Book Your Turn</h2>
             <form (ngSubmit)="onSubmit1()" [formGroup]="bookingForm1">
                 <div class="input-container" >
                     <label for="name">Name</label>
@@ -334,17 +396,16 @@
                     <span *ngIf="bookingForm1.get('carType')?.errors?.['required']"> Car Type is required.</span>
                 </div>
                 <div style="text-align: center;">
-                <button type="submit" [disabled]="bookingForm1.invalid">Submit</button>
+                <button type="submit" >Submit</button>
                 </div>
             </form>
-                              
         </div>
 
-        <!-- Success Message with Animation -->
-        <div *ngIf="isSubmitted" class="success-message">
-            <ion-icon name="checkmark-circle"></ion-icon> Car Is Booked!
+        <!-- Success Message -->
+        <div *ngIf="isSubmitted" class="success-message" [@slideIn]>
+            <ion-icon name="checkmark-circle" class="icon-success"></ion-icon>
+            <p>Your Turn Is Booked</p>
         </div>
-
     </div>
 
 
@@ -379,7 +440,8 @@
                             </ul>
                         </div>
                         <div class="pricing-footer" style="margin-top: 93px;">
-                            <a href="#" class="btn btn-2">Get Started</a>
+                            <a (click)="SelectPricing(1)"
+                                [ngClass]="SelectedPricing === 1 ? 'btn btn-1' : 'btn btn-2'">Get Started</a>
                         </div>
                     </div>
                 </div>
@@ -403,7 +465,8 @@
                             </ul>
                         </div>
                         <div class="pricing-footer" style="margin-top: 50px;">
-                            <a href="#" class="btn btn-1">Get Started</a>
+                            <a (click)="SelectPricing(2)"
+                                [ngClass]="SelectedPricing === 2 ? 'btn btn-1' : 'btn btn-2'">Get Started</a>
                         </div>
                     </div>
                 </div>
@@ -428,7 +491,8 @@
                             </ul>
                         </div>
                         <div class="pricing-footer">
-                            <a href="#" class="btn btn-2">Get Started</a>
+                            <a (click)="SelectPricing(3)"
+                                [ngClass]="SelectedPricing === 3 ? 'btn btn-1' : 'btn btn-2'">Get Started</a>
                         </div>
                     </div>
                 </div>
@@ -477,39 +541,51 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="text" placeholder="Your Name" class="form-control" formControlName="name">
-                                        <div *ngIf="bookingForm2.get('name')?.invalid && bookingForm2.get('name')?.touched" class="error">
-                                            <span *ngIf="bookingForm2.get('name')?.errors?.['required']"> Card number is required.</span>
-                                            <span *ngIf="bookingForm2.get('name')?.errors?.['minlength']">Name Must be greater than 3 letters</span>
-                                            <span *ngIf="bookingForm2.get('name')?.errors?.['maxlength']">Name Must be smaller than 20 letters</span>
-                                            <span *ngIf="bookingForm2.get('name')?.errors?.['pattern']">Invalid Name</span>
-                                          </div>
+                                        <input type="text" placeholder="Your Name" class="form-control"
+                                            formControlName="name">
+                                        <div *ngIf="bookingForm2.get('name')?.invalid && bookingForm2.get('name')?.touched"
+                                            class="error">
+                                            <span *ngIf="bookingForm2.get('name')?.errors?.['required']"> Card number is
+                                                required.</span>
+                                            <span *ngIf="bookingForm2.get('name')?.errors?.['minlength']">Name Must be
+                                                greater than 3 letters</span>
+                                            <span *ngIf="bookingForm2.get('name')?.errors?.['maxlength']">Name Must be
+                                                smaller than 20 letters</span>
+                                            <span *ngIf="bookingForm2.get('name')?.errors?.['pattern']">Invalid
+                                                Name</span>
+                                        </div>
                                     </div>
                                 </div>
-                        
+
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="text" placeholder="Your Phone" class="form-control" formControlName="phone">
-                                        <div *ngIf="bookingForm2.get('phone')?.invalid && bookingForm2.get('phone')?.touched" class="error">
-                                            <span *ngIf="bookingForm2.get('phone')?.errors?.['required']">Phone number is required.</span>
-                                            <span *ngIf="bookingForm2.get('phone')?.errors?.['pattern']">Invalid phone number.</span>
-                                          </div>
+                                        <input type="text" placeholder="Your Phone" class="form-control"
+                                            formControlName="phone">
+                                        <div *ngIf="bookingForm2.get('phone')?.invalid && bookingForm2.get('phone')?.touched"
+                                            class="error">
+                                            <span *ngIf="bookingForm2.get('phone')?.errors?.['required']">Phone number
+                                                is required.</span>
+                                            <span *ngIf="bookingForm2.get('phone')?.errors?.['pattern']">Invalid phone
+                                                number.</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        
+
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <input type="date" [min]="Date" class="form-control" formControlName="date">
-                                        <div *ngIf="bookingForm2.get('date')?.invalid && bookingForm2.get('date')?.touched" class="error">
-                                            <span *ngIf="bookingForm2.get('date')?.errors?.['required']">Date is required.</span>
+                                        <div *ngIf="bookingForm2.get('date')?.invalid && bookingForm2.get('date')?.touched"
+                                            class="error">
+                                            <span *ngIf="bookingForm2.get('date')?.errors?.['required']">Date is
+                                                required.</span>
                                             <span *ngIf="bookingForm2.get('date')?.errors?.['min']">Invalid Date</span>
-                                          </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        
+
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
@@ -518,19 +594,21 @@
                                             <option value="electric">Electric Car</option>
                                             <option value="fuel">Fuel Powered Car</option>
                                         </select>
-                                        <div *ngIf="bookingForm2.get('carType')?.invalid && bookingForm2.get('carType')?.touched" class="error">
-                                            <span *ngIf="bookingForm2.get('carType')?.errors?.['required']"> Car Type is required.</span>
-                                          </div>
+                                        <div *ngIf="bookingForm2.get('carType')?.invalid && bookingForm2.get('carType')?.touched"
+                                            class="error">
+                                            <span *ngIf="bookingForm2.get('carType')?.errors?.['required']"> Car Type is
+                                                required.</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        
+
                             <div class="row">
                                 <div class="col-lg-12" style="text-align: center;">
                                     <button class="btn-2" [disabled]="bookingForm2.invalid">Book Now</button>
                                 </div>
                             </div>
-                        </form>                        
+                        </form>
                     </div>
                 </div>
             </div>

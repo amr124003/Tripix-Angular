@@ -1,0 +1,64 @@
+<div class="trip-container">
+    <!-- Map -->
+    <div id="map" class="map-section"></div>
+
+    <!-- Driver Info Section -->
+    <div class="driver-info" [@fadeIn]>
+
+        <!-- المواقع والمسافة -->
+        <div class="locations">
+            <div class="destination">
+                <span> {{UserDetails.pickupLocation}}</span>
+            </div>
+
+            <!-- الحالة الثانية: مع Driverdistances -->
+            <div class="distance-container" *ngIf="distance">
+                <div class="dot-line continuous-dots1">
+                    <span class="moving-dot" *ngFor="let dot of [1,2,3,4,5,6,7,8,9,11,12]"></span>
+                </div>
+
+                <div class="distance">
+                    <span>{{distance}}</span>
+                </div>
+
+                <div class="dot-line continuous-dots2">
+                    <span class="moving-dot" *ngFor="let dot of [13,14,15,16,17,18,19,20,21,22,23]"></span>
+                </div>
+            </div>
+
+            <div class="current-location">
+                <span> {{UserDetails.DistinationLocation}}</span>
+            </div>
+        </div>
+
+
+        <!-- بيانات السائق بعد المواقع -->
+        <div class="info-container">
+            <div class="info-left">
+                <h2>{{UserDetails.userName}}</h2>
+                <p>{{ UserDetails.UserPhoneNumber }}</p>
+
+            </div>
+
+            <div>
+                <h3 class="Price">{{ UserDetails.price + ' EGP '}}</h3>
+            </div>
+
+            <div class="info-middle" (click)="chatWithDriver()">
+                <span class="chat-text">Chat with Rider</span>
+                <div class="arrow-animation">
+                    <span class="arrow-down"></span>
+                </div>
+            </div>
+
+            <div class="info-right">
+                <button class="Arrive-btn" (click)="cancelTrip()"> Arrived </button>
+                <button class="cancel-btn" (click)="cancelTrip()">Cancel Trip</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section *ngIf="isChatVisible" class="chat-section" #chatContainer>
+    <app-driver-chat [userphonenumber]="UserPhoneNumber"></app-driver-chat>
+</section>

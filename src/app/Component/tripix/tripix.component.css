@@ -26,6 +26,10 @@
 
     --gap: 3.5rem;
   }
+  html {
+    scroll-behavior: smooth;
+  }
+  
   li {
     padding: 0;
   }
@@ -48,7 +52,8 @@
   .Navbar {
     position: sticky;
     inset-block-start: 0;
-    z-index: 3;
+    z-index: 1;
+    height: 120px;
     block-size: 6.2rem;
     
 
@@ -62,6 +67,7 @@
       background-color: rgba(255 ,255, 255, .1);
       backdrop-filter: blur(10px);
       border-radius: 20px;
+      height: 105px;
       border-bottom: 2px solid rosybrown;
     }
 
@@ -324,10 +330,10 @@
   .LinkButton {
     display: inline-flex;
     text-transform: uppercase;
+    cursor: pointer;
     font-weight: 700;
     text-decoration: none;
-    
-
+    border-radius: 10px;
     color: oklch(1 0 0);
     padding: calc(.5rem + 1px)
       calc(.5rem + 2px);
@@ -373,14 +379,9 @@
     text-underline-offset: 0.5ex;
     text-decoration: none;
     transition: color 200ms ease;
-
-    
-
     &:hover {
       color: red;
     } 
-
-    
 
     @media (width < 768px) {
       font-size: 2rem;
@@ -1049,9 +1050,7 @@ button[type="submit"]:hover {
   /* Section-1 Styles */
   .section-1 {
     padding: 4% 0 21.6em 0;
-    background: #f5989d
-      url("../../../assets/images/charlesdeluvio-Vm0uJEXxFJw-unsplash.jpg")
-       ;
+    background: #f5989d url("../../../assets/images/charlesdeluvio-Vm0uJEXxFJw-unsplash.jpg");
       
     background-size: cover;
     color: #fff;
@@ -1279,7 +1278,7 @@ button[type="submit"]:hover {
   .section-6 {
     padding: 5% 0 8.95% 0;
     color: #fff;
-    background: #ca8282;
+    background-image: url(../../../assets/images/FAQ.jpg);
     aside {
       position: relative;
       h5 {
@@ -1295,6 +1294,7 @@ button[type="submit"]:hover {
     }
     .col-4 {
       padding-right: 1.5em;
+      backdrop-filter: blur(10px);
       h4 {
         padding: 6% 0 6% 0;
       }
@@ -1659,6 +1659,10 @@ button[type="submit"]:hover {
 
 
   /*----------------------------------------------*/
+
+  #plans {
+    scroll-margin-top: 100px; /* عدّل الرقم حسب ارتفاع الـ navbar */
+  }
   
   
  

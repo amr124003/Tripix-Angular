@@ -88,13 +88,17 @@
   font-size: 40px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: #ffffff;
-  padding: 10px;
+  padding: 15px;
   text-align: left;
   position: relative;
   display: flex;
   align-items: center;
   opacity: 0;
   animation: fadeInLi 1s ease-in-out forwards;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+.steps-list li:hover {
+  color: #4346f6; /* تغيير لون النص عند الـ hover */
 }
 
 /* أنيميشن ظهور القائمة */
