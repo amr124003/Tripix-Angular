@@ -319,24 +319,28 @@
     <div class="form-container" *ngIf="isFormVisible">
         <div class="form-content" *ngIf="!isSubmitted">
             <h2 style="margin-left: 180px;">Order Your Savior</h2>
-            <form (ngSubmit)="submitForm()">
-                <div class="input-container" *ngFor="let field of fields; let i = index">
-                    <label [for]="field.id">{{ field.label }}</label>
-                    <input [id]="field.id" [type]="field.type" [placeholder]="field.placeholder"
-                        [style.animationDelay]="(i * 0.2) + 's'">
+            <form [formGroup]="carForm" (ngSubmit)="submitForm()">
+                <div class="input-container">
+                    <label for="name">Full Name</label>
+                    <input id="name" type="text" formControlName="name" placeholder="Enter Your  Name">
                 </div>
+
                 <div class="input-container">
                     <label for="location">Location</label>
-                    <input id="location" type="text" [value]="location" placeholder="Loading For get Your Location"
-                        [style.animationDelay]="(4 * 0.2) + 's'">
+                    <input id="location" type="text" formControlName="location" [value]="location"  readonly >
                 </div>
-                <label>Car Type</label>
-                <select>
-                    <option>Electric Car</option>
-                    <option>fuel Powered Car</option>
-                </select>
+
+                <div class="input-container">
+                    <label for="type">Car Type</label>
+                    <select id="type" formControlName="type">
+                        <option value="">-- Select Car Type --</option>
+                        <option value="Electric">Electric Car</option>
+                        <option value="Fuel">Fuel Powered Car</option>
+                    </select>
+                </div>
+
                 <div style="text-align: center;">
-                    <button type="submit">Submit</button>
+                    <button type="submit" [disabled]="carForm.invalid">Submit</button>
                 </div>
             </form>
         </div>
@@ -347,19 +351,19 @@
         </div>
 
     </div>
-   <div class="overlay" *ngIf="showMap" (click)="closeMap()"></div>
+    <div class="overlay" *ngIf="showMap" (click)="closeMap()"></div>
     <div class="form-container" *ngIf="showMap" tabindex="-1" id="mapModal" [ngClass]="{ 'show d-block': showMap }">
-        <div class="form-content" >
+        <div class="form-content">
             <div class="modal-header">
-                    <h5 class="modal-title">Select Location</h5>
-                    <button type="button" class="btn-close" (click)="closeMap()"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="map" style="height: 500px;"></div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" (click)="confirmLocation()">Confirm</button>
-                </div>
+                <h5 class="modal-title">Select Location</h5>
+                <button type="button" class="btn-close" (click)="closeMap()"></button>
+            </div>
+            <div class="modal-body">
+                <div id="map" style="height: 500px;"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" (click)="confirmLocation()">Confirm</button>
+            </div>
         </div>
     </div>
 

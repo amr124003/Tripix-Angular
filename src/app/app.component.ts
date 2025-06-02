@@ -5,12 +5,13 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 
 import { LoaderComponent } from './Component/shared/loader/loader.component';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { TicketComponent } from "./Component/ticket/ticket.component";
 
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,  LoaderComponent ],
+  imports: [RouterOutlet, LoaderComponent, TicketComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   animations: [

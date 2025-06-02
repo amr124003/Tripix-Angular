@@ -3,7 +3,7 @@ import { Component, AfterViewInit, ElementRef, ViewChild, CUSTOM_ELEMENTS_SCHEMA
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import gsap from 'gsap';
-import { GetCarsService } from '../../Services/Cars/get-cars.service';
+import L from 'leaflet';
 import { MotorbikesService } from '../../Services/Motorbikes/motorbikes.service';
 
 @Component({
@@ -24,6 +24,9 @@ export class OurMotorbikesComponent implements AfterViewInit, OnInit {
   nextElementSibling: any;
   classList: any;
   toastpoen = true;
+  isMapOpen: boolean = false;
+  map: any;
+  routeLayer: any;
 
 
   constructor(private router1: ActivatedRoute, private router2: Router, private MotorbikeRepo: MotorbikesService) { }
@@ -423,4 +426,86 @@ export class OurMotorbikesComponent implements AfterViewInit, OnInit {
       }
     }, 3000); // تغيير العنصر كل 3 ثوانٍ
   }
+
+  openMapModal() {
+        this.isMapOpen = true;
+        this.initMap()
+      }
+    
+      closeMapModal() {
+        this.isMapOpen = false;
+        if (this.map) {
+          this.map.remove(); // إزالة الخريطة عند الإغلاق
+        }
+      }
+    
+      initMap() {
+        if (!navigator.geolocation) {
+          alert("الموقع غير مدعوم في المتصفح!");
+          return;
+        }
+    
+        navigator.geolocation.getCurrentPosition(position => {
+          const userLocation: [number, number] = [position.coords.latitude, position.coords.longitude];
+          const destination: [number, number] = [30.045, 31.236]; // استبدلها بموقع الوجهة الفعلي
+    
+          // إنشاء الخريطة
+          this.map = L.map('map').setView(userLocation as [number, number], 13);
+    
+          // إضافة طبقة OpenStreetMap
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+          }).addTo(this.map);
+    
+          // تعريف أيقونة مخصصة للموقع الحالي
+          const userIcon = L.icon({
+            iconUrl: '../../../assets/images/marker.png', // ضع المسار الصحيح للصورة
+            iconSize: [40, 40], // الحجم
+            iconAnchor: [20, 40], // مركز الأيقونة
+            popupAnchor: [0, -40] // الموقع الذي يظهر فيه البوب أب
+          });
+    
+          // إضافة ماركر للموقع الحالي باستخدام الأيقونة المخصصة
+          L.marker(userLocation as [number, number], { icon: userIcon }).addTo(this.map)
+            .bindPopup("موقعك الحالي")
+            .openPopup();
+    
+          // تعريف أيقونة مخصصة للوجهة
+          const destinationIcon = L.icon({
+            iconUrl: '../../../assets/images/mark.png', // ضع المسار الصحيح للصورة
+            iconSize: [40, 40], // الحجم
+            iconAnchor: [20, 40], // مركز الأيقونة
+            popupAnchor: [0, -40] // الموقع الذي يظهر فيه البوب أب
+          });
+    
+          // إضافة ماركر للوجهة باستخدام الأيقونة المخصصة
+          L.marker(destination as [number, number], { icon: destinationIcon }).addTo(this.map)
+            .bindPopup("الوجهة")
+            .openPopup();
+    
+          // رسم الاتجاهات بين الموقع الحالي والوجهة
+          this.getRoute(userLocation, destination);
+        });
+      }
+    
+      getRoute(start: [number, number], end: [number, number]) {
+        const url = `https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&geometries=geojson`;
+    
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            if (this.routeLayer) {
+              this.map.removeLayer(this.routeLayer);
+            }
+    
+            const route = L.geoJSON(data.routes[0].geometry, {
+              style: { color: 'blue', weight: 4 }
+            });
+    
+            this.routeLayer = route;
+            route.addTo(this.map);
+          })
+          .catch(error => console.error('Error fetching route:', error));
+      }
+  
 }

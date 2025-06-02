@@ -25,7 +25,10 @@
           "scrollbar-width: thin",
           "scrollbar-color",
           "animation-timeline: view()",
-          "mask-image"
+          "mask-image",
+          "mask-repeat",
+          "mask-position",
+          "mask-size"
         ]
       }
     ],

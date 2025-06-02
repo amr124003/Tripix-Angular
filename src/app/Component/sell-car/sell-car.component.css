@@ -190,6 +190,7 @@ body{
 .image-details {
     font-size: 14px;
     color: #ddd;
+    margin-left: 10px;
 }
 
 .input-group {
@@ -315,4 +316,66 @@ select option:checked {
 .delete-btn:hover {
     color: darkred;
 }
+.max-images-warning {
+  color: #f44336; /* أحمر */
+  width: 600px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-left: 4px solid #f44336;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-top: 10px;
+}
 
+/* أنيميشن الرجّة */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.4s ease;
+}
+.warning-container {
+  display: flex;
+  justify-content: center; /* يخليه في النص أفقيًا */
+  margin-top: 15px;
+}
+.error {
+  color: #f93535; /* لون أحمر جذاب */
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif; /* خط عصري */
+  margin-top: 5px;
+  transform: translateY(-5px);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.error span {
+  display: inline-block;
+  background: rgba(255, 77, 77, 0.3); /* خلفية خفيفة */
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(255, 77, 77, 0.2);
+  animation: shake 0.3s ease-in-out;
+}
+
+/* ظهور الخطأ بسلاسة */
+.ng-invalid.ng-touched + .error,
+.ng-invalid.ng-dirty + .error,
+.error.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* أنيميشن اهتزاز خفيفة */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-3px); }
+}

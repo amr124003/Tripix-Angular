@@ -615,33 +615,29 @@
                 <div class="footer-category-box">
                     <h3 class="category-box-title">Cars :</h3>
 
-                    <a href="#" class="footer-category-link">Automobile Accessories</a>
-                    <a href="#" class="footer-category-link">Automobile Parts</a>
-                    <a href="#" class="footer-category-link">Towing and Transporting</a>
+                    <a href="#" class="footer-category-link">Sedan</a>
+                    <a href="#" class="footer-category-link">Hatchback</a>
+                    <a href="#" class="footer-category-link">Coupe</a>
+                    <a href="#" class="footer-category-link">SUV</a>
                 </div>
 
                 <div class="footer-category-box">
                     <h3 class="category-box-title">Motorbikes :</h3>
 
-                    <a href="#" class="footer-category-link">Automobile Accessories</a>
-                    <a href="#" class="footer-category-link">Automobile Parts</a>
-                    <a href="#" class="footer-category-link">Towing and Transporting</a>
+                    <a href="#" class="footer-category-link">Standard</a>
+                    <a href="#" class="footer-category-link">Cruiser</a>
+                    <a href="#" class="footer-category-link">Off-Road</a>
                 </div>
 
-                <div class="footer-category-box">
-                    <h3 class="category-box-title">Trucks :</h3>
 
-                    <a href="#" class="footer-category-link">Automobile Accessories</a>
-                    <a href="#" class="footer-category-link">Automobile Parts</a>
-                    <a href="#" class="footer-category-link">Towing and Transporting</a>
-                </div>
 
                 <div class="footer-category-box">
                     <h3 class="category-box-title">Electric Cars :</h3>
 
-                    <a href="#" class="footer-category-link">Automobile Accessories</a>
-                    <a href="#" class="footer-category-link">Automobile Parts</a>
-                    <a href="#" class="footer-category-link">Towing and Transporting</a>
+                    <a href="#" class="footer-category-link">Sedan</a>
+                    <a href="#" class="footer-category-link">SUV</a>
+                    <a href="#" class="footer-category-link">Coupe</a>
+                    <a href="#" class="footer-category-link">Hatchback</a>
                 </div>
             </div>
         </div>
@@ -650,11 +646,11 @@
             <div class="container">
                 <ul class="footer-nav-list">
                     <li class="footer-nav-item">
-                        <h2 class="nav-title">Popular Categories</h2>
+                        <h2 class="nav-title">Popular Buy & Sell</h2>
                     </li>
 
                     <li class="footer-nav-item"><a href="#" class="footer-nav-link">Cars</a></li>
-                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Trucks</a></li>
+
                     <li class="footer-nav-item"><a href="#" class="footer-nav-link">Motorbikes</a></li>
                     <li class="footer-nav-item"><a href="#" class="footer-nav-link">electric Cars</a></li>
                 </ul>
@@ -670,17 +666,6 @@
                     <li class="footer-nav-item"><a href="#" class="footer-nav-link">Hatchback</a></li>
                 </ul>
 
-                <ul class="footer-nav-list">
-                    <li class="footer-nav-item">
-                        <h2 class="nav-title">Our Company</h2>
-                    </li>
-
-                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Delivery</a></li>
-                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Legal Notice</a></li>
-                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Terms and Conditions</a></li>
-                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">About us</a></li>
-                    <li class="footer-nav-item"><a href="#" class="footer-nav-link">Secure Payment</a></li>
-                </ul>
 
                 <ul class="footer-nav-list">
                     <li class="footer-nav-item">
@@ -699,9 +684,10 @@
                         <h2 class="nav-title">Contact</h2>
                     </li>
 
-                    <li class="footer-nav-item flex">
+
+                    <li class="footer-nav-item flex" (click)="openMapModal()">
                         <div class="icon-box">
-                            <ion-icon name="location-outline"></ion-icon>
+                            <i class="fa-solid fa-location-dot"></i>
                         </div>
 
                         <address class="content">
@@ -711,9 +697,10 @@
                         </address>
                     </li>
 
+
                     <li class="footer-nav-item flex">
                         <div class="icon-box">
-                            <ion-icon name="call-outline"></ion-icon>
+                            <i class="fa-solid fa-headset"></i>
                         </div>
 
                         <a href="tel:+607936-8058" class="footer-nav-link">(20) 127-0074-186</a>
@@ -721,10 +708,10 @@
 
                     <li class="footer-nav-item flex">
                         <div class="icon-box">
-                            <ion-icon name="mail-outline"></ion-icon>
+                            <i class="fa-solid fa-envelope"></i>
                         </div>
 
-                        <a href="mailto:example@gmail.com" class="footer-nav-link">tripix2512003&#64;gmail.com.com</a>
+                        <a href="mailto:example@gmail.com" class="footer-nav-link">tripixv911&#64;gmail.com</a>
                     </li>
                 </ul>
 
@@ -754,14 +741,31 @@
                     </li>
                 </ul>
             </div>
-            <div class="footer-bottom">
-                <div class="container">
-                    <img src="https://i.postimg.cc/43GKnVFF/payment.png" alt="payment method" class="payment-img">
-                    <p class="copyright">Copyright &copy; <a href="#">Tripix</a> all rights reserved</p>
-                </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <img src="https://i.postimg.cc/43GKnVFF/payment.png" alt="payment method" class="payment-img">
+                <p class="copyright">Copyright &copy; <a href="#">Tripix</a> all rights reserved</p>
             </div>
         </div>
     </footer>
+
+    <!-- زر لفتح النافذة -->
+
+    <div class="modal-overlay" *ngIf="isMapOpen">
+        <!-- النافذة المنبثقة -->
+        <div class="map-modal" *ngIf="isMapOpen">
+            <div class="map-container">
+                <span class="close-btn" (click)="closeMapModal()">&#10006;</span>
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay لإضافة تأثير الـ Blur -->
+    <div class="overlay" *ngIf="isMapOpen"></div>
+
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, Inject, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import Parallax from 'parallax-js';
 import * as L from 'leaflet';
@@ -9,7 +9,7 @@ import * as L from 'leaflet';
 
 @Component({
   selector: 'app-helpoo',
-  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive , ReactiveFormsModule],
   templateUrl: './helpoo.component.html',
   styleUrl: './helpoo.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -25,6 +25,8 @@ export class HelpooComponent implements OnInit, AfterViewInit {
   map!: L.Map | null;
   marker: L.Marker | undefined;
   selectedLatLng: L.LatLng | undefined;
+  carForm!: FormGroup;
+
 
 
   // Menu data
@@ -177,7 +179,13 @@ export class HelpooComponent implements OnInit, AfterViewInit {
   }
 
 
-  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient) { }
+  constructor(@Inject(DOCUMENT) private document: Document, private http: HttpClient , private fb: FormBuilder) {
+     this.carForm = this.fb.group({
+      name: ['', Validators.required],
+      location: [{ value: this.location }],
+      type: ['', Validators.required]
+    });
+   }
 
   ngOnInit(): void {
     this.initNavbarScroll();

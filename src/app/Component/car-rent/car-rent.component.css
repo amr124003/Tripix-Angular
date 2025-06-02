@@ -940,8 +940,7 @@ button[type="submit"]:hover {
   font-size: 14px;
   font-weight: bold;
   font-family: 'Poppins', sans-serif; /* خط عصري */
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-top: 5px;
   transform: translateY(-5px);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
@@ -954,3 +953,23 @@ button[type="submit"]:hover {
   box-shadow: 0 2px 5px rgba(255, 77, 77, 0.2);
   animation: shake 0.3s ease-in-out;
 }
+
+/* ظهور الخطأ بسلاسة */
+.ng-invalid.ng-touched + .error,
+.ng-invalid.ng-dirty + .error,
+.error.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* أنيميشن اهتزاز خفيفة */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-3px); }
+}
+
+
+
+

@@ -21,8 +21,8 @@
                     <div *ngFor="let image of images; let i = index" class="image-preview">
                         <img [src]="image.url" [alt]="image.name" />
                         <div class="image-details">
-                            <p>{{ image.name }}</p>
-                            <p>{{ image.size }} KB</p>
+                            <p> {{ image.name }}</p>
+                            <p> {{ image.size }} KB</p>
                             <!-- سلة المهملات الخاصة بكل صورة -->
                         </div>
                         <button class="delete-btn" (click)="deleteImage(i)">
@@ -36,38 +36,71 @@
                     <button (click)="cancel()">Cancel</button>
                     <button (click)="nextStep()">Next</button>
                 </div>
-                <p *ngIf="images.length >= MAX_IMAGES" class="max-images-warning">
-                    You've reached the maximum number of images ({{ MAX_IMAGES }}).
-                    You cannot upload more images.
-                </p>
+                <div class="warning-container">
+                    <p *ngIf="images.length >= MAX_IMAGES" class="max-images-warning"
+                        [class.shake]="images.length >= MAX_IMAGES">
+                        You've reached the maximum number of images ({{ MAX_IMAGES }}).
+                        You cannot upload more images.
+                    </p>
+                </div>
+
             </div>
 
             <!-- Step 2: Car Details -->
             <div *ngIf="step === 2" class="details-step fade-in">
-                <div class="input-group">
-                    <input type="text" [(ngModel)]="carDetails.name" placeholder="Enter Your Car Name" />
-                </div>
-                <div class="input-group">
-                    <input type="text" [(ngModel)]="carDetails.model" placeholder="Enter Your Car  Model" />
-                </div>
-                <div class="input-group">
-                    <input type="text" [(ngModel)]="carDetails.condition" placeholder="Enter Your Car Condition" />
-                </div>
-                <div class="input-group">
-                    <textarea [(ngModel)]="carDetails.description" placeholder="Enter Your Car Description"></textarea>
-                </div>
-                <div class="input-group">
-                    <select [(ngModel)]="carDetails.type">
-                        <option value="Auto" selected>Choose Your Car Type</option>
-                        <option value="Electric">Electric Car</option>
-                        <option value="Fuel">Fuel Powered Car</option>
-                    </select>
-                </div>
-                <div class="buttons">
-                    <button (click)="previousStep()">Previous</button>
-                    <button (click)="finish()">Finish</button>
-                </div>
+                <form [formGroup]="carForm" (ngSubmit)="finish()">
+
+                    <div class="input-group">
+                        <input type="text" placeholder="Enter Your Car Name" formControlName="name" />
+                        <div *ngIf="carForm.get('name')?.invalid && carForm.get('name')?.touched" class="error">
+                            <span *ngIf="carForm.get('name')?.errors?.['required']">Car Name is required.</span>
+                            <span *ngIf="carForm.get('name')?.errors?.['max']">Max Length Is 15 letters</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" placeholder="Enter Your Car Model" formControlName="model" />
+                        <div *ngIf="carForm.get('model')?.invalid && carForm.get('model')?.touched" class="error">
+                            <span *ngIf="carForm.get('model')?.errors?.['required']">Car Model is required.</span>
+                            <span *ngIf="carForm.get('model')?.errors?.['pattern']">Car Model must be a number.</span>
+                            <span *ngIf="carForm.get('model')?.errors?.['min']">Car Model must be at least 1950.</span>
+                            <span *ngIf="carForm.get('model')?.errors?.['max']">Car Model can't be greater than 2025.</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" placeholder="Enter Your Car Condition" formControlName="condition" />
+                        <div *ngIf="carForm.get('condition')?.invalid && carForm.get('condition')?.touched"
+                            class="error">
+                            <span *ngIf="carForm.get('condition')?.errors?.['required']">Condition Is required</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <textarea placeholder="Enter Your Car Description" formControlName="description"></textarea>
+                        <div *ngIf="carForm.get('description')?.invalid && carForm.get('description')?.touched" class="error">
+                            <span *ngIf="carForm.get('description')?.errors?.['required']">Description Is required</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <select formControlName="type">
+                            <option value="" disabled selected>Choose Your Car Type</option>
+                            <option value="Electric">Electric Car</option>
+                            <option value="Fuel">Fuel Powered Car</option>
+                        </select>
+                        <div *ngIf="carForm.get('type')?.invalid && carForm.get('type')?.touched" class="error">
+                            Car Type is required.
+                        </div>
+                    </div>
+
+                    <div class="buttons">
+                        <button type="button" (click)="previousStep()">Previous</button>
+                        <button type="submit" [disabled]="carForm.invalid">Finish</button>
+                    </div>
+                </form>
             </div>
+
         </div>
     </div>
 </body>

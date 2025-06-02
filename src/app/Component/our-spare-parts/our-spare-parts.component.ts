@@ -3,13 +3,15 @@ import { Component, AfterViewInit, ElementRef, ViewChild, CUSTOM_ELEMENTS_SCHEMA
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import gsap from 'gsap';
+import L from 'leaflet';
+import { MotorbikesService } from '../../Services/Motorbikes/motorbikes.service';
 
 @Component({
   selector: 'app-our-spare-parts',
-  imports: [CommonModule,FormsModule,RouterLink,RouterLinkActive],
+  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './our-spare-parts.component.html',
   styleUrl: './our-spare-parts.component.css',
-  schemas : [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class OurSparePartsComponent implements AfterViewInit, OnInit {
   @ViewChild('categoryContainer') categoryContainer!: ElementRef;
@@ -22,14 +24,12 @@ export class OurSparePartsComponent implements AfterViewInit, OnInit {
   nextElementSibling: any;
   classList: any;
   toastpoen = true;
-  selectedBodyTypes = {
-    Sedan: false,
-    Coupe: false,
-    SUV: false,
-    Hatchback: false
-  };
+  isMapOpen: boolean = false;
+  map: any;
+  routeLayer: any;
 
-  constructor(private router: ActivatedRoute , private router2 : Router) { }
+
+  constructor(private router1: ActivatedRoute, private router2: Router, private MotorbikeRepo: MotorbikesService) { }
 
   //////////////////////////////////////////////////////////////////////////////
   filterType = 'all';
@@ -41,50 +41,64 @@ export class OurSparePartsComponent implements AfterViewInit, OnInit {
   animatedMinPrice: number = this.minLimit;
   animatedMaxPrice: number = 10000000;
   priceChanging = false;
+  OurCars: any[] = [];
   searchQuery: string = '';
-  filteredBrands: any[] = [];
+  filteredBrands : { brandName: string; models: string[]; expanded: boolean , animationClass : string}[] = [];
   step: number = 1000; // مقدار الزيادة عند الضغط على + و -
   ProductsLoading = true;
   currentPage: number = 1;
-  totalPages: number = 5; // غير الرقم حسب عدد الصفحات الحقيقي
-  fuelTypes: string[] = ['Benzine', 'Diesel', 'Electric', 'Hybrid'];  // Types of fuel
-  selectedFuelTypes: { [key: string]: boolean } = {
+  totalPages: number = 0; // غير الرقم حسب عدد الصفحات الحقيقي
+  bodyTypes: string[] = ['Standard', 'Cruiser', 'Sport', 'Off-Road'];  // Types of fuel
+  selectedbodyTypes: { [key: string]: boolean } = {
     'Benzine': false,
     'Diesel': false,
     'Electric': false,
     'Hybrid': false
   };
+  selectedbodytype!: string;
+  selectedPrand!: string;
+  selectedmodel!: string;
+  isLiked: boolean = false;
 
-  
-  
-  
 
-  brands = [
-    { name: 'كل الماركات', logo: '', options: [], expanded: false },
-    { name: 'آفاتر', logo: 'assets/avatar.png', options: ['موديل 1', 'موديل 2'], expanded: false },
-    { name: 'ألبينا', logo: 'assets/alpina.png', options: ['موديل 1', 'موديل 2'], expanded: false },
-    { name: 'ألفاروميو', logo: 'assets/alfa.png', options: ['موديل 1', 'موديل 2'], expanded: false },
-    { name: 'أودي', logo: 'assets/audi.png', options: ['موديل 1', 'موديل 2'], expanded: false },
-    { name: 'إكس بينج', logo: 'assets/xpeng.png', options: ['موديل 1', 'موديل 2'], expanded: false }
-  ];
+
+  brands : { brandName: string; models: string[]; expanded: boolean , animationClass : string}[] = [];
 
   ngOnInit(): void {
-    this.filteredBrands = [...this.brands]; // تخزين كل البيانات الأصلية
+    
 
     setTimeout(() => {
       this.ProductsLoading = false;
     }, 5000);
 
-    this.router.queryParams.subscribe((params) => {
-      console.log(params['type']);
-    });
+    this.GetData();
+    
+    this.Getbrands();
 
+    
+  }
+   Getbrands()
+  {
+    this.MotorbikeRepo.GetBrands().subscribe(
+      {
+        next:(Response) => 
+        {
+          this.brands = Response;
+          this.filteredBrands = Response;
+          console.log(this.brands);
+        },
+        error:() => 
+        {
+          console
+        }
+      }
+    )
   }
 
   get totalPagesArray(): number[] {
     return Array(this.totalPages).fill(0);
   }
-  
+
   goToPage(page: number): void {
     this.currentPage = page;
     // نادِ دالة تجيب الداتا على حسب الصفحة المختارة
@@ -92,52 +106,77 @@ export class OurSparePartsComponent implements AfterViewInit, OnInit {
 
   filterCarsByFuel() {
     // هنا يمكن إضافة الكود اللازم لتصفية السيارات حسب الوقود
-    console.log('Selected Fuel Types:', this.selectedFuelTypes);
+    console.log('Selected Fuel Types:', this.selectedbodyTypes);
   }
+
 
   toggleFuelSelection(fuel: string): void {
-    this.selectedFuelTypes[fuel] = !this.selectedFuelTypes[fuel];
-    this.filterCarsByFuel(); // لو عندك فلترة بناء على نوع الوقود
+     
+    const isAlreadySelected = this.selectedbodyTypes[fuel];
+    for (let key in this.selectedbodyTypes) {
+      this.selectedbodyTypes[key] = false;
+    }
+    if (!isAlreadySelected) {
+      this.selectedbodyTypes[fuel] = true;
+      this.selectedbodytype = fuel;
+    } else {
+      this.selectedbodytype = '';
+    }
+    this.GetData();
   }
 
-  getSelectedBodyTypes(): string[] {
-    return Object.entries(this.selectedBodyTypes)
-      .filter(([key, value]) => value)
-      .map(([key]) => key);
+
+  toggleLike() {
+    this.isLiked = !this.isLiked;
+
+    if (this.isLiked) {
+      this.onLike();  // وظيفة لما يكون مفعل
+    } else {
+      this.onDislike();  // وظيفة لما يكون غير مفعل
+    }
   }
 
-  filterBrands() {
-    const query = this.searchQuery.toLowerCase();
-
-    const newFilteredBrands = this.brands
-      .map(brand => {
-        const matchingOptions = brand.options.filter(option => option.toLowerCase().includes(query));
-        const matchesBrandName = brand.name.toLowerCase().includes(query);
-
-        if (matchesBrandName) {
-          return { ...brand, expanded: false, options: brand.options }; // عرض الماركة بدون تغيير
-        } else if (matchingOptions.length > 0) {
-          return { ...brand, expanded: true, options: matchingOptions }; // فتح الماركة وعرض الخيارات المطابقة فقط
-        }
-        return null; // إخفاء الماركات غير المطابقة
-      })
-      .filter(brand => brand !== null);
-
-    // إضافة كلاس الاختفاء قبل التحديث
-    this.filteredBrands.forEach(brand => {
-      if (!newFilteredBrands.some(b => b.name === brand.name)) {
-        brand.animationClass = 'disappear';
-      }
-    });
-
-    // تطبيق التأخير قبل التحديث النهائي
-    setTimeout(() => {
-      this.filteredBrands = newFilteredBrands.map(brand => ({
-        ...brand,
-        animationClass: 'appear'
-      }));
-    }, 200);
+  // دالة لما الزر مفعل (مثلًا إضافة الإعجاب)
+  onLike() {
+    console.log("Liked");
+    // هنا ممكن تضيف أي وظائف إضافية مثل إرسال بيانات أو تحديث شيء في التطبيق
   }
+
+  // دالة لما الزر غير مفعل (مثلًا إزالة الإعجاب)
+  onDislike() {
+    console.log("Disliked");
+    // هنا ممكن تضيف وظائف إضافية أيضًا
+  }
+
+
+   filterBrands() {
+     const query = this.searchQuery.toLowerCase()
+     const newFilteredBrands = this.brands
+       .map(brand => {
+         const matchingOptions = brand.models.filter(model => model.toLowerCase().includes(query));
+         const matchesBrandName = brand.brandName.toLowerCase().includes(query)
+         if (matchesBrandName) {
+           return { ...brand, expanded: false, options: brand.models }; // عرض الماركة بدون تغيير
+         } else if (matchingOptions.length > 0) {
+           return { ...brand, expanded: true, options: matchingOptions }; // فتح الماركة وعرض الخيارات المطابقة فقط
+         }
+         return null; // إخفاء الماركات غير المطابقة
+       })
+       .filter(brand => brand !== null)
+     // إضافة كلاس الاختفاء قبل التحديث
+     this.filteredBrands.forEach(brand => {
+       if (!newFilteredBrands.some(b => b.brandName === brand.brandName)) {
+         brand.animationClass = 'disappear';
+       }
+     })
+     // تطبيق التأخير قبل التحديث النهائي
+     setTimeout(() => {
+       this.filteredBrands = newFilteredBrands.map(brand => ({
+         ...brand,
+         animationClass: 'appear'
+       }));
+     }, 200);
+   }
 
   resetFilters() {
     this.filterType = 'all';
@@ -148,19 +187,60 @@ export class OurSparePartsComponent implements AfterViewInit, OnInit {
     this.filteredBrands = [...this.brands];
   }
 
+  SellCar() {
+    this.router2.navigateByUrl("/SellCar");
+  }
+
   toggleBrandOptions(selectedBrand: any) {
+    this.selectedPrand = selectedBrand;
     this.brands.forEach(brand => {
       if (brand !== selectedBrand && brand.expanded) {
         brand.expanded = false;
       }
     });
-
     selectedBrand.expanded = !selectedBrand.expanded;
+    this.GetData();
+  }
+
+  GetData() {
+    this.router1.queryParams.subscribe((params) => {
+      console.log(params);
+      const Requestfilter = {
+        "pageNumber": 1,
+        "pageSize": 10,
+        "searchValues": {
+          "CarType": this.selectedbodytype || params['type'],
+          "Prand": this.selectedPrand,
+          "Model": this.selectedmodel
+
+        }
+      }
+
+      this.MotorbikeRepo.GetMotorbikes(Requestfilter).subscribe({
+        next:(Response) => {
+          this.OurCars = Response.items;
+          console.log(this.OurCars);
+          if (Response.totalPages <= 1) { return; }
+          else {
+            this.totalPages = Response.totalPages;
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+
+    });
+
   }
 
   updateTrack() {
     this.updatePrice('min', this.minPrice);
     this.updatePrice('max', this.maxPrice);
+
+
+    console.log(this.minPrice);
+    console.log(this.maxPrice);
 
     const minVal = this.minPrice;
     const maxVal = this.maxPrice;
@@ -332,11 +412,6 @@ export class OurSparePartsComponent implements AfterViewInit, OnInit {
     this.startAutoScroll(itemWidth); // 🔄 استئناف التمرير التلقائي بعد السحب
   }
 
-  SellCar()
-  {
-    this.router2.navigateByUrl("/SellCar");
-  }
-
   startAutoScroll(itemWidth: number) {
     this.scrollInterval = setInterval(() => {
       const container = this.categoryContainer.nativeElement;
@@ -351,4 +426,86 @@ export class OurSparePartsComponent implements AfterViewInit, OnInit {
       }
     }, 3000); // تغيير العنصر كل 3 ثوانٍ
   }
+
+  openMapModal() {
+        this.isMapOpen = true;
+        this.initMap()
+      }
+    
+      closeMapModal() {
+        this.isMapOpen = false;
+        if (this.map) {
+          this.map.remove(); // إزالة الخريطة عند الإغلاق
+        }
+      }
+    
+      initMap() {
+        if (!navigator.geolocation) {
+          alert("الموقع غير مدعوم في المتصفح!");
+          return;
+        }
+    
+        navigator.geolocation.getCurrentPosition(position => {
+          const userLocation: [number, number] = [position.coords.latitude, position.coords.longitude];
+          const destination: [number, number] = [30.045, 31.236]; // استبدلها بموقع الوجهة الفعلي
+    
+          // إنشاء الخريطة
+          this.map = L.map('map').setView(userLocation as [number, number], 13);
+    
+          // إضافة طبقة OpenStreetMap
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+          }).addTo(this.map);
+    
+          // تعريف أيقونة مخصصة للموقع الحالي
+          const userIcon = L.icon({
+            iconUrl: '../../../assets/images/marker.png', // ضع المسار الصحيح للصورة
+            iconSize: [40, 40], // الحجم
+            iconAnchor: [20, 40], // مركز الأيقونة
+            popupAnchor: [0, -40] // الموقع الذي يظهر فيه البوب أب
+          });
+    
+          // إضافة ماركر للموقع الحالي باستخدام الأيقونة المخصصة
+          L.marker(userLocation as [number, number], { icon: userIcon }).addTo(this.map)
+            .bindPopup("موقعك الحالي")
+            .openPopup();
+    
+          // تعريف أيقونة مخصصة للوجهة
+          const destinationIcon = L.icon({
+            iconUrl: '../../../assets/images/mark.png', // ضع المسار الصحيح للصورة
+            iconSize: [40, 40], // الحجم
+            iconAnchor: [20, 40], // مركز الأيقونة
+            popupAnchor: [0, -40] // الموقع الذي يظهر فيه البوب أب
+          });
+    
+          // إضافة ماركر للوجهة باستخدام الأيقونة المخصصة
+          L.marker(destination as [number, number], { icon: destinationIcon }).addTo(this.map)
+            .bindPopup("الوجهة")
+            .openPopup();
+    
+          // رسم الاتجاهات بين الموقع الحالي والوجهة
+          this.getRoute(userLocation, destination);
+        });
+      }
+    
+      getRoute(start: [number, number], end: [number, number]) {
+        const url = `https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&geometries=geojson`;
+    
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            if (this.routeLayer) {
+              this.map.removeLayer(this.routeLayer);
+            }
+    
+            const route = L.geoJSON(data.routes[0].geometry, {
+              style: { color: 'blue', weight: 4 }
+            });
+    
+            this.routeLayer = route;
+            route.addTo(this.map);
+          })
+          .catch(error => console.error('Error fetching route:', error));
+      }
+  
 }

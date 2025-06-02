@@ -1,0 +1,374 @@
+ * {
+   box-sizing: border-box;
+ }
+
+ body,
+ html {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+   margin: 0;
+   padding: 0;
+   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+   font-family: "Roboto Mono", monospace;
+   overflow: hidden;
+ }
+
+ h1 {
+   font-family: "Roboto Mono", monospace;
+   position: fixed;
+   top: 20px;
+   left: 50%;
+   transform: translateX(-50%);
+   text-align: center;
+   z-index: 1;
+   color: white;
+   font-weight: 300;
+   letter-spacing: 2px;
+   text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+ }
+
+ #app {
+   perspective: 1200px;
+   transform: translate3d(0, 0, 0.1px);
+   color: black;
+   display: grid;
+   grid: 1fr/1fr;
+   place-content: center;
+   overflow: hidden;
+   padding: 50px;
+   z-index: 999;
+ }
+
+ .ticket {
+   transform: translate3d(0, 0, 0.1px) scale(1);
+   transform-style: preserve-3d;
+   pointer-events: auto;
+   display: grid;
+   grid-area: 1/1;
+   width: 400px;
+   aspect-ratio: 20/30;
+   cursor: pointer;
+   transition: filter 0.3s ease;
+ }
+
+ 
+
+ .front,
+ .back {
+   grid-area: 1/1;
+   background-color: #6e6176;
+   background-image: radial-gradient(circle at 100% 50%, #fff 10%, transparent 100%);
+   background-size: 100% 220vh;
+   background-position: center;
+   background-repeat: no-repeat;
+   border-radius: 15px;
+   display: grid;
+   backface-visibility: visible;
+   transform: translateZ(1px);
+   transform-style: preserve-3d;
+   mask-image: url(https://assets.codepen.io/13471/ticket-shape.svg);
+   mask-size: cover;
+   mask-repeat: no-repeat;
+   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+ }
+
+ .front::after,
+ .back::after {
+   content: "";
+   position: absolute;
+   inset: 0;
+   background-image: linear-gradient(-70deg, transparent 40%, rgba(255, 255, 255, 0.5) 40.5%, transparent);
+   background-size: 200% 200%;
+   background-position: 100% 100%;
+   z-index: 5;
+   opacity: 0.5;
+   pointer-events: none;
+ }
+
+ .front {
+   transform: rotateY(180deg) translateZ(1px);
+ }
+
+ .holo {
+   display: block;
+   position: absolute;
+   inset: 0;
+   border-radius: 15px;
+   background-image: repeating-linear-gradient(-45deg,
+       hsl(0, 100%, 50%) 0%,
+       hsl(30, 100%, 50%) 5%,
+       hsl(60, 100%, 50%) 10%,
+       hsl(120, 100%, 50%) 15%,
+       hsl(180, 100%, 50%) 20%,
+       hsl(222, 100%, 50%) 25%,
+       hsl(258, 100%, 50%) 30%,
+       hsl(300, 100%, 50%) 35%,
+       hsl(0, 100%, 50%) 40%);
+   background-size: 150vw 150vh;
+   background-position: 50% 50%;
+   background-repeat: no-repeat;
+   mask-image: url(../../../assets/images/logo.png);
+   mask-size: 4% 4%;
+   mask-repeat: repeat;
+   mix-blend-mode: plus-lighter;
+   filter: brightness(0.9) contrast(0.7) saturate(2);
+   opacity: 0;
+ }
+
+ .logo,
+ .data {
+   position: relative;
+   z-index: 2;
+ }
+
+ .logo {
+   width: 50%;
+   place-self: center;
+   transform: translateY(-14%);
+   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+ }
+
+ .back .logo {
+   position: absolute;
+   right: 8%;
+   top: 13%;
+   width: 16%;
+   image-rendering: optimize-speed;
+   image-rendering: crisp-edges;
+ }
+
+ .data {
+   margin: 14% 8%;
+   text-transform: uppercase;
+ }
+
+ h3 {
+   font-size: 20px;
+   font-weight: 400;
+   line-height: 1;
+   margin: 0.2em 0;
+   color: #333;
+ }
+
+ p {
+   font-size: 32px;
+   font-weight: 600;
+   line-height: 1;
+   margin: 0.2em 0 1em;
+   color: #000;
+ }
+
+ [contenteditable] {
+   outline: none;
+   transition: all 0.2s ease;
+   border-radius: 4px;
+   padding: 2px 4px;
+ }
+
+ [contenteditable]:focus {
+   background: rgba(0, 0, 0, 0.8);
+   color: white;
+   transform: scale(1.02);
+ }
+
+ .qr {
+   max-width: 30%;
+   display: block;
+   image-rendering: optimize-speed;
+   image-rendering: crisp-edges;
+   border-radius: 8px;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+ }
+
+ .divider {
+   position: absolute;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   bottom: 2%;
+   left: 0;
+   right: 0;
+   height: 18%;
+   padding: 0 8%;
+   background-image:
+     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0) 0px, rgba(255, 255, 255, 0) 8px, rgba(0, 0, 0, 0.2) 8px, rgba(0, 0, 0, 0.2) 16px),
+     radial-gradient(ellipse at center center, rgba(255, 255, 255, 0) 10%, transparent 50%);
+   background-size: 100% 1.5px, 250% 1.5px;
+   background-repeat: no-repeat;
+   background-position: -4px top, 50% top;
+   background-blend-mode: overlay;
+   font-size: 16px;
+   font-weight: 400;
+   z-index: 2;
+ }
+
+ .username {
+   display: flex;
+   align-items: center;
+   font-family: "Heebo", sans-serif;
+   font-weight: 600;
+ }
+
+ .profile {
+   border-radius: 100%;
+   width: 40px;
+   box-shadow: 0 0 0 1.33px black;
+   margin-right: 10px;
+   image-rendering: optimize-speed;
+   image-rendering: crisp-edges;
+ }
+
+ .verified {
+   width: 18px;
+   margin-left: 5px;
+ }
+
+ .usernum {
+   font-size: 20px;
+   font-weight: 500;
+ }
+
+ img {
+   display: block;
+   max-width: 100%;
+ }
+
+ @media screen and (max-width: 400px) {
+   .ticket {
+     transform: translate3d(0, 0, 0.1px) scale(0.75);
+   }
+ }
+
+ /* Social icons styling */
+ .social-icon {
+   position: fixed;
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   text-decoration: none;
+   color: white;
+   font-size: 12px;
+   transition: all 0.3s ease;
+   backdrop-filter: blur(10px);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+ }
+
+ .social-icon:hover {
+   transform: scale(1.1);
+   box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+ }
+
+ .social-icon.codepen {
+   bottom: 20px;
+   right: 20px;
+   background: rgba(0, 0, 0, 0.3);
+ }
+
+ .social-icon.twitter {
+   bottom: 80px;
+   right: 20px;
+   background: rgba(29, 161, 242, 0.3);
+ }
+
+ .social-icon.github {
+   bottom: 140px;
+   right: 20px;
+   background: rgba(36, 41, 46, 0.3);
+ }
+
+ .social-icon svg {
+   width: 24px;
+   height: 24px;
+   fill: currentColor;
+ }
+
+ /* Animation classes */
+ .rotating {
+   animation: rotate 14s linear infinite;
+ }
+
+ .holo-active {
+   animation: holoShimmer 7s ease-in-out infinite;
+ }
+
+ .bg-moving {
+   animation: bgMove 14s ease-in-out infinite;
+ }
+
+ .divider-moving {
+   animation: dividerMove 14s ease-in-out infinite;
+ }
+
+ @keyframes rotate {
+   0% {
+     transform: translate3d(0, 0, 0.1px) scale(1) rotateY(0deg);
+   }
+
+   50% {
+     transform: translate3d(0, 0, 0.1px) scale(1) rotateY(180deg);
+   }
+
+   100% {
+     transform: translate3d(0, 0, 0.1px) scale(1) rotateY(360deg);
+   }
+ }
+
+ @keyframes holoShimmer {
+
+   0%,
+   100% {
+     opacity: 0;
+   }
+
+   25%,
+   75% {
+     opacity: 1;
+   }
+
+   50% {
+     opacity: 0;
+   }
+ }
+
+ @keyframes bgMove {
+
+   0%,
+   100% {
+     background-position: 100% 50%;
+   }
+
+   50% {
+     background-position: 0% 50%;
+   }
+ }
+
+ @keyframes dividerMove {
+
+   0%,
+   100% {
+     background-position: -4px top, 50% top;
+   }
+
+   25% {
+     background-position: -4px top, 100% top;
+   }
+
+   50% {
+     background-position: -4px top, 50% top;
+   }
+
+   75% {
+     background-position: -4px top, 0% top; 
+   }
+ }
+
+ /* Paused state */
+ .paused {
+   animation-play-state: paused !important;
+ }

@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sell-car',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, CommonModule,ReactiveFormsModule],
   templateUrl: './sell-car.component.html',
   styleUrl: './sell-car.component.css'
 })
@@ -17,6 +18,18 @@ export class SellCarComponent {
   loading: boolean = false;
   images: { url: string, name: string, size: number }[] = [];
   carDetails = { name: '', model: '', condition: '', description: '', type: 'Auto' };
+  carForm!: FormGroup;
+
+
+  constructor(private snackBar: MatSnackBar, private fb: FormBuilder) {
+    this.carForm = this.fb.group({
+      name: ['', Validators.required , Validators.max(15)],
+      model: ['', Validators.required , Validators.pattern('^[0-9]+$') ,  Validators.min(1950), Validators.max(2025)],
+      condition: ['', Validators.required],
+      description: ['', Validators.required],
+      type: ['', Validators.required]
+    });
+  }
 
   // تعيين الحد الأقصى للصور
   readonly MAX_IMAGES = 6;
@@ -56,7 +69,7 @@ export class SellCarComponent {
             size: Math.round(file.size / 1024)
           });
         } else {
-          alert(`You can only upload up to ${this.MAX_IMAGES} images.`);
+          this.showAlert(`You can only upload up to ${this.MAX_IMAGES} images.`);
           break;
         }
       }
@@ -65,7 +78,16 @@ export class SellCarComponent {
   }
 
   uploadImages() {
-    alert('Images uploaded successfully!');
+    this.showAlert('Images uploaded successfully!');
+  }
+
+  showAlert(message: string) {
+    this.snackBar.open(message, 'إغلاق', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: ['custom-snackbar-center']
+    });
   }
 
   nextStep() {
@@ -83,7 +105,12 @@ export class SellCarComponent {
   }
 
   finish() {
-    alert('Form submitted successfully!');
+    if (this.carForm.invalid) {
+      this.carForm.markAllAsTouched(); // يظهر الأخطاء
+      return;
+    }
+    console.log('Submitted:', this.carForm.value);
+
   }
 
   // دالة لحذف الصورة بناءً على الـ index
